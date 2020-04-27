@@ -8,7 +8,7 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/app.css">
 
-    <title>Home</title>
+    <title>@yield('title')</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">

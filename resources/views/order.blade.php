@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'Home Page')
+@section('title', 'Order Page')
 
 @section('content')
     <div class="col-12">

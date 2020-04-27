@@ -1,5 +1,7 @@
 @extends('layout.app')
 
+@section('title', 'Auth Page')
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
