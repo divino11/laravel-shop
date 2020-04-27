@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <table class="table table-striped table-bordered">
+    <table class="table table-striped">
         <thead>
         <tr>
             <td>Name</td>
@@ -23,19 +23,32 @@
                 <td><a href="#">{{ $product->name }}</a></td>
                 <td><img style="width: 100px" src="{{ url('images/' . $product->image) }}" alt=""></td>
                 <td>
-                    <div class="badge">{{ $product->count }}</div>
-                    <a href="#"><i class="fas fa-minus-circle"></i></a>
-                    <form action="{{ route('basket-add', $product) }}" method="post">
-                        @csrf
-                        <button type="submit"><i class="fas fa-plus-circle"></i></button>
-                    </form>
+                    <span class="badge">{{ $product->pivot->count }}</span>
+                    <div class="btn-group form-inline">
+                        <form action="{{ route('basket-remove', $product) }}" method="post">
+                            @csrf
+                            <button class="btn btn-danger" type="submit"><i class="fas fa-minus-circle"></i></button>
+                        </form>
+                        <form action="{{ route('basket-add', $product) }}" method="post">
+                            @csrf
+                            <button class="btn btn-success" type="submit"><i class="fas fa-plus-circle"></i></button>
+                        </form>
+                    </div>
                 </td>
                 <td>{{ $product->price }}</td>
-                <td>{{ $product->price }}</td>
+                <td>{{ $product->getPriceByCount() }}</td>
             </tr>
         @empty
             <td colspan="5" style="text-align: center">None of one product in basket not found</td>
         @endforelse
+        <tr>
+            <td colspan="4">Total price:</td>
+            <td>{{ $order->getFullPrice() }}</td>
+        </tr>
         </tbody>
     </table>
+
+    <div class="d-flex justify-content-end">
+        <a href="{{ route('basket-place') }}" class="btn btn-success">Checkout</a>
+    </div>
 @endsection

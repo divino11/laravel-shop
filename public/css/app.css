@@ -6191,6 +6191,18 @@ readers do not read off random characters that represent icons */
   padding-left: 0;
 }
 
+.form-inline form {
+  display: inline;
+}
+
+.form-inline form:first-child {
+  margin-right: 5px;
+}
+
+.w100 {
+  width: 100%;
+}
+
 @media (min-width: 992px) {
   .navbar-expand-lg .sidenav {
     flex-direction: column;

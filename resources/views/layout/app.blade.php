@@ -41,6 +41,11 @@
         </div>
         <div class="col-9">
             <div class="row">
+                @if(session()->has('success'))
+                    <p class="alert alert-success text-center w100">{{ session()->get('success') }}</p>
+                @elseif (session()->has('warning'))
+                    <p class="alert alert-warning text-center w100">{{ session()->get('warning') }}</p>
+                @endif
                 @yield('content')
             </div>
         </div>
