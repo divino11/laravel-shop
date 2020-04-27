@@ -22,10 +22,14 @@
                 <td><img style="width: 100px" src="<?php echo e(url('images/' . $product->image)); ?>" alt=""></td>
                 <td>
                     <div class="badge"><?php echo e($product->count); ?></div>
-                    <a href="#"><i class="fas fa-minus-circle"></i></a>
                     <form action="<?php echo e(route('basket-add', $product)); ?>" method="post">
                         <?php echo csrf_field(); ?>
-                        <button type="submit"><i class="fas fa-plus-circle"></i></button>
+                        <button class="btn btn-success" type="submit"><i class="fas fa-plus-circle"></i></button>
+                    </form>
+                    <form action="<?php echo e(route('basket-remove', $product)); ?>">
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('DELETE'); ?>
+                        <button class="btn btn-danger" type="submit"><i class="fas fa-minus-circle"></i></button>
                     </form>
                 </td>
                 <td><?php echo e($product->price); ?></td>
