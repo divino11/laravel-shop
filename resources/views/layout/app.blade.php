@@ -30,6 +30,14 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
             <a href="{{ route('basket') }}" class="btn">Basket</a>
+            @auth
+                <a href="{{ route('exit') }}" class="btn">Exit</a>
+            @endauth
+
+            @guest
+                <a href="{{ route('login') }}" class="btn">Login</a>
+                <a href="{{ route('register') }}" class="btn">Registration</a>
+            @endguest
         </div>
     </div>
 </nav>
