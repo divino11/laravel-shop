@@ -36,10 +36,12 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-3">
-            @yield('categories')
-        </div>
-        <div class="col-9">
+        @hasSection('categories')
+            <div class="col-3">
+                @yield('categories')
+            </div>
+        @endif
+        <div class="@hasSection('categories') col-9 @else col-12 @endif">
             <div class="row">
                 @if(session()->has('success'))
                     <p class="alert alert-success text-center w100">{{ session()->get('success') }}</p>

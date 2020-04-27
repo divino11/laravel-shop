@@ -12,14 +12,12 @@ class BasketController extends Controller
     public function basket()
     {
         $orderId = session('orderId');
-        $categories = Category::all();
 
         if (!is_null($orderId)) {
             $order = Order::findOrFail($orderId);
         }
 
         return view('basket', [
-            'categories' => $categories,
             'order' => $order
         ]);
     }
@@ -33,9 +31,7 @@ class BasketController extends Controller
 
         $order = Order::find($orderId);
 
-        $categories = Category::all();
         return view('order', [
-            'categories' => $categories,
             'order' => $order
         ]);
     }

@@ -2,10 +2,6 @@
 
 @section('title', 'Basket')
 
-@section('categories')
-    @include('layout.categories')
-@endsection
-
 @section('content')
     <table class="table table-striped">
         <thead>
