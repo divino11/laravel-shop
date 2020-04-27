@@ -26,3 +26,7 @@ Route::get('/{category}/{product?}', 'ProductController@index');
 
 Route::get('/admin', 'Admin\MainController@index');
 Route::resource('/admin/products', 'Admin\ProductController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
