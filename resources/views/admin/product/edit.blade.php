@@ -44,7 +44,7 @@
             </select>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-info">Add</button>
+            <button type="submit" class="btn btn-info">Change</button>
         </div>
     </form>
 @endsection

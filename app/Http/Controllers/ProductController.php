@@ -8,6 +8,6 @@ class ProductController extends Controller
 {
     public function index($category, $product = null)
     {
-        return view('product', ['product' => $product]);
+        //return view('products', ['product' => $product]);
     }
 }

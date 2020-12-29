@@ -52,6 +52,7 @@ class ProductController extends Controller
             $product->name = $request->name;
             $product->description = $request->description;
             $product->price = $request->price;
+            $product->price_sale = $request->price_sale;
             $product->count = $request->count;
             $product->status = $request->status;
 
@@ -114,6 +115,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
+        $product->price_sale = $request->price_sale;
         $product->count = $request->count;
         $product->status = $request->status;
 

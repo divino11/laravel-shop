@@ -28,4 +28,15 @@ class MainController extends Controller
             'category' => $category
         ]);
     }
+
+    public function product($code, $id)
+    {
+        $category = Category::where('code', $code)->first();
+        $product = Product::where('id', $id)->first();
+
+        return view('product', [
+            'product' => $product,
+            'category' => $category
+        ]);
+    }
 }

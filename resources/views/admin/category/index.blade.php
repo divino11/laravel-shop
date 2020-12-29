@@ -1,6 +1,6 @@
 @extends('admin/layout.app')
 
-@section('title', 'All Product')
+@section('title', 'All Category')
 
 @section('content')
     @if ($errors->any())
@@ -23,26 +23,22 @@
             <td>ID</td>
             <td>Image</td>
             <td>Name</td>
+            <td>Code</td>
             <td>Description</td>
-            <td>Count</td>
-            <td>Price</td>
-            <td>Status</td>
         </tr>
         </thead>
         <tbody>
-        @forelse($products as $key => $value)
+        @forelse($categories as $value)
             <tr>
                 <td>{{ $value->id }}</td>
                 <td><img src="/images/{{ $value->image }}" class="img-size-xs" alt=""></td>
                 <td>{{ $value->name }}</td>
+                <td>{{ $value->code }}</td>
                 <td>{{ $value->description }}</td>
-                <td>{{ $value->count }}</td>
-                <td>{{ $value->price }}</td>
-                <td>{{ $value->status === 1 ? 'Available' : 'Not available' }}</td>
                 <td>
-                    <form action="{{ route('products.destroy', $value->id) }}" method="post">
-                        <a class="btn btn-small btn-success" href="{{ route('products.show', $value->id) }}">Show</a>
-                        <a class="btn btn-small btn-info" href="{{ route('products.edit', $value->id) }}">Edit</a>
+                    <form action="{{ route('category.destroy', $value->id) }}" method="post">
+                        <a class="btn btn-small btn-success" href="{{ route('category.show', $value->id) }}">Show</a>
+                        <a class="btn btn-small btn-info" href="{{ route('category.edit', $value->id) }}">Edit</a>
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-small btn-danger" type="submit">Delete</button>
@@ -50,10 +46,10 @@
                 </td>
             </tr>
         @empty
-            <td colspan="7" style="text-align: center">None of one product not found</td>
+            <td colspan="6" style="text-align: center">None of one category not found</td>
         @endforelse
         </tbody>
     </table>
 
-    {!! $products->links() !!}
+    {!! $categories->links() !!}
 @endsection

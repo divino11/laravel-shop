@@ -1,22 +1,30 @@
-<div class="col-3 product-item">
-    <a href=""><img src="{{ url('/images/' . $product->image) }}" class="img-fluid img-center"></a>
-    <a href=""><p class="product-title">{{ $product->name }}</p></a>
-    <a href="{{ route('category', $product->category->code) }}"><p
-            class="product-title">{{ $product->category->name }}</p></a>
-    <a href="">
-        <div class="product-rating">297 отзывов</div>
-    </a>
-    <div class="product-price">{{ $product->price }}</div>
-    <div class="row">
-        <div class="col-6">
-            <div
-                class="product-available">{{ $product->status === 1 ? 'Available' : 'Not available' }}</div>
+<div class="col-{{ $columns }} product-item">
+    <a href="{{ route('product', [$product->category->code, $product->id]) }}"><img src="{{ url("/images/$product->image") }}" class="img-fluid img-center"></a>
+    <div class="product">
+        <div class="product_top">
+            <p class="product-title"><a href="">{{ $product->name }}</a></p>
+            <p><i class="far fa-heart"></i></p>
         </div>
-        <div class="col-6">
-            <form action="{{ route('basket-add', $product->id) }}" method="post">
-                @csrf
-                <button type="submit" class="btn btn-primary">Buy</button>
-            </form>
+        <div class="product_bottom">
+            <div class="product_price">
+                <div class="product_price_main">
+                    @if($product->price_sale)
+                        <s>
+                            {{ $product->price }}р.
+                        </s>
+                    @else
+                        {{ $product->price }}р.
+                    @endif
+                </div>
+                @isset($product->price_sale)
+                    <div class="product_price-sale">
+                        {{ $product->price_sale }} р.
+                    </div>
+                @endisset
+            </div>
+            <div class="sale">
+                -60%
+            </div>
         </div>
     </div>
 </div>

@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Account;
 
+use App\Http\Controllers\Controller;
+use App\Order;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class MainController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -23,6 +25,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $orders = Order::where('status', 1)->get();
+
+        return view('account.index', [
+            'orders' => $orders
+        ]);
     }
 }

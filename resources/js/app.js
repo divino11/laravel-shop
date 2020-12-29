@@ -5,6 +5,8 @@
  */
 
 require('./bootstrap');
+require('slick-carousel');
+require('@fancyapps/fancybox')
 
 window.Vue = require('vue');
 
@@ -27,6 +29,16 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
+/*const app = new Vue({
     el: '#app',
+});*/
+
+$(".similar_gallery").slick({
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    arrows: true,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    prevArrow:"<button type='button' class='slick-prev pull-left'><i class='fas fa-chevron-left'></i></button>",
+    nextArrow:"<button type='button' class='slick-next pull-right'><i class='fas fa-chevron-right'></i></button>"
 });

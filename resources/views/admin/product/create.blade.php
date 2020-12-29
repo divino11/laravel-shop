@@ -44,6 +44,10 @@
             <input type="text" id="price" class="form-control" name="price" placeholder="Price">
         </div>
         <div class="form-group">
+            <label for="price_sale">Sale price</label>
+            <input type="text" id="price_sale" class="form-control" name="price_sale" placeholder="Sale Price">
+        </div>
+        <div class="form-group">
             <label for="status">Status</label>
             <select name="status" id="status" class="form-control">
                 <option value="1">Available</option>
