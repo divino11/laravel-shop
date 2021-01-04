@@ -6933,6 +6933,35 @@ readers do not read off random characters that represent icons */
   cursor: zoom-in;
 }
 
+.size-group {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+}
+
+.size-group_item {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.product_wrapper .product-title {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.product_wrapper .product_price {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.product_wrapper .product_articul {
+  margin-bottom: 15px;
+}
+
+.product_wrapper .tab-content {
+  margin-top: 15px;
+}
+
 @media (min-width: 992px) {
   .navbar-expand-lg .sidenav {
     flex-direction: column;

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\SizesProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class ProductController extends Controller
@@ -46,14 +48,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        if (count($request->all()) > 6) {
+        if (count($request->all()) > 1) {
             $product = new Product;
             $product->category_id = $request->category_id;
             $product->name = $request->name;
             $product->description = $request->description;
             $product->price = $request->price;
             $product->price_sale = $request->price_sale;
-            $product->count = $request->count;
+            $product->price_sale_percent = $request->price_sale_percent;
             $product->status = $request->status;
 
             if ($request->main_image) {
@@ -65,11 +67,20 @@ class ProductController extends Controller
         }
 
         if ($product->save()) {
+            if ($request->size_name) {
+                $sizes = array_combine($request->size_name, $request->size_count);
+
+                foreach ($sizes as $name => $count) {
+                    DB::table('sizes_products')->insert([
+                        'product_id' => $product->id, 'type' => $name, 'count' => $count
+                    ]);
+                }
+            }
             return redirect()->route('products.index')
-                ->with('success','Greate! Product created successfully.');
+                ->with('success', 'Greate! Product created successfully.');
         } else {
             return redirect()->route('product.create')
-                ->with('error','Error! Check fields');
+                ->with('error', 'Error! Check fields');
         }
     }
 
@@ -138,6 +149,6 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('products.index')
-            ->with('success','Product deleted successfully');
+            ->with('success', 'Product deleted successfully');
     }
 }

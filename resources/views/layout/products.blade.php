@@ -23,7 +23,7 @@
                 @endisset
             </div>
             <div class="sale">
-                -60%
+                -{{ $product->price_sale_percent }}%
             </div>
         </div>
     </div>

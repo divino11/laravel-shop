@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Product;
+use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
 {
@@ -33,9 +34,11 @@ class MainController extends Controller
     {
         $category = Category::where('code', $code)->first();
         $product = Product::where('id', $id)->first();
+        $productSizes = DB::table('sizes_products')->where('product_id', $id)->get(['type', 'count']);
 
         return view('product', [
             'product' => $product,
+            'productSizes' => $productSizes,
             'category' => $category
         ]);
     }

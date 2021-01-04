@@ -9,8 +9,8 @@
     <div class="col-xs-6 col-md-6">
         <div class="product_container">
             <div class="product_wrapper">
-                <div class="product-title">Яркая Пижама</div>
-                <div class="product_price">4 700,00 р.</div>
+                <div class="product-title">{{ $product->name }}</div>
+                <div class="product_price">{{ $product->price }},00 р.</div>
                 <div class="product_articul">Арктикул: 0000000000</div>
 
                 <nav>
@@ -48,7 +48,9 @@
                         ...
                     </div>
                     <div class="tab-pane fade" id="nav-description" role="tabpanel"
-                         aria-labelledby="nav-description-tab"></div>
+                         aria-labelledby="nav-description-tab">
+                        {{ $product->description }}
+                    </div>
                     <div class="tab-pane fade" id="nav-quality" role="tabpanel" aria-labelledby="nav-quality-tab">Состав
                         100% полиестер
                     </div>
