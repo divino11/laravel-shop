@@ -11,65 +11,68 @@
     <title>@yield('title')</title>
 </head>
 <body>
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-2">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav mr-auto sidenav" id="navAccordion">
-                        <li class="nav-item">
-                            <a
-                                class="nav-link nav-link-collapse"
-                                href="#"
-                                id="hasSubItems"
-                                data-toggle="collapse"
-                                data-target="#collapseSubItems2"
-                                aria-controls="collapseSubItems2"
-                                aria-expanded="false"
-                            >Products</a>
-                            <ul class="nav-second-level collapse" id="collapseSubItems2" data-parent="#navAccordion">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('products.index') }}">
-                                        <span class="nav-link-text">All product</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('products.create') }}">
-                                        <span class="nav-link-text">Create product</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                class="nav-link nav-link-collapse"
-                                href="#"
-                                id="hasSubItems"
-                                data-toggle="collapse"
-                                data-target="#collapseSubItems3"
-                                aria-controls="collapseSubItems3"
-                                aria-expanded="false"
-                            >Categories</a>
-                            <ul class="nav-second-level collapse" id="collapseSubItems3" data-parent="#navAccordion">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('category.index') }}">
-                                        <span class="nav-link-text">All categories</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('category.create') }}">
-                                        <span class="nav-link-text">Create category</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-        <div class="col-10">
-            @yield('content')
+<div id="app">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto sidenav" id="navAccordion">
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link nav-link-collapse"
+                                    href="#"
+                                    id="hasSubItems"
+                                    data-toggle="collapse"
+                                    data-target="#collapseSubItems2"
+                                    aria-controls="collapseSubItems2"
+                                    aria-expanded="false"
+                                >Products</a>
+                                <ul class="nav-second-level collapse" id="collapseSubItems2"
+                                    data-parent="#navAccordion">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('products.index') }}">
+                                            <span class="nav-link-text">All product</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('products.create') }}">
+                                            <span class="nav-link-text">Create product</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link nav-link-collapse"
+                                    href="#"
+                                    id="hasSubItems"
+                                    data-toggle="collapse"
+                                    data-target="#collapseSubItems3"
+                                    aria-controls="collapseSubItems3"
+                                    aria-expanded="false"
+                                >Categories</a>
+                                <ul class="nav-second-level collapse" id="collapseSubItems3"
+                                    data-parent="#navAccordion">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('category.index') }}">
+                                            <span class="nav-link-text">All categories</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('category.create') }}">
+                                            <span class="nav-link-text">Create category</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-10">
+                @yield('content')
+            </div>
         </div>
     </div>
 </div>

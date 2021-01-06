@@ -107,9 +107,14 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
+        $sizes = DB::table('sizes_products')->where('product_id', $id)->get();
+        $categories = Category::all();
 
-        return view('admin.product.edit')
-            ->with('product', $product);
+        return view('admin.product.edit', [
+            'product' => $product,
+            'productSizes' => $sizes,
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -127,14 +132,31 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->price = $request->price;
         $product->price_sale = $request->price_sale;
-        $product->count = $request->count;
+        $product->price_sale_percent = $request->price_sale_percent;
         $product->status = $request->status;
 
-        if ($request->main_image) {
+        if ($product->image !== $request->main_image_hidden) {
             $file = $request->main_image;
             $filename = time() . '-' . $file->getClientOriginalName();
             $file->move(public_path("images"), $filename);
             $product->image = $filename;
+        }
+
+        if ($product->save()) {
+            if ($request->size_name) {
+
+                $sizes = array_combine($request->size_name, $request->size_count);
+                foreach ($sizes as $name => $count) {
+                    DB::table('sizes_products')->where('product_id', $product->id)->where('type', $name)->update([
+                        'type' => $name, 'count' => $count
+                    ]);
+                }
+            }
+            return redirect()->route('products.index')
+                ->with('success', 'Greate! Product updated successfully.');
+        } else {
+            return redirect()->route('product.edit')
+                ->with('error', 'Error! Check fields');
         }
     }
 

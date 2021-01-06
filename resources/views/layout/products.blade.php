@@ -1,9 +1,13 @@
 <div class="col-{{ $columns }} product-item">
-    <a href="{{ route('product', [$product->category->code, $product->id]) }}"><img src="{{ url("/images/$product->image") }}" class="img-fluid img-center"></a>
+    <a href="{{ route('product', [$product->category->code, $product->id]) }}"><img
+            src="{{ url("/images/$product->image") }}" class="img-fluid img-center"></a>
     <div class="product">
         <div class="product_top">
             <p class="product-title"><a href="">{{ $product->name }}</a></p>
-            <p><i class="far fa-heart"></i></p>
+            <favorite
+                :product={{ $product->id }}
+                :favorited={{ $product->favorited() ? 'true' : 'false' }}
+            ></favorite>
         </div>
         <div class="product_bottom">
             <div class="product_price">

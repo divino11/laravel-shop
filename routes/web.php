@@ -42,6 +42,9 @@ Route::get('logout', 'Auth\LoginController@logout')->name('exit');
 
 Route::get('/', 'MainController@index')->name('index');
 Route::get('/products', 'ProductController@index')->name('products');
+Route::get('/favorites', 'FavoriteController@index')->name('favorites');
+Route::post('favorite/{product}', 'FavoriteController@favoriteProduct');
+Route::post('unfavorite/{product}', 'FavoriteController@unFavoriteProduct');
 
 Route::group([
     'prefix' => 'basket'
