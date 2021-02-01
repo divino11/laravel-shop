@@ -19,7 +19,7 @@ class BasketController extends Controller
         }
 
         return view('basket', [
-            'order' => $order
+            'orders' => $order->products ?? []
         ]);
     }
 

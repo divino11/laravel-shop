@@ -24,7 +24,44 @@
 
                 <div class="menu">
                     <ul>
-                        <li><a href="#">Женское</a></li>
+                        <li class="menu_item">
+                            <a href="#" class="expand_menu">Женское</a>
+                            <div class="expanded_menu">
+                                <div class="expanded_menu-left">
+                                    <div class="expanded_menu-title">По категориям</div>
+                                    <ul>
+                                        <li><a href="">Блузки и рубашки</a></li>
+                                        <li><a href="">Брюки</a></li>
+                                        <li><a href="">Юбки</a></li>
+                                        <li><a href="">Платья</a></li>
+                                        <li><a href="">Комбинезоны</a></li>
+                                        <li><a href="">Топы</a></li>
+                                        <li><a href="">Жакеты</a></li>
+                                        <li><a href="/pijama">Пижамы</a></li>
+                                    </ul>
+                                </div>
+                                <div class="expanded_menu-right">
+                                    <div class="expanded_menu-right--item">
+                                        <a class="" href="#">
+                                            <img src="/images/similar.png" class="w-100">
+                                            Новая колекция
+                                        </a>
+                                    </div>
+                                    <div class="expanded_menu-right--item">
+                                        <a class="" href="#">
+                                            <img src="/images/similar.png" class="w-100">
+                                            Популярные товары
+                                        </a>
+                                    </div>
+                                    <div class="expanded_menu-right--item">
+                                        <a class="" href="#">
+                                            <img src="/images/similar.png" class="w-100">
+                                            Распродажа
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                         <li><a href="#">Мужское</a></li>
                         <li><a href="#">Детское</a></li>
                         <li><a href="#">Аксессуары</a></li>
@@ -50,8 +87,8 @@
     </nav>
 
     <div class="container">
-        <div class="row">
-            <div class="col-12">
+        <div class="row main-row">
+            <div class="col-md-12">
                 <div class="row">
                     @if(session()->has('success'))
                         <p class="alert alert-success text-center w100">{{ session()->get('success') }}</p>
@@ -83,7 +120,7 @@
                                 <li><a href="">Карта сайта</a></li>
                                 <li><a href="">Подарочный сертификат</a></li>
                                 <li><a href="">VIP карта</a></li>
-                                <li><a href="">Контакты</a></li>
+                                <li><a href="{{ route('contact') }}">Контакты</a></li>
                             </ul>
                         </div>
 
@@ -110,20 +147,23 @@
                         </div>
 
                         <div class="footer_item">
-                            <form action="">
-                                <input type="email" name="email" placeholder="Ваш Email">
-                                <button>></button>
+                            <form action="" class="form_footer d-none d-sm-block">
+                                <input class="input_feedback" type="email" name="email" placeholder="Ваш Email">
+                                <button><i class="fas fa-chevron-right"></i></button>
                             </form>
 
-                            <p class="footer_item-subheading">Вы принимаете "Политику конфиденциальность"</p>
+                            <p class="footer_item-subheading d-none d-sm-block">Вы принимаете "Политику
+                                конфиденциальности"</p>
 
-                            <p class="footer_item-subheading">Подпишитесь на рассылку, чтобы узнавать о
+                            <p class="footer_item-subheading d-none d-sm-block">Подпишитесь на рассылку, чтобы узнавать
+                                о
                                 новых поступлениях, открытии новых
                                 магазинов, акциях и скидках.</p>
 
-                            <p class="footer_item-subheading">8-800-000-00-00 9.00-21.00</p>
+                            <p class="footer_item-subheading"><a href="tel:8-800-000-00-00">8-800-000-00-00</a>
+                                9.00-21.00</p>
 
-                            <p class="footer_item-subheading">info@....ru</p>
+                            <p class="footer_item-subheading"><a href="mailto:info@....ru">info@....ru</a></p>
                         </div>
                     </div>
                 </div>

@@ -1,25 +1,35 @@
 @extends('layout.app')
 
-@section('title', 'Basket')
+@section('title', 'Корзина')
 
 @section('content')
-    <table class="table table-striped">
+    <div class="heading">Корзина</div>
+
+    <table class="table table-basket">
         <thead>
         <tr>
-            <td>Name</td>
-            <td>Image</td>
-            <td>Count</td>
-            <td>Price</td>
-            <td>Total</td>
+            <td>Товар</td>
+            <td>Описание</td>
+            <td>Цвет</td>
+            <td>Размер</td>
+            <td>Рост</td>
+            <td>Количество</td>
+            <td>Цена</td>
         </tr>
         </thead>
         <tbody>
-        @forelse($order->products as $product)
+        @forelse($orders as $product)
             <tr>
-                <td><a href="#">{{ $product->name }}</a></td>
-                <td><img style="width: 100px" src="{{ url('images/' . $product->image) }}" alt=""></td>
+                <td><a href="{{ route('product', [$product->category->code, $product->id]) }}"><img class="img-size-xs"
+                                                                                                     src="{{ url('images/' . $product->image) }}"
+                                                                                                     alt=""></a></td>
+                <td><a href="{{ route('product', [$product->category->code, $product->id]) }}">{{ $product->name }}</a>
+                </td>
+                <td>Серый</td>
+                <td>S</td>
+                <td>165 см</td>
                 <td>
-                    <span class="badge">{{ $product->pivot->count }}</span>
+                    <span class="badge">{{ $product->count }}</span>
                     <div class="btn-group form-inline">
                         <form action="{{ route('basket-remove', $product) }}" method="post">
                             @csrf
@@ -31,20 +41,18 @@
                         </form>
                     </div>
                 </td>
-                <td>{{ $product->price }}</td>
-                <td>{{ $product->getPriceByCount() }}</td>
+                <td>{{ $product->price_sale ? $product->price_sale : $product->price }} руб.</td>
             </tr>
         @empty
-            <td colspan="5" style="text-align: center">None of one product in basket not found</td>
+            <td colspan="8" style="text-align: center">Корзина пока что пуста</td>
         @endforelse
-        <tr>
-            <td colspan="4">Total price:</td>
-            <td>{{ $order->getFullPrice() }}</td>
-        </tr>
         </tbody>
     </table>
+    {{--        <tr>--}}
+    {{--            <td colspan="6">Total price:</td>--}}
+    {{--            <td>{{ $order->getFullPrice() }}</td>--}}
+    {{--            <td>{{ $product->price }}</td>--}}
+    {{--        </tr>--}}
 
-    <div class="d-flex justify-content-end">
-        <a href="{{ route('basket-place') }}" class="btn btn-success">Checkout</a>
-    </div>
+    @include('layout.basket-footer')
 @endsection

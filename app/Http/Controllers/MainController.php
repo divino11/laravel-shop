@@ -42,4 +42,9 @@ class MainController extends Controller
             'category' => $category
         ]);
     }
+
+    public function contact()
+    {
+        return view('contact');
+    }
 }

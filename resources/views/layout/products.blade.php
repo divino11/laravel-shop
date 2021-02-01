@@ -1,4 +1,4 @@
-<div class="col-{{ $columns }} product-item">
+<div class="col-xs-12 col-md-{{ $columns }} product-item">
     <a href="{{ route('product', [$product->category->code, $product->id]) }}"><img
             src="{{ url("/images/$product->image") }}" class="img-fluid img-center"></a>
     <div class="product">
