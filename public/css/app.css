@@ -7223,6 +7223,10 @@ readers do not read off random characters that represent icons */
   margin: 25px 0;
 }
 
+.showcase {
+  width: 100%;
+}
+
 .showcase_item {
   display: flex;
   flex-direction: row;
@@ -7236,6 +7240,7 @@ readers do not read off random characters that represent icons */
 
 .showcase_item img {
   margin-right: 13px;
+  width: 100%;
 }
 
 .showcase_item img:last-child {
@@ -7250,6 +7255,8 @@ readers do not read off random characters that represent icons */
   display: flex;
   flex-direction: row;
   margin-top: 25px;
+  width: 100%;
+  padding: 0 15px;
 }
 
 .footer_item {
@@ -7697,13 +7704,14 @@ readers do not read off random characters that represent icons */
 }
 
 .expanded_menu-left {
-  width: 25%;
+  width: 20%;
 }
 
 .expanded_menu {
   display: none;
   position: absolute;
   left: 0;
+  top: 70px;
   padding: 50px 20px;
   background-color: #ffffff;
   min-width: 160px;
@@ -7723,7 +7731,7 @@ readers do not read off random characters that represent icons */
 
 .expanded_menu-right {
   display: flex;
-  width: 75%;
+  width: 60%;
 }
 
 .expanded_menu-right--item {
