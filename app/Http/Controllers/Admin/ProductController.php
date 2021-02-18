@@ -48,17 +48,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
-        if ($request->size_name) {
-
-        $sizes = array_combine($request->size_name, $request->size_count);
-
-        foreach ($sizes as $name => $count) {
-            /*DB::table('sizes_products')->insert([
-                'product_id' => $product->id, 'type' => $name, 'count' => $count
-            ]);*/
-        }
-    }
         if (count($request->all()) > 1) {
             $product = new Product;
             $product->category_id = $request->category_id;
@@ -78,7 +67,7 @@ class ProductController extends Controller
         }
 
         if ($product->save()) {
-            /*if ($request->size_name) {
+            if ($request->size_name) {
                 $sizes = array_combine($request->size_name, $request->size_count);
 
                 foreach ($sizes as $name => $count) {
@@ -86,7 +75,7 @@ class ProductController extends Controller
                         'product_id' => $product->id, 'type' => $name, 'count' => $count
                     ]);
                 }
-            }*/
+            }
             return redirect()->route('products.index')
                 ->with('success', 'Greate! Product created successfully.');
         } else {
