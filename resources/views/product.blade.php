@@ -3,11 +3,11 @@
 @section('title', 'Товары')
 
 @section('content')
-    <div class="col-xs-6 col-md-6">
+    <div class="col-xs-8 col-md-8">
         <img src="/images/cardproduct.png" class="w100" alt="">
         <img src="/images/cardproduct.png" class="w100" alt="">
     </div>
-    <div class="col-xs-6 col-md-6">
+    <div class="col-xs-4 col-md-4">
         <form action="{{ route('basket-add', $product->id) }}" method="POST" class="singleproduct-form">
             @method('POST')
             @csrf

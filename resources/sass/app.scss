@@ -363,10 +363,6 @@ $colors: (
     flex-direction: column;
     height: 100%;
 
-    & .product_wrapper {
-        flex-grow: 1;
-    }
-
     & .product_action {
         flex-shrink: 0;
         display: flex;
