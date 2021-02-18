@@ -4,9 +4,8 @@
 
 @section('content')
     <div class="col-xs-6 col-md-6">
-        <div class='image-hover-zoom' scale="1.5">
-            <img src="/images/cardproduct.png" class="w100" alt="">
-        </div>
+        <img src="/images/cardproduct.png" class="w100" alt="">
+        <img src="/images/cardproduct.png" class="w100" alt="">
     </div>
     <div class="col-xs-6 col-md-6">
         <form action="{{ route('basket-add', $product->id) }}" method="POST" class="singleproduct-form">
@@ -39,34 +38,34 @@
                              aria-labelledby="nav-product-tab">
                             <div class="single_product-colors">
                                 <div class="single_product-colors--title">Цвета:</div>
-                                <input type="radio" name="color" id="red" value="red" />
+                                <input type="radio" name="color" id="red" value="red"/>
                                 <label for="red"><span class="red"></span></label>
 
-                                <input type="radio" name="color" id="green" />
+                                <input type="radio" name="color" id="green"/>
                                 <label for="green"><span class="green"></span></label>
 
-                                <input type="radio" name="color" id="yellow" />
+                                <input type="radio" name="color" id="yellow"/>
                                 <label for="yellow"><span class="yellow"></span></label>
 
-                                <input type="radio" name="color" id="olive" />
+                                <input type="radio" name="color" id="olive"/>
                                 <label for="olive"><span class="olive"></span></label>
 
-                                <input type="radio" name="color" id="orange" />
+                                <input type="radio" name="color" id="orange"/>
                                 <label for="orange"><span class="orange"></span></label>
 
-                                <input type="radio" name="color" id="teal" />
+                                <input type="radio" name="color" id="teal"/>
                                 <label for="teal"><span class="teal"></span></label>
 
-                                <input type="radio" name="color" id="blue" />
+                                <input type="radio" name="color" id="blue"/>
                                 <label for="blue"><span class="blue"></span></label>
 
-                                <input type="radio" name="color" id="violet" />
+                                <input type="radio" name="color" id="violet"/>
                                 <label for="violet"><span class="violet"></span></label>
 
-                                <input type="radio" name="color" id="purple" />
+                                <input type="radio" name="color" id="purple"/>
                                 <label for="purple"><span class="purple"></span></label>
 
-                                <input type="radio" name="color" id="pink" />
+                                <input type="radio" name="color" id="pink"/>
                                 <label for="pink"><span class="pink"></span></label>
                             </div>
                             <div class="row">
@@ -108,7 +107,7 @@
                     <button class="product_button button">Добавить в корзину</button>
                     <singlefavorite
                         :product={{ $product->id }}
-                        :favorited={{ $product->favorited() ? 'true' : 'false' }}
+                            :favorited={{ $product->favorited() ? 'true' : 'false' }}
                     ></singlefavorite>
                 </div>
             </div>
@@ -239,6 +238,30 @@
                         </div>
                     </div>
                 </div>
+                <div class="gallery_item">
+                    <a href=""><img src="{{ url("/images/similar.png") }}" class="img-fluid img-center"></a>
+                    <div class="product">
+                        <div class="product_top">
+                            <p class="product-title"><a href="">Пижама Moomlight</a></p>
+                            <p><i class="far fa-heart"></i></p>
+                        </div>
+                        <div class="product_bottom">
+                            <div class="product_price">
+                                <div class="product_price_main">
+                                    <s>
+                                        3400 р.
+                                    </s>
+                                </div>
+                                <div class="product_price-sale">
+                                    2000 р.
+                                </div>
+                            </div>
+                            <div class="sale">
+                                -60%
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -248,6 +271,30 @@
             <p class="inner_heading">Последние модели, которые вы смотрели</p>
 
             <div class="similar_gallery">
+                <div class="gallery_item">
+                    <a href=""><img src="{{ url("/images/similar.png") }}" class="img-fluid img-center"></a>
+                    <div class="product">
+                        <div class="product_top">
+                            <p class="product-title"><a href="">Пижама Moomlight</a></p>
+                            <p><i class="far fa-heart"></i></p>
+                        </div>
+                        <div class="product_bottom">
+                            <div class="product_price">
+                                <div class="product_price_main">
+                                    <s>
+                                        3400 р.
+                                    </s>
+                                </div>
+                                <div class="product_price-sale">
+                                    2000 р.
+                                </div>
+                            </div>
+                            <div class="sale">
+                                -60%
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="gallery_item">
                     <a href=""><img src="{{ url("/images/similar.png") }}" class="img-fluid img-center"></a>
                     <div class="product">

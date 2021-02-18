@@ -74723,7 +74723,7 @@ var app = new Vue({
   el: '#app'
 });
 $(".similar_gallery").slick({
-  slidesToShow: 4,
+  slidesToShow: 5,
   slidesToScroll: 1,
   arrows: true,
   autoplay: true,
