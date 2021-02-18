@@ -1,9 +1,9 @@
-@extends('layout.app')
+@extends('layouts.app')
 
 @section('title', 'Товары')
 
 @section('content')
     @foreach($products as $product)
-        @include('layout.products', ['columns' => 6])
+        @include('layouts.products', ['columns' => 6])
     @endforeach
 @endsection

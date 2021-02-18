@@ -1,13 +1,13 @@
-@extends('layout.app')
+@extends('layouts.app')
 
 @section('title', 'Home Page')
 
 @section('categories')
-    @include('layout.categories')
+    @include('layouts.categories')
 @endsection
 
 @section('content')
     @foreach($category->products as $product)
-        @include('layout.products', ['columns' => 6])
+        @include('layouts.products', ['columns' => 6])
     @endforeach
 @endsection

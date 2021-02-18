@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 
 @section('title', 'Корзина')
 
@@ -54,5 +54,5 @@
     {{--            <td>{{ $product->price }}</td>--}}
     {{--        </tr>--}}
 
-    @include('layout.basket-footer')
+    @include('layouts.basket-footer')
 @endsection
