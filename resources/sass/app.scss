@@ -368,12 +368,12 @@ $colors: (
     }
 }
 
-.sticky {
+.product_container .sticky {
     position: fixed;
     z-index: 101;
 }
 
-.stop {
+.product_container .stop {
     position: relative;
     z-index: 101;
 }

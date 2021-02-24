@@ -7417,12 +7417,12 @@ readers do not read off random characters that represent icons */
   display: flex;
 }
 
-.sticky {
+.product_container .sticky {
   position: fixed;
   z-index: 101;
 }
 
-.stop {
+.product_container .stop {
   position: relative;
   z-index: 101;
 }
