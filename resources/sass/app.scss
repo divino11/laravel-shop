@@ -364,14 +364,18 @@ $colors: (
     height: 100%;
 
     & .product_action {
-        flex-shrink: 0;
         display: flex;
-        justify-content: space-between;
-
-        & button {
-            justify-content: space-between;
-        }
     }
+}
+
+.sticky {
+    position: fixed;
+    z-index: 101;
+}
+
+.stop {
+    position: relative;
+    z-index: 101;
 }
 
 .button {
@@ -382,7 +386,7 @@ $colors: (
 
 .product_button {
     padding: 8px;
-    width: 89%;
+    width: 63%;
 }
 
 .like_button {
@@ -390,6 +394,7 @@ $colors: (
     padding: 3px;
     font-size: 23px;
     text-align: center;
+    margin-left: 10px;
 }
 
 .like_button:hover {
@@ -472,10 +477,10 @@ $colors: (
     margin-right: 10px;
     cursor: pointer;
     -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none;   /* Chrome/Safari/Opera */
-    -khtml-user-select: none;    /* Konqueror */
-    -moz-user-select: none;      /* Firefox */
-    -ms-user-select: none;       /* Internet Explorer/Edge */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -khtml-user-select: none; /* Konqueror */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none;
 }
 
@@ -489,8 +494,6 @@ $colors: (
     border: 0;
     color: #000;
 }
-
-
 
 .inner_heading {
     font-size: 25px;
@@ -601,6 +604,7 @@ $colors: (
 .main-row {
     width: 100%;
     margin: 0;
+    padding: 0 20px;
 }
 
 .input_feedback {
@@ -650,7 +654,6 @@ $colors: (
     display: none;
     position: absolute;
     left: 0;
-    top: 70px;
     padding: 50px 20px;
     background-color: #ffffff;
     min-width: 160px;
@@ -712,7 +715,7 @@ $colors: (
 
     & .horizontal_line {
         margin-top: 0.5rem;
-        border-top: 2px solid rgba(0,0,0,.1);
+        border-top: 2px solid rgba(0, 0, 0, .1);
     }
 }
 

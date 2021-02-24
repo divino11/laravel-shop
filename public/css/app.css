@@ -7414,13 +7414,17 @@ readers do not read off random characters that represent icons */
 }
 
 .product_container .product_action {
-  flex-shrink: 0;
   display: flex;
-  justify-content: space-between;
 }
 
-.product_container .product_action button {
-  justify-content: space-between;
+.sticky {
+  position: fixed;
+  z-index: 101;
+}
+
+.stop {
+  position: relative;
+  z-index: 101;
 }
 
 .button {
@@ -7431,7 +7435,7 @@ readers do not read off random characters that represent icons */
 
 .product_button {
   padding: 8px;
-  width: 89%;
+  width: 63%;
 }
 
 .like_button {
@@ -7439,6 +7443,7 @@ readers do not read off random characters that represent icons */
   padding: 3px;
   font-size: 23px;
   text-align: center;
+  margin-left: 10px;
 }
 
 .like_button:hover {
@@ -7654,6 +7659,7 @@ readers do not read off random characters that represent icons */
 .main-row {
   width: 100%;
   margin: 0;
+  padding: 0 20px;
 }
 
 .input_feedback {
@@ -7711,7 +7717,6 @@ readers do not read off random characters that represent icons */
   display: none;
   position: absolute;
   left: 0;
-  top: 70px;
   padding: 50px 20px;
   background-color: #ffffff;
   min-width: 160px;
