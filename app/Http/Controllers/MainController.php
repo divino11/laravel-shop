@@ -30,16 +30,18 @@ class MainController extends Controller
         ]);
     }
 
-    public function product($code, $id)
+    public function product($code, $id, $color)
     {
         $category = Category::where('code', $code)->first();
-        $product = Product::where('id', $id)->first();
+        $product = Product::where('id', $id)->where('colors', $color)->first();
         $productSizes = DB::table('sizes_products')->where('product_id', $id)->get(['type', 'count']);
+        $productColors = Product::where('parent_id', $product->parent_id)->get(['id', 'colors']);
 
         return view('product', [
             'product' => $product,
             'productSizes' => $productSizes,
-            'category' => $category
+            'category' => $category,
+            'productColors' => $productColors,
         ]);
     }
 

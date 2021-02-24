@@ -1,5 +1,5 @@
 <div class="col-xs-12 col-md-{{ $columns }} product-item">
-    <a href="{{ route('product', [$product->category->code, $product->id]) }}"><img
+    <a href="{{ route('product', [$product->category->code, $product->id, $product->colors]) }}"><img
             src="{{ url("/images/$product->image") }}" class="img-fluid img-center"></a>
     <div class="product">
         <div class="product_top">
