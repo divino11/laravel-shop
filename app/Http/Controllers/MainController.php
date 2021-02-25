@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class MainController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $products = Product::paginate(20);
         $category = Category::all();
@@ -20,7 +22,7 @@ class MainController extends Controller
         ]);
     }
 
-    public function category($code)
+    public function category($code): View
     {
         $categories = Category::all();
         $category = Category::where('code', $code)->first();
@@ -31,7 +33,7 @@ class MainController extends Controller
         ]);
     }
 
-    public function product($code, $id, $color)
+    public function product($code, $id, $color): View
     {
         $category = Category::where('code', $code)->first();
         $product = Product::where('id', $id)->where('colors', $color)->first();
@@ -46,8 +48,22 @@ class MainController extends Controller
         ]);
     }
 
-    public function contact()
+    public function contact(): View
     {
         return view('contact');
+    }
+
+    public function search(Request $request): View
+    {
+        $products = Product::where('name', 'like', $request->search)->paginate(20);
+
+        return view('search-products', [
+            'products' => $products
+        ]);
+    }
+
+    public function filter()
+    {
+
     }
 }

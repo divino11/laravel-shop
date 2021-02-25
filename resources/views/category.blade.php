@@ -8,6 +8,6 @@
 
 @section('content')
     @foreach($category->products as $product)
-        @include('layouts.products', ['columns' => 6])
+        @include('layouts.products', ['columns' => 4])
     @endforeach
 @endsection
