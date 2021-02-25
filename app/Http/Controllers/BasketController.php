@@ -57,7 +57,7 @@ class BasketController extends Controller
         return redirect()->route('index');
     }
 
-    public function basketAdd($productId)
+    public function basketAdd(Request $request)
     {
         $orderId = session('orderId');
         if (is_null($orderId)) {
@@ -67,12 +67,16 @@ class BasketController extends Controller
             $order = Order::find($orderId);
         }
 
-        if ($order->products->contains($productId)) {
-            $pivotRow = $order->products()->where('product_id', $productId)->first()->pivot;
-            $pivotRow->count++;
+        if ($order->products->contains($request->product_id)) {
+            $pivotRow = $order->products()->where('product_id', $request->product_id)->first()->pivot;
+            $pivotRow->color = $request->color;
+            $pivotRow->xs += $request->sizes['size-xs'];
+            $pivotRow->s += $request->sizes['size-s'];
+            $pivotRow->m += $request->sizes['size-m'];
+            $pivotRow->l += $request->sizes['size-l'];
             $pivotRow->update();
         } else {
-            $order->products()->attach($productId);
+            $order->products()->attach($request->product_id);
         }
 
         if (Auth::check()) {
@@ -80,9 +84,9 @@ class BasketController extends Controller
             $order->save();
         }
 
-        $product = Product::find($productId);
+        $product = Product::find($request->product_id);
 
-        session()->flash('success', 'Product has been added ' . $product->name);
+        session()->flash('success', 'Товар был добавлен ' . $product->name);
 
         return redirect()->route('basket');
     }

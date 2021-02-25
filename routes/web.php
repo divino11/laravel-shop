@@ -53,7 +53,7 @@ Route::group([
     Route::get('/', 'BasketController@basket')->name('basket');
     Route::get('/place', 'BasketController@basketPlace')->name('basket-place');
     Route::post('/confirm', 'BasketController@basketConfirm')->name('basket-confirm');
-    Route::post('/add/{id}', 'BasketController@basketAdd')->name('basket-add');
+    Route::post('/add', 'BasketController@basketAdd')->name('basket-add');
     Route::post('/remove/{id}', 'BasketController@basketRemove')->name('basket-remove');
 });
 

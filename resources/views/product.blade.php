@@ -8,9 +8,10 @@
         <img src="/images/cardproduct.png" class="w100" alt="">
     </div>
     <div class="col-xs-4 col-md-4">
-        <form action="{{ route('basket-add', $product->id) }}" method="POST" class="singleproduct-form">
+        <form action="{{ route('basket-add') }}" method="POST" class="singleproduct-form">
             @method('POST')
             @csrf
+            <input type="hidden" name="product_id" value="{{ $product->id }}">
             <div class="product_container">
                 <div class="product_wrapper">
                     <div class="product-title">{{ $product->name }}</div>
@@ -58,19 +59,19 @@
                                 <div class="col-6">Количество штук</div>
                                 <div class="col-6">XS</div>
                                 <div class="col-6">
-                                    <minusplusfield name="size-xs"></minusplusfield>
+                                    <minusplusfield name="sizes[size-xs]"></minusplusfield>
                                 </div>
                                 <div class="col-6">S</div>
                                 <div class="col-6">
-                                    <minusplusfield name="size-s"></minusplusfield>
+                                    <minusplusfield name="sizes[size-s]"></minusplusfield>
                                 </div>
                                 <div class="col-6">M</div>
                                 <div class="col-6">
-                                    <minusplusfield name="size-m"></minusplusfield>
+                                    <minusplusfield name="sizes[size-m]"></minusplusfield>
                                 </div>
                                 <div class="col-6">L</div>
                                 <div class="col-6">
-                                    <minusplusfield name="size-l"></minusplusfield>
+                                    <minusplusfield name="sizes[size-l]"></minusplusfield>
                                 </div>
                             </div>
                         </div>

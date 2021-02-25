@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Favorite;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class FavoriteController extends Controller
 {
@@ -16,7 +18,19 @@ class FavoriteController extends Controller
      */
     public function index()
     {
-        $products = Auth::user()->favorites;
+        $products = Auth::check()
+            ?
+            Auth::user()->favorites
+            :
+            $product = DB::table('products')
+                ->join('favorites', function ($join) {
+                    $join->on('products.id', '=', 'favorites.product_id')
+                        ->where('favorites.user_id', '=', session()->getId());
+                })
+                ->join('categories', 'products.category_id', '=', 'categories.id')
+                ->get();
+        dd($products);
+        //Favorite::where('user_id', session()->getId())->get();
         $category = Category::all();
 
         return view('favorites', [
@@ -28,12 +42,19 @@ class FavoriteController extends Controller
     /**
      * Favorite a particular product
      *
-     * @param  Product $product
+     * @param Product $product
      * @return \Illuminate\Http\RedirectResponse
      */
     public function favoriteProduct(Product $product)
     {
-        Auth::user()->favorites()->attach($product->id);
+        if (Auth::check()) {
+            Auth::user()->favorites()->attach($product->id);
+        } else {
+            Favorite::create([
+                'user_id' => session()->getId(),
+                'product_id' => $product->id
+            ]);
+        }
 
         return back();
     }
@@ -41,12 +62,16 @@ class FavoriteController extends Controller
     /**
      * Unfavorite a particular product
      *
-     * @param  Product $product
+     * @param Product $product
      * @return \Illuminate\Http\RedirectResponse
      */
     public function unFavoriteProduct(Product $product)
     {
-        Auth::user()->favorites()->detach($product->id);
+        if (Auth::check()) {
+            Auth::user()->favorites()->detach($product->id);
+        } else {
+            Favorite::where('user_id', session()->getId())->where('product_id', $product->id)->delete();
+        }
 
         return back();
     }

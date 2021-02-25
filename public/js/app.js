@@ -62356,7 +62356,7 @@ var render = function() {
           }
         ],
         staticClass: "mpinput",
-        attrs: { type: "number", name: _vm.name, disabled: "" },
+        attrs: { type: "number", name: _vm.name },
         domProps: { value: _vm.newValue },
         on: {
           input: function($event) {

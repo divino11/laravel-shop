@@ -20,13 +20,18 @@
         <tbody>
         @forelse($orders as $product)
             <tr>
-                <td><a href="{{ route('product', [$product->category->code, $product->id]) }}"><img class="img-size-xs"
+                <td><a href="{{ route('product', [$product->category->code, $product->id, $product->colors]) }}"><img class="img-size-xs"
                                                                                                      src="{{ url('images/' . $product->image) }}"
                                                                                                      alt=""></a></td>
-                <td><a href="{{ route('product', [$product->category->code, $product->id]) }}">{{ $product->name }}</a>
+                <td><a href="{{ route('product', [$product->category->code, $product->id, $product->colors]) }}">{{ $product->name }}</a>
                 </td>
-                <td>Серый</td>
-                <td>S</td>
+                <td>{{ $product->colors }}</td>
+                <td>
+                    @if($product->getOriginal('pivot_xs')) XS - {{ $product->getOriginal('pivot_xs') }} шт. <br> @endif
+                    @if($product->getOriginal('pivot_s')) S - {{ $product->getOriginal('pivot_s') }} шт. <br> @endif
+                    @if($product->getOriginal('pivot_m')) M - {{ $product->getOriginal('pivot_m') }} шт. <br> @endif
+                    @if($product->getOriginal('pivot_l')) L - {{ $product->getOriginal('pivot_l') }} шт. @endif
+                </td>
                 <td>165 см</td>
                 <td>
                     <span class="badge">{{ $product->count }}</span>

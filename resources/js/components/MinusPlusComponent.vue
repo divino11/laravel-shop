@@ -5,7 +5,7 @@
         </div>
 
         <div id="field_container">
-            <input type="number" class="mpinput" v-bind:name="name" v-model="newValue" disabled />
+            <input type="number" class="mpinput" v-bind:name="name" v-model="newValue" />
         </div>
 
         <div class="mpbtn plus" v-on:click="mpplus()">

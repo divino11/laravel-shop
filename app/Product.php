@@ -19,7 +19,7 @@ class Product extends Model
      */
     public function favorited()
     {
-        return (bool) Favorite::where('user_id', Auth::id())
+        return (bool) Favorite::where('user_id', Auth::check() ? Auth::id() : session()->getId())
             ->where('product_id', $this->id)
             ->first();
     }
