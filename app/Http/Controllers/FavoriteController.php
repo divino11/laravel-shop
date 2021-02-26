@@ -27,7 +27,7 @@ class FavoriteController extends Controller
         $category = Category::all();
 
         return view('favorites', [
-            'products' => $products,
+            'products' => $products ?? [],
             'categories' => $category
         ]);
     }
