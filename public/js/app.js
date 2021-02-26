@@ -23602,7 +23602,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SearchComponent",
   data: function data() {
@@ -62585,7 +62584,12 @@ var render = function() {
         [
           _c("input", {
             staticClass: "search_component-input",
-            attrs: { type: "text", name: "search" }
+            attrs: {
+              type: "text",
+              minlength: "3",
+              required: "",
+              name: "search"
+            }
           }),
           _vm._v(" "),
           _vm._m(0)
