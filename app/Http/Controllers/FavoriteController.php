@@ -22,8 +22,8 @@ class FavoriteController extends Controller
             ?
             Auth::user()->favorites
             :
-            $products = Favorite::find(session()->getId()) ? Favorite::find(session()->getId())->products()->get() : [];
-
+            Favorite::find(session()->getId()) ? Favorite::find(session()->getId())->products()->get() : [];
+        
         $category = Category::all();
 
         return view('favorites', [
