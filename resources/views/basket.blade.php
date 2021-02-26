@@ -29,37 +29,29 @@
                 </td>
                 <td>{{ $product->colors }}</td>
                 <td>
-                    @if($product->getOriginal('pivot_xs')) XS <br> @endif
-                    @if($product->getOriginal('pivot_s')) S <br> @endif
-                    @if($product->getOriginal('pivot_m')) M <br> @endif
-                    @if($product->getOriginal('pivot_l')) L @endif
+                    XS <br>
+                    S <br>
+                    M <br>
+                    L
                 </td>
                 <td>165 см</td>
                 <td>
-                    @if($product->getOriginal('pivot_xs'))
-                        <minusplusfield
-                            :value="{{ $product->getOriginal('pivot_xs') }}"
-                            name="sizes[size-xs]"
-                        ></minusplusfield>
-                    @endif
-                    @if($product->getOriginal('pivot_s'))
-                        <minusplusfield
-                            :value="{{ $product->getOriginal('pivot_s') }}"
-                            name="sizes[size-s]"
-                        ></minusplusfield>
-                    @endif
-                    @if($product->getOriginal('pivot_m'))
-                        <minusplusfield
-                            :value="{{ (int)$product->getOriginal('pivot_m') }}"
-                            name="sizes[size-m]"
-                        ></minusplusfield>
-                    @endif
-                    @if($product->getOriginal('pivot_l'))
-                        <minusplusfield
-                            :value="{{ $product->getOriginal('pivot_l') }}"
-                            name="sizes[size-l]"
-                        ></minusplusfield>
-                    @endif
+                    <minusplusfield
+                        :value="{{ $product->getOriginal('pivot_xs') }}"
+                        name="sizes[size-xs]"
+                    ></minusplusfield>
+                    <minusplusfield
+                        :value="{{ $product->getOriginal('pivot_s') }}"
+                        name="sizes[size-s]"
+                    ></minusplusfield>
+                    <minusplusfield
+                        :value="{{ (int)$product->getOriginal('pivot_m') }}"
+                        name="sizes[size-m]"
+                    ></minusplusfield>
+                    <minusplusfield
+                        :value="{{ $product->getOriginal('pivot_l') }}"
+                        name="sizes[size-l]"
+                    ></minusplusfield>
                 </td>
                 <td>
                     <div class="basket_actions">
