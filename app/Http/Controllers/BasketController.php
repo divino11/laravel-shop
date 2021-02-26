@@ -76,7 +76,15 @@ class BasketController extends Controller
             $pivotRow->l += $request->sizes['size-l'];
             $pivotRow->update();
         } else {
-            $order->products()->attach($request->product_id);
+            if ($request->sizes) {
+                $order->products()->attach($request->product_id, [
+                    'color' => $request->color,
+                    'xs' => $request->sizes['size-xs'],
+                    's' => $request->sizes['size-s'],
+                    'm' => $request->sizes['size-m'],
+                    'l' => $request->sizes['size-l'],
+                ]);
+            }
         }
 
         if (Auth::check()) {

@@ -22,15 +22,8 @@ class FavoriteController extends Controller
             ?
             Auth::user()->favorites
             :
-            $product = DB::table('products')
-                ->join('favorites', function ($join) {
-                    $join->on('products.id', '=', 'favorites.product_id')
-                        ->where('favorites.user_id', '=', session()->getId());
-                })
-                ->join('categories', 'products.category_id', '=', 'categories.id')
-                ->get();
-        dd($products);
-        //Favorite::where('user_id', session()->getId())->get();
+            $products = Favorite::find(session()->getId())->products()->get();
+
         $category = Category::all();
 
         return view('favorites', [

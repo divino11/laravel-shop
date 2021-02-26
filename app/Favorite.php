@@ -10,4 +10,9 @@ class Favorite extends Model
         'user_id',
         'product_id'
     ];
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'favorites', 'user_id', 'product_id')->withTimeStamps();
+    }
 }
