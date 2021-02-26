@@ -814,6 +814,11 @@ $colors: (
     margin: 0 10px;
 }
 
+.search_component .fa-search,
+.search_component .fa-times {
+    cursor: pointer;
+}
+
 .search_component-item {
     display: flex;
     align-items: center;
