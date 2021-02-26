@@ -495,6 +495,17 @@ $colors: (
     color: #000;
 }
 
+.minusplusnumber input[type='number'] {
+    -moz-appearance:textfield;
+    outline: none;
+}
+
+.minusplusnumber input::-webkit-outer-spin-button,
+.minusplusnumber input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .inner_heading {
     font-size: 25px;
     text-transform: uppercase;
