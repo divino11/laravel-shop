@@ -121,6 +121,10 @@ $colors: (
     width: 100px;
 }
 
+.img-size-130 {
+    width: 130px;
+}
+
 .categories_menu {
     list-style-type: none;
     padding-left: 0;
@@ -466,9 +470,14 @@ $colors: (
     height: 100%;
 }
 
+.table-basket .minusplusnumber {
+    justify-content: center;
+}
+
 .minusplusnumber {
     display: flex;
     align-items: center;
+    height: 25px;
 }
 
 .minusplusnumber .mpbtn {
@@ -496,7 +505,7 @@ $colors: (
 }
 
 .minusplusnumber input[type='number'] {
-    -moz-appearance:textfield;
+    -moz-appearance: textfield;
     outline: none;
 }
 
@@ -840,6 +849,30 @@ $colors: (
 .search_component-btn {
     background-color: transparent;
     border: none;
+}
+
+.basket_actions {
+    display: flex;
+    min-height: 180px;
+    flex-direction: column;
+
+    & .basket_fullprice {
+        flex-grow: 1;
+    }
+
+    & .basket_action {
+        flex-shrink: 0;
+
+        & button {
+            background-color: transparent;
+            border: none;
+            opacity: 0.5;
+        }
+
+        & button:hover {
+            opacity: 1;
+        }
+    }
 }
 
 @media (min-width: 992px) {

@@ -38,7 +38,6 @@
             return {
                 newValue: 0
             }
-
         },
         methods: {
             mpplus: function() {
