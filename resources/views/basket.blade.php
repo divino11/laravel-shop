@@ -66,7 +66,7 @@
                 </td>
             </tr>
         @empty
-            <td colspan="7" style="text-align: center">Корзина пока что пуста</td>
+            <td colspan="6" style="text-align: center">Корзина пока что пуста</td>
         @endforelse
         </tbody>
     </table>
