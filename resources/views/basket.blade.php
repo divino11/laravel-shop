@@ -12,7 +12,6 @@
             <td>Описание</td>
             <td>Цвет</td>
             <td>Размер</td>
-            <td>Рост</td>
             <td>Количество</td>
             <td>Цена</td>
         </tr>
@@ -34,7 +33,6 @@
                     M <br>
                     L
                 </td>
-                <td>165 см</td>
                 <td>
                     <minusplusfield
                         :value="{{ $product->getOriginal('pivot_xs') }}"
@@ -68,7 +66,7 @@
                 </td>
             </tr>
         @empty
-            <td colspan="8" style="text-align: center">Корзина пока что пуста</td>
+            <td colspan="7" style="text-align: center">Корзина пока что пуста</td>
         @endforelse
         </tbody>
     </table>
