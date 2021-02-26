@@ -10,6 +10,7 @@ Vue.component('favorite', require('./components/Favorite.vue').default);
 Vue.component('minusplusfield', require('./components/MinusPlusComponent.vue').default);
 Vue.component('singlefavorite', require('./components/SingleFavorite.vue').default);
 Vue.component('productattribute', require('./components/ProductAttributes.vue').default);
+Vue.component('searchcomponent', require('./components/SearchComponent.vue').default);
 
 const app = new Vue({
     el: '#app',

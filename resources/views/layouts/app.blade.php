@@ -70,7 +70,10 @@
                 </div>
                 <div class="navigation_right">
                     <div class="navigation_right-item">
-                        <a href=""><i class="fas fa-search"></i></a>
+                        <form action="{{ route('search') }}">
+                            @csrf
+                            <searchcomponent></searchcomponent>
+                        </form>
                     </div>
                     <div class="navigation_right-item">
                         <a href=""><i class="far fa-user"></i></a>

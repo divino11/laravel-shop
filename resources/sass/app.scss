@@ -803,6 +803,29 @@ $colors: (
     margin: 0 10px;
 }
 
+.search_component-item {
+    display: flex;
+    align-items: center;
+}
+
+.search_component-input {
+    border: none;
+    border-bottom: 1px solid;
+    padding: 3px;
+    height: 20px;
+    font-size: 14px;
+    margin-left: 10px;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.search_component-btn {
+    background-color: transparent;
+    border: none;
+}
+
 @media (min-width: 992px) {
     .navbar-expand-lg .sidenav {
         flex-direction: column;

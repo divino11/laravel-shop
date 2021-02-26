@@ -55,7 +55,7 @@ class MainController extends Controller
 
     public function search(Request $request): View
     {
-        $products = Product::where('name', 'like', $request->search)->paginate(20);
+        $products = Product::where('name', 'like', '%' . $request->search . '%')->paginate(20);
 
         return view('search-products', [
             'products' => $products
