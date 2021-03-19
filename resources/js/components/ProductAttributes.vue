@@ -21,8 +21,6 @@
 
 <script>
     export default {
-        /*props: ['product', 'favorited'],*/
-
         data: function () {
             return {
                 rows: [
@@ -31,12 +29,6 @@
                 ]
             }
         },
-
-        mounted() {
-
-        },
-
-        computed: {},
 
         methods: {
             addRow: function () {

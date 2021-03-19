@@ -5,6 +5,7 @@
 @import "~slick-carousel/slick/slick-theme.css";
 @import "~slick-carousel/slick/slick.css";
 @import "~admin-lte/plugins/select2/css/select2.css";
+@import "~toastr/toastr";
 
 $colors: (
     red: #DB2828,
@@ -887,6 +888,29 @@ $colors: (
     z-index: 1;
 }
 
+.removeBtn {
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+
+    & button {
+        background-color: transparent;
+        border: none;
+        font-size: 12px;
+        opacity: 0.5;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        & i {
+            margin-right: 5px;
+        }
+    }
+}
+
 .navigation_right-item:nth-child(4):hover .expanded_basket {
     display: flex;
     flex-direction: column;
@@ -911,6 +935,7 @@ $colors: (
     padding-top: 5px;
     padding-bottom: 5px;
     border-bottom: 1px solid;
+    position: relative;
 
     &:nth-child(n+2) {
         border-top: none;

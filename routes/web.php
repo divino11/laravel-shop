@@ -49,6 +49,7 @@ Route::post('favorite/{product}', 'FavoriteController@favoriteProduct');
 Route::post('unfavorite/{product}', 'FavoriteController@unFavoriteProduct');
 Route::post('add_to_basket/{order}/{size}', 'BasketController@addSizeToOrder');
 Route::post('remove_from_basket/{order}/{size}', 'BasketController@removeSizeFromOrder');
+Route::post('remove_product_from_order/{product}', 'BasketController@removeProductFromOrder');
 
 Route::group([
     'prefix' => 'basket'

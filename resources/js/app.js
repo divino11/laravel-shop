@@ -3,6 +3,7 @@ require('slick-carousel');
 require('image-zoom-on-hover')
 require('admin-lte/plugins/select2/js/select2')
 require('admin-lte/plugins/datatables/jquery.dataTables')
+require('toastr/toastr')
 
 window.Vue = require('vue');
 
@@ -11,6 +12,7 @@ Vue.component('minusplusfield', require('./components/MinusPlusComponent.vue').d
 Vue.component('singlefavorite', require('./components/SingleFavorite.vue').default);
 Vue.component('productattribute', require('./components/ProductAttributes.vue').default);
 Vue.component('searchcomponent', require('./components/SearchComponent.vue').default);
+Vue.component('removeorder', require('./components/RemoveOrder.vue').default);
 
 const app = new Vue({
     el: '#app',

@@ -135,4 +135,16 @@ class BasketController extends Controller
         $size = str_replace('sizes[size-', '', str_replace(']', '', $size));
         $order->products()->decrement($size);
     }
+
+    public function removeProductFromOrder($productId)
+    {
+        $orderId = session('orderId');
+        if (is_null($orderId)) {
+            return redirect()->route('basket');
+        }
+
+        $order = Order::find($orderId);
+
+        $order->products()->detach($productId);
+    }
 }

@@ -102,12 +102,6 @@
         <div class="row main-row">
             <div class="col-md-12">
                 <div class="row">
-                    @if(session()->has('success'))
-                        <p class="alert alert-success text-center w100">{{ session()->get('success') }}</p>
-                    @elseif (session()->has('warning'))
-                        <p class="alert alert-warning text-center w100">{{ session()->get('warning') }}</p>
-                    @endif
-
                     @yield('content')
 
                     <div class="footer">
@@ -203,6 +197,40 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="/js/app.js"></script>
+<script>
+    @if(Session::has('success'))
+        toastr.options =
+        {
+            "closeButton": true
+        }
+    toastr.success("{{ session('success') }}");
+    @endif
+
+        @if(Session::has('error'))
+        toastr.options =
+        {
+            "closeButton": true
+        }
+    toastr.error("{{ session('error') }}");
+    @endif
+
+        @if(Session::has('info'))
+        toastr.options =
+        {
+            "closeButton": true
+        }
+    toastr.info("{{ session('info') }}");
+    @endif
+
+        @if(Session::has('warning'))
+        toastr.options =
+        {
+            "closeButton": true
+        }
+    toastr.warning("{{ session('warning') }}");
+    @endif
+</script>
 </body>
 </html>

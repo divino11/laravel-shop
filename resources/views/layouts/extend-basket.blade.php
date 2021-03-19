@@ -42,6 +42,7 @@
                         @endif
                     </div>
                 </div>
+                <removeorder :product="{{ $basketProduct->id }}"></removeorder>
             </div>
         @endforeach
     </div>
