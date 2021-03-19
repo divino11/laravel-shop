@@ -10,10 +10,10 @@
                     <div class="extended_basket-item--description_price">
                         <div class="extended_basket-item--title">
                             <a href="{{ route('product', [
-    $basketProduct->category->code,
-    $basketProduct->id,
-    $basketProduct->colors
-    ]) }}">{{ $basketProduct->name }}</a>
+                                $basketProduct->category->code,
+                                $basketProduct->id,
+                                $basketProduct->colors
+                            ]) }}">{{ $basketProduct->name }}</a>
                         </div>
                         <div class="extended_basket-item--price">
                             {{ sumByCount($basketProduct) }} руб.
