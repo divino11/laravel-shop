@@ -27,7 +27,7 @@ class MainController extends Controller
         $categories = Category::all();
         $category = Category::where('code', $code)->first();
 
-        return view('category', [
+        return view('layouts.category', [
             'categories' => $categories,
             'category' => $category
         ]);
@@ -40,7 +40,7 @@ class MainController extends Controller
         $productSizes = DB::table('sizes_products')->where('product_id', $id)->get(['type', 'count']);
         $productColors = Product::where('parent_id', $product->parent_id)->get(['id', 'colors']);
 
-        return view('product', [
+        return view('layouts.product', [
             'product' => $product,
             'productSizes' => $productSizes,
             'category' => $category,
@@ -50,14 +50,14 @@ class MainController extends Controller
 
     public function contact(): View
     {
-        return view('contact');
+        return view('layouts.contact');
     }
 
     public function search(Request $request): View
     {
         $products = $request->search ? Product::where('name', 'like', '%' . $request->search . '%')->paginate(20) : [];
 
-        return view('search-products', [
+        return view('layouts.search-products', [
             'products' => $products
         ]);
     }

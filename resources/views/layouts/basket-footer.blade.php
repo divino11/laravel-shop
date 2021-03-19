@@ -25,11 +25,11 @@
     <div class="footer_item">
         <div class="product_top">
             <div>Стоимость товара</div>
-            <div>15000 руб.</div>
+            <div>{{ sumByFullPrice($orders) }} руб.</div>
         </div>
         <div class="product_bottom">
             <div>Стоимость товара со скидкой</div>
-            <div>14600 руб.</div>
+            <div>{{ sumByPriceSale($orders) }} руб.</div>
         </div>
 
         <a href="{{ route('basket-place') }}" class="product_button button">Оформить заказ</a>

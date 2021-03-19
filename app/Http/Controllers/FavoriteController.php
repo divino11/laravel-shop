@@ -20,13 +20,13 @@ class FavoriteController extends Controller
     {
         $products = Auth::check()
             ?
-            Auth::user()->favorites
+            Auth::user()->favorites()
             :
             Favorite::find(session()->getId()) ? Favorite::find(session()->getId())->products()->get() : [];
-        
+
         $category = Category::all();
 
-        return view('favorites', [
+        return view('layouts.favorites', [
             'products' => $products ?? [],
             'categories' => $category
         ]);

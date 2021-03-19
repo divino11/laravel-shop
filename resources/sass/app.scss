@@ -323,6 +323,7 @@ $colors: (
 .navigation_right-item {
     margin-right: 15px;
     font-size: 20px;
+    position: relative;
 }
 
 .navigation_right-item a {
@@ -873,6 +874,126 @@ $colors: (
             opacity: 1;
         }
     }
+}
+
+.expanded_basket {
+    display: none;
+    position: absolute;
+    right: 0;
+    padding: 20px 20px;
+    background-color: #ffffff;
+    min-width: 130px;
+    box-shadow: 1px 3px 10px 9px rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+.navigation_right-item:nth-child(4):hover .expanded_basket {
+    display: flex;
+    flex-direction: column;
+}
+
+.extended_basket-inner_heading {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.extended_basket-items {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.extended_basket-item {
+    flex-direction: row;
+    display: flex;
+    border-top: 1px solid;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid;
+
+    &:nth-child(n+2) {
+        border-top: none;
+    }
+
+    & .extended_basket-item--title {
+        font-size: 14px;
+        font-weight: bold;
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+
+    .extended_basket-item--sizes {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .extended_basket-item--price {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: right;
+        white-space: nowrap;
+    }
+}
+
+.extended_basket-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.extended_basket-total_price {
+    font-weight: bold;
+}
+
+.extended_basket-item--description {
+    padding-left: 15px;
+    width: 100%;
+}
+
+.extended_basket-item--description_price {
+    display: flex;
+    justify-content: space-between;
+    min-width: 200px;
+}
+
+.extended_basket-footer--right {
+    & .extended_basket-total_price {
+        text-align: right;
+    }
+}
+
+.extended_basket-button {
+    color: #ffffff !important;
+    text-decoration: none;
+    text-align: center;
+
+    &:hover {
+        color: #ffffff !important;
+        text-decoration: none !important;
+    }
+}
+
+.extended_basket-fee {
+    text-align: center;
+    font-size: 10px;
+    color: gray;
+}
+
+.basket_badge {
+    position: absolute;
+    right: -16px;
+    top: -9px;
+    font-size: 12px;
+    background-color: #e79338;
+    color: #fff;
+    padding: 5px;
+    border-radius: 15px;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 14px;
 }
 
 @media (min-width: 992px) {

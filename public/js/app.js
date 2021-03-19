@@ -23475,6 +23475,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     name: {
       type: String
+    },
+    order: {
+      "default": null,
+      type: Number
     }
   },
   data: function data() {
@@ -23483,16 +23487,32 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    mpplus: function mpplus() {
+    mpplus: function mpplus(order, size) {
       if (this.max == undefined || this.newValue < this.max) {
         this.newValue = this.newValue + 1;
         this.$emit('input', this.newValue);
+
+        if (order) {
+          axios.post('/add_to_basket/' + order + '/' + size).then(function (response) {
+            document.location.reload();
+          })["catch"](function (response) {
+            return console.log(response.data);
+          });
+        }
       }
     },
-    mpminus: function mpminus() {
+    mpminus: function mpminus(order, size) {
       if (this.newValue > this.min) {
         this.newValue = this.newValue - 1;
         this.$emit('input', this.newValue);
+
+        if (order) {
+          axios.post('/remove_from_basket/' + order + '/' + size).then(function (response) {
+            document.location.reload();
+          })["catch"](function (response) {
+            return console.log(response.data);
+          });
+        }
       }
     }
   },
@@ -62373,7 +62393,7 @@ var render = function() {
         staticClass: "mpbtn minus",
         on: {
           click: function($event) {
-            return _vm.mpminus()
+            return _vm.mpminus(_vm.order, _vm.name)
           }
         }
       },
@@ -62410,7 +62430,7 @@ var render = function() {
         staticClass: "mpbtn plus",
         on: {
           click: function($event) {
-            return _vm.mpplus()
+            return _vm.mpplus(_vm.order, _vm.name)
           }
         }
       },

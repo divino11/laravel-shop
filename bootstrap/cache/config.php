@@ -243,7 +243,7 @@
     'locale' => 'en',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => 'base64:9VZQsZHJQv2OuytGlzo9iyGsHa88P/N7qP1+NRLdlg8=',
+    'key' => 'base64:pe/uRHWoyyonSLlcFfPW9iXHIR5WXfZjZq8VxxtqZAs=',
     'cipher' => 'AES-256-CBC',
     'providers' => 
     array (
@@ -819,7 +819,7 @@
   'session' => 
   array (
     'driver' => 'file',
-    'lifetime' => '120',
+    'lifetime' => '43200',
     'expire_on_close' => false,
     'encrypt' => false,
     'files' => '/home/andreyvasyukov/projects/laravel-shop/storage/framework/sessions',

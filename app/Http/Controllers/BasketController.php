@@ -18,7 +18,7 @@ class BasketController extends Controller
             $order = Order::findOrFail($orderId);
         }
 
-        return view('basket', [
+        return view('layouts.basket', [
             'orders' => $order->products ?? []
         ]);
     }
@@ -32,7 +32,7 @@ class BasketController extends Controller
 
         $order = Order::find($orderId);
 
-        return view('order', [
+        return view('layouts.order', [
             'order' => $order
         ]);
     }
@@ -122,5 +122,17 @@ class BasketController extends Controller
         session()->flash('warning', 'Product has been removed ' . $product->name);
 
         return redirect()->route('basket');
+    }
+
+    public function addSizeToOrder(Order $order, $size)
+    {
+        $size = str_replace('sizes[size-', '', str_replace(']', '', $size));
+        $order->products()->increment($size);
+    }
+
+    public function removeSizeFromOrder(Order $order, $size)
+    {
+        $size = str_replace('sizes[size-', '', str_replace(']', '', $size));
+        $order->products()->decrement($size);
     }
 }

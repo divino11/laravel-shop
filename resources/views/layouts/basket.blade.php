@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('app')
 
 @section('title', 'Корзина')
 
@@ -36,18 +36,22 @@
                 <td>
                     <minusplusfield
                         :value="{{ $product->getOriginal('pivot_xs') }}"
+                        :order="{{ $product->getOriginal('pivot_order_id') }}"
                         name="sizes[size-xs]"
                     ></minusplusfield>
                     <minusplusfield
                         :value="{{ $product->getOriginal('pivot_s') }}"
+                        :order="{{ $product->getOriginal('pivot_order_id') }}"
                         name="sizes[size-s]"
                     ></minusplusfield>
                     <minusplusfield
                         :value="{{ (int)$product->getOriginal('pivot_m') }}"
+                        :order="{{ $product->getOriginal('pivot_order_id') }}"
                         name="sizes[size-m]"
                     ></minusplusfield>
                     <minusplusfield
                         :value="{{ $product->getOriginal('pivot_l') }}"
+                        :order="{{ $product->getOriginal('pivot_order_id') }}"
                         name="sizes[size-l]"
                     ></minusplusfield>
                 </td>
@@ -71,5 +75,5 @@
         </tbody>
     </table>
 
-    @include('layouts.basket-footer')
+    @include('layouts.basket-footer', $orders)
 @endsection

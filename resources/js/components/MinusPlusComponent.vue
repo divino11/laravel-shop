@@ -1,6 +1,6 @@
 <template>
     <div class="minusplusnumber">
-        <div class="mpbtn minus" v-on:click="mpminus()">
+        <div class="mpbtn minus" v-on:click="mpminus(order, name)">
             -
         </div>
 
@@ -8,7 +8,7 @@
             <input type="number" class="mpinput" v-bind:name="name" v-model="newValue" />
         </div>
 
-        <div class="mpbtn plus" v-on:click="mpplus()">
+        <div class="mpbtn plus" v-on:click="mpplus(order, name)">
             +
         </div>
     </div>
@@ -32,6 +32,10 @@
             },
             name: {
                 type: String
+            },
+            order: {
+                default: null,
+                type: Number
             }
         },
         data: function () {
@@ -40,16 +44,30 @@
             }
         },
         methods: {
-            mpplus: function() {
-                if(this.max == undefined || (this.newValue < this.max)) {
+            mpplus: function (order, size) {
+                if (this.max == undefined || (this.newValue < this.max)) {
                     this.newValue = this.newValue + 1;
                     this.$emit('input', this.newValue);
+                    if (order) {
+                        axios.post('/add_to_basket/' + order + '/' + size)
+                            .then(response => {
+                                document.location.reload()
+                            })
+                            .catch(response => console.log(response.data));
+                    }
                 }
             },
-            mpminus: function() {
-                if((this.newValue) > this.min) {
+            mpminus: function (order, size) {
+                if ((this.newValue) > this.min) {
                     this.newValue = this.newValue - 1;
                     this.$emit('input', this.newValue);
+                    if (order) {
+                        axios.post('/remove_from_basket/' + order + '/' + size)
+                            .then(response => {
+                                document.location.reload()
+                            })
+                            .catch(response => console.log(response.data));
+                    }
                 }
             }
         },
