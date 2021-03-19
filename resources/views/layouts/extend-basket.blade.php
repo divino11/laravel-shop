@@ -52,7 +52,7 @@
             <div class="extended_basket-delivery">Доставка</div>
         </div>
         <div class="extended_basket-footer--right">
-            <div class="extended_basket-total_price">11 000 руб.</div>
+            <div class="extended_basket-total_price">{{ sumByFullPrice($basketProducts) }} руб.</div>
             <div class="extended_basket-delivery">Бесплатная доставка</div>
         </div>
     </div>
