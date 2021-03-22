@@ -76,4 +76,157 @@
     </table>
 
     @include('layouts.basket-footer', $orders)
+
+    <div class="similar_wrapper">
+        <div class="similar_container">
+            <p class="inner_heading">С этим товаром покупают</p>
+
+            <div class="similar_gallery">
+                <div class="gallery_item">
+                    <a href=""><img src="{{ url("/images/similar.png") }}" class="img-fluid img-center"></a>
+                    <div class="product">
+                        <div class="product_top">
+                            <p class="product-title"><a href="">Пижама Moomlight</a></p>
+                            <p><i class="far fa-heart"></i></p>
+                        </div>
+                        <div class="product_bottom">
+                            <div class="product_price">
+                                <div class="product_price_main">
+                                    <s>
+                                        3400 р.
+                                    </s>
+                                </div>
+                                <div class="product_price-sale">
+                                    2000 р.
+                                </div>
+                            </div>
+                            <div class="sale">
+                                -60%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery_item">
+                    <a href=""><img src="{{ url("/images/similar.png") }}" class="img-fluid img-center"></a>
+                    <div class="product">
+                        <div class="product_top">
+                            <p class="product-title"><a href="">Пижама Moomlight</a></p>
+                            <p><i class="far fa-heart"></i></p>
+                        </div>
+                        <div class="product_bottom">
+                            <div class="product_price">
+                                <div class="product_price_main">
+                                    <s>
+                                        3400 р.
+                                    </s>
+                                </div>
+                                <div class="product_price-sale">
+                                    2000 р.
+                                </div>
+                            </div>
+                            <div class="sale">
+                                -60%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery_item">
+                    <a href=""><img src="{{ url("/images/similar.png") }}" class="img-fluid img-center"></a>
+                    <div class="product">
+                        <div class="product_top">
+                            <p class="product-title"><a href="">Пижама Moomlight</a></p>
+                            <p><i class="far fa-heart"></i></p>
+                        </div>
+                        <div class="product_bottom">
+                            <div class="product_price">
+                                <div class="product_price_main">
+                                    <s>
+                                        3400 р.
+                                    </s>
+                                </div>
+                                <div class="product_price-sale">
+                                    2000 р.
+                                </div>
+                            </div>
+                            <div class="sale">
+                                -60%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery_item">
+                    <a href=""><img src="{{ url("/images/similar.png") }}" class="img-fluid img-center"></a>
+                    <div class="product">
+                        <div class="product_top">
+                            <p class="product-title"><a href="">Пижама Moomlight</a></p>
+                            <p><i class="far fa-heart"></i></p>
+                        </div>
+                        <div class="product_bottom">
+                            <div class="product_price">
+                                <div class="product_price_main">
+                                    <s>
+                                        3400 р.
+                                    </s>
+                                </div>
+                                <div class="product_price-sale">
+                                    2000 р.
+                                </div>
+                            </div>
+                            <div class="sale">
+                                -60%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery_item">
+                    <a href=""><img src="{{ url("/images/similar.png") }}" class="img-fluid img-center"></a>
+                    <div class="product">
+                        <div class="product_top">
+                            <p class="product-title"><a href="">Пижама Moomlight</a></p>
+                            <p><i class="far fa-heart"></i></p>
+                        </div>
+                        <div class="product_bottom">
+                            <div class="product_price">
+                                <div class="product_price_main">
+                                    <s>
+                                        3400 р.
+                                    </s>
+                                </div>
+                                <div class="product_price-sale">
+                                    2000 р.
+                                </div>
+                            </div>
+                            <div class="sale">
+                                -60%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery_item">
+                    <a href=""><img src="{{ url("/images/similar.png") }}" class="img-fluid img-center"></a>
+                    <div class="product">
+                        <div class="product_top">
+                            <p class="product-title"><a href="">Пижама Moomlight</a></p>
+                            <p><i class="far fa-heart"></i></p>
+                        </div>
+                        <div class="product_bottom">
+                            <div class="product_price">
+                                <div class="product_price_main">
+                                    <s>
+                                        3400 р.
+                                    </s>
+                                </div>
+                                <div class="product_price-sale">
+                                    2000 р.
+                                </div>
+                            </div>
+                            <div class="sale">
+                                -60%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
