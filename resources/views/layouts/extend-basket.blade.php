@@ -1,4 +1,4 @@
-@if(isset($basketProducts))
+@if(count($basketProducts) !== 0)
     <div class="extended_basket-inner_heading">Корзина ({{ count($basketProducts) }})</div>
 
     <div class="extended_basket-items">

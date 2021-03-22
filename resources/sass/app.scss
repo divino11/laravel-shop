@@ -888,6 +888,11 @@ $colors: (
     z-index: 1;
 }
 
+.extended_basket-empty {
+    font-size: 14px;
+    white-space: nowrap;
+}
+
 .removeBtn {
     position: absolute;
     right: 0;

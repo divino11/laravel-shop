@@ -79,15 +79,11 @@
                         <a href=""><i class="far fa-user"></i></a>
                     </div>
                     <div class="navigation_right-item">
-                        <div class="basket_badge">
-                            @include('layouts.badge', ['badgeData' => $favoriteProducts] ?? [])
-                        </div>
+                        @include('layouts.badge', ['badgeData' => $favoriteProducts] ?? [])
                         <a href="{{ route('favorites') }}"><i class="far fa-heart"></i></a>
                     </div>
                     <div class="navigation_right-item">
-                        <div class="basket_badge">
-                            @include('layouts.badge', ['badgeData' => $basketProducts] ?? [])
-                        </div>
+                        @include('layouts.badge', ['badgeData' => $basketProducts] ?? [])
                         <i class="fas fa-shopping-bag"></i>
                         <div class="expanded_basket">
                             @include('layouts.extend-basket', ['badgeData' => $basketProducts] ?? [])

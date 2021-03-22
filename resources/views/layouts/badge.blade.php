@@ -1,3 +1,5 @@
-@if(isset($badgeData))
-    {{ count($badgeData) }}
+@if(count($badgeData) !== 0)
+    <div class="basket_badge">
+        {{ count($badgeData) }}
+    </div>
 @endif
