@@ -1,9 +1,11 @@
 @extends('app')
 
-@section('title', 'Товары')
+@section('title', 'Избранные товары')
 
 @section('content')
-    @foreach($products as $product)
-        @include('layouts.products', ['columns' => 4])
-    @endforeach
+    @if(count($products) !== 0)
+        @foreach($products as $product)
+            @include('parts.products', ['columns' => 4])
+        @endforeach
+    @endif
 @endsection

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Favorite;
 use App\Order;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\View;
@@ -47,10 +48,14 @@ class AppServiceProvider extends ServiceProvider
 
     public function getFavorites()
     {
-        if (!is_null(session()->getId())) {
-            $favorites = Favorite::find(session()->getId())->products()->get();
+        if (!is_null(Favorite::find(session()->getId()))) {
+            $favorites = Auth::check() ?
+                Auth::user()->favorites
+                :
+                //Favorite::find(session()->getId()) ? Favorite::find(session()->getId())->products()->get() : [];
+            [];
         }
 
-        return $favorites;
+        return $favorites ?? [];
     }
 }

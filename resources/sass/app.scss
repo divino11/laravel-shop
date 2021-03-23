@@ -888,6 +888,17 @@ $colors: (
     z-index: 1;
 }
 
+.expanded_account {
+    display: none;
+    position: absolute;
+    right: 0;
+    padding: 20px 20px;
+    background-color: #ffffff;
+    min-width: 130px;
+    box-shadow: 1px 3px 10px 9px rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
 .extended_basket-empty {
     font-size: 14px;
     white-space: nowrap;
@@ -914,6 +925,12 @@ $colors: (
             margin-right: 5px;
         }
     }
+}
+
+.navigation_right-item:nth-child(2):hover .expanded_account {
+    display: block;
+    min-width: 900px;
+    font-size: 12px;
 }
 
 .navigation_right-item:nth-child(4):hover .expanded_basket {
@@ -1024,6 +1041,55 @@ $colors: (
     text-align: center;
     font-weight: bold;
     line-height: 14px;
+}
+
+.auth_form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-basis: 70%;
+    align-items: center;
+    margin: auto;
+
+    .inner_heading {
+        font-weight: bold;
+        margin-bottom: 25px;
+    }
+
+    & .row {
+        justify-content: center !important;
+        align-items: center;
+    }
+
+    & .contact_description {
+        margin-bottom: 30px;
+    }
+
+    & .contact_form-group--required input {
+        width: 25px;
+        height: 25px;
+    }
+
+    & .auth_form-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        & .auth_form-forget_password a {
+            color: #000000 !important;
+            text-decoration: underline;
+            opacity: 0.7;
+            font-weight: bold;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.auth_form.register_form .row {
+    width: 50%;
 }
 
 @media (min-width: 992px) {

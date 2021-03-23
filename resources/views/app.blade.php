@@ -76,18 +76,26 @@
                         </form>
                     </div>
                     <div class="navigation_right-item">
-                        <a href=""><i class="far fa-user"></i></a>
+                        <a href="{{ route('authentication') }}">
+                            <i class="far fa-user"></i>
+                        </a>
+                        <div class="expanded_account">
+                            @include('parts.auth')
+                        </div>
                     </div>
                     <div class="navigation_right-item">
-                        @include('layouts.badge', ['badgeData' => $favoriteProducts] ?? [])
+                        @include('parts.badge', ['badgeData' => $favoriteProducts] ?? [])
                         <a href="{{ route('favorites') }}"><i class="far fa-heart"></i></a>
                     </div>
                     <div class="navigation_right-item">
-                        @include('layouts.badge', ['badgeData' => $basketProducts] ?? [])
-                        <i class="fas fa-shopping-bag"></i>
+                        @include('parts.badge', ['badgeData' => $basketProducts] ?? [])
+                        <a href="{{ route('basket') }}">
+                            <i class="fas fa-shopping-bag"></i>
+                        </a>
                         <div class="expanded_basket">
-                            @include('layouts.extend-basket', ['badgeData' => $basketProducts] ?? [])
+                            @include('parts.extend-basket', ['badgeData' => $basketProducts] ?? [])
                         </div>
+
                     </div>
                 </div>
             </div>

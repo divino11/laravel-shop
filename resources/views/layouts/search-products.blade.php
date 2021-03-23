@@ -4,6 +4,6 @@
 
 @section('content')
     @foreach($products as $product)
-        @include('layouts.products', ['columns' => 4])
+        @include('parts.products', ['columns' => 4])
     @endforeach
 @endsection

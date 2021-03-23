@@ -3,11 +3,11 @@
 @section('title', 'Home Page')
 
 @section('categories')
-    @include('layouts.categories')
+    @include('parts.categories')
 @endsection
 
 @section('content')
     @foreach($category->products as $product)
-        @include('layouts.products', ['columns' => 4])
+        @include('parts.products', ['columns' => 4])
     @endforeach
 @endsection

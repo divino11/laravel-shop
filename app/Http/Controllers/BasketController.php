@@ -25,6 +25,12 @@ class BasketController extends Controller
 
     public function basketPlace()
     {
+        if (!Auth::check()) {
+            session()->flash('info', 'Нужно выполнить авторизацию!');
+
+            return redirect()->route('authentication');
+        }
+
         $orderId = session('orderId');
         if (is_null($orderId)) {
             return redirect()->route('index');
@@ -59,6 +65,17 @@ class BasketController extends Controller
 
     public function basketAdd(Request $request)
     {
+        if (
+            $request->sizes['size-xs'] == 0 &&
+            $request->sizes['size-s'] == 0 &&
+            $request->sizes['size-m'] == 0 &&
+            $request->sizes['size-l'] == 0
+        ) {
+            session()->flash('error', 'Выберите хотя бы один размер!');
+
+            return back();
+        }
+
         $orderId = session('orderId');
         if (is_null($orderId)) {
             $order = Order::create();

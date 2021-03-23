@@ -75,7 +75,7 @@
         </tbody>
     </table>
 
-    @include('layouts.basket-footer', $orders)
+    @include('parts.basket-footer', $orders)
 
     <div class="similar_wrapper">
         <div class="similar_container">
