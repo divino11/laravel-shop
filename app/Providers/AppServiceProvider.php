@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
             $order = Order::findOrFail($orderId);
         }
 
-        return $order->products;
+        return $order->products ?? [];
     }
 
     public function getFavorites()
@@ -52,7 +52,7 @@ class AppServiceProvider extends ServiceProvider
             $favorites = Auth::check() ?
                 Auth::user()->favorites
                 :
-                //Favorite::find(session()->getId()) ? Favorite::find(session()->getId())->products()->get() : [];
+                Favorite::find(session()->getId()) ? Favorite::find(session()->getId())->products()->get() : [];
             [];
         }
 

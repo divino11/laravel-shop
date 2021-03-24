@@ -84,16 +84,18 @@
                         </div>
                     </div>
                     <div class="navigation_right-item">
-                        @include('parts.badge', ['badgeData' => $favoriteProducts] ?? [])
-                        <a href="{{ route('favorites') }}"><i class="far fa-heart"></i></a>
+                        @include('parts.badge', ['badgeData' => $favoriteProducts ?? []])
+                        <a href="{{ route('favorites') }}">
+                            <i class="far fa-heart"></i>
+                        </a>
                     </div>
                     <div class="navigation_right-item">
-                        @include('parts.badge', ['badgeData' => $basketProducts] ?? [])
+                        @include('parts.badge', ['badgeData' => $basketProducts ?? []])
                         <a href="{{ route('basket') }}">
                             <i class="fas fa-shopping-bag"></i>
                         </a>
                         <div class="expanded_basket">
-                            @include('parts.extend-basket', ['badgeData' => $basketProducts] ?? [])
+                            @include('parts.extend-basket', ['basketProducts' => $basketProducts ?? []])
                         </div>
 
                     </div>
