@@ -8377,6 +8377,38 @@ button.toast-close-button {
   width: 50%;
 }
 
+.register_background {
+  background: url("/images/reg_bg.png");
+  min-height: 57vh;
+  display: flex;
+  width: 100%;
+}
+
+.register_success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  justify-content: center;
+  text-align: center;
+}
+
+.register_success .inner_heading {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.register_success .button {
+  width: 200px;
+  padding: 10px 0;
+  margin-top: 25px;
+}
+
+.register_success .button:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
 @media (min-width: 992px) {
   .navbar-expand-lg .sidenav {
     flex-direction: column;

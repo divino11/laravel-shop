@@ -63,6 +63,11 @@ class MainController extends Controller
         return view('layouts.register');
     }
 
+    public function registrationSuccess(): View
+    {
+        return view('layouts.register-success');
+    }
+
     public function search(Request $request): View
     {
         $products = $request->search ? Product::where('name', 'like', '%' . $request->search . '%')->paginate(20) : [];

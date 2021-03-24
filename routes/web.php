@@ -44,6 +44,7 @@ Route::get('/', 'MainController@index')->name('index');
 Route::get('/contact', 'MainController@contact')->name('contact');
 Route::get('/logging', 'MainController@auth')->name('authentication');
 Route::get('/registration', 'MainController@registration')->name('registration');
+Route::get('/registration_success', 'MainController@registrationSuccess')->name('registrationSuccess');
 Route::get('/search', 'MainController@search')->name('search');
 Route::get('/products', 'ProductController@index')->name('products');
 Route::get('/favorites', 'FavoriteController@index')->name('favorites');
