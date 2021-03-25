@@ -17,7 +17,7 @@
                         </div>
                         <div class="extended_basket-item--price">
                             @if($basketProduct->price_sale)
-                                <span class="red_price">{{ numberFormatPrice(sumByCountPriceSale($basketProduct)) }} руб.</span><br>
+                                <span class="red_price">{{ numberFormatPrice(sumByCount($basketProduct, 'priceSale')) }} руб.</span><br>
                             @endif
                             @if($basketProduct->price_sale)
                                 <s>{{ numberFormatPrice(sumByCount($basketProduct)) }} руб.</s>

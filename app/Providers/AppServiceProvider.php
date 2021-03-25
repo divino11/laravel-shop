@@ -48,14 +48,14 @@ class AppServiceProvider extends ServiceProvider
 
     public function getFavorites()
     {
-        $sessionId = session()->getId();
+        if (!is_null(session('favoriteId'))) {
+            $issetFavorites = Favorite::where('user_id', session('favoriteId'))->count();
 
-        if (!is_null(Favorite::find(session()->getId()))) {
-            $favorites = Auth::check() ?
-                Auth::user()->favorites()
-                :
-                Favorite::find(session()->getId()) ? Favorite::find(session()->getId())->products()->get() : [];
-            [];
+            if ($issetFavorites == 0) {
+                $favorites = [];
+            } else {
+                $favorites = Favorite::where('user_id', session('favoriteId'))->get();
+            }
         }
 
         return $favorites ?? [];

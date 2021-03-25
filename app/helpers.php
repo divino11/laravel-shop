@@ -1,19 +1,12 @@
 <?php
 
-function sumByCount(\App\Product $product): float
+function sumByCount(\App\Product $product, $typePrice = 'fullPrice'): float
 {
-    $price = $product->price;
-
-    $size = getOriginalSizeValue($product);
-
-    $sum = $price * ($size['xs'] + $size['s'] + $size['m'] + $size['l']);
-
-    return $sum;
-}
-
-function sumByCountPriceSale(\App\Product $product): float
-{
-    $price = $product->price_sale;
+    if ($typePrice === 'fullPrice') {
+        $price = $product->price;
+    } else {
+        $price = $product->price_sale;
+    }
 
     $size = getOriginalSizeValue($product);
 
@@ -29,7 +22,9 @@ function sumByFullPrice($order)
     foreach ($order as $product) {
         $size = getOriginalSizeValue($product);
 
-        $sum = $sum + $product->price * ($size['xs'] + $size['s'] + $size['m'] + $size['l']);
+        $price = $product->price;
+
+        $sum = $sum + $price * ($size['xs'] + $size['s'] + $size['m'] + $size['l']);
     }
 
     return $sum;

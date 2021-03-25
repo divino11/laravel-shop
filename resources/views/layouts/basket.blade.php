@@ -59,7 +59,7 @@
                     <div class="basket_actions">
                         <div class="basket_fullprice">
                             @if($product->price_sale)
-                                <span class="red_price">{{ numberFormatPrice(sumByCountPriceSale($product)) }} руб.</span><br>
+                                <span class="red_price">{{ numberFormatPrice(sumByCount($product, 'priceSale')) }} руб.</span><br>
                             @endif
                             @if($product->price_sale)
                                 <s>{{ numberFormatPrice(sumByCount($product)) }} руб.</s>

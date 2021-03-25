@@ -8413,6 +8413,174 @@ button.toast-close-button {
   color: #d01e1e;
 }
 
+.place_order .group {
+  position: relative;
+  margin: 15px 0;
+}
+
+.place_order textarea {
+  resize: none;
+}
+
+.place_order input,
+.place_order select,
+.place_order textarea {
+  background: none;
+  color: #000000;
+  font-size: 16px;
+  padding: 10px 10px 10px 20px;
+  display: block;
+  width: 350px;
+  border: 1px solid #000000;
+  border-radius: 0;
+}
+
+.place_order input::-moz-placeholder, .place_order select::-moz-placeholder, .place_order textarea::-moz-placeholder {
+  color: transparent;
+}
+
+.place_order input:-ms-input-placeholder, .place_order select:-ms-input-placeholder, .place_order textarea:-ms-input-placeholder {
+  color: transparent;
+}
+
+.place_order input::placeholder,
+.place_order select::placeholder,
+.place_order textarea::placeholder {
+  color: transparent;
+}
+
+.place_order input:focus::-moz-placeholder, .place_order select:focus::-moz-placeholder, .place_order textarea:focus::-moz-placeholder {
+  color: #c6c6c6;
+}
+
+.place_order input:focus:-ms-input-placeholder, .place_order select:focus:-ms-input-placeholder, .place_order textarea:focus:-ms-input-placeholder {
+  color: #c6c6c6;
+}
+
+.place_order input:focus::placeholder,
+.place_order select:focus::placeholder,
+.place_order textarea:focus::placeholder {
+  color: #c6c6c6;
+}
+
+.place_order input:focus,
+.place_order select:focus,
+.place_order textarea:focus {
+  outline: none;
+}
+
+.place_order input:focus ~ label,
+.place_order input:valid ~ label,
+.place_order select:focus ~ label,
+.place_order select:valid ~ label,
+.place_order textarea:focus ~ label,
+.place_order textarea:valid ~ label {
+  top: -10px;
+  font-size: 13px;
+  background-color: #ffffff;
+  padding: 0 20px;
+}
+
+.place_order input:focus ~ .bar:before,
+.place_order select:focus ~ .bar:before,
+.place_order textarea:focus ~ .bar:before {
+  width: 350px;
+}
+
+.place_order input[type=password] {
+  letter-spacing: 0.3em;
+}
+
+.place_order label {
+  font-size: 16px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 20px;
+  top: 13px;
+  transition: 300ms ease all;
+  color: #000000;
+}
+
+.place_order .bar {
+  position: relative;
+  display: block;
+  width: 350px;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.place_order {
+  display: flex;
+  margin: auto;
+}
+
+.place_order .inner_heading {
+  font-size: 18px;
+}
+
+.place_order .radio_item-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.place_order .group_items {
+  display: flex;
+  flex-direction: column;
+  margin-right: 35px;
+}
+
+.place_order .group_items:last-child {
+  margin-right: 0;
+}
+
+.place_order .radio_input {
+  margin: 7px 0 !important;
+}
+
+.place_order .checkbox_input,
+.place_order .radio_input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.place_order .checkbox_input input,
+.place_order .radio_input input {
+  width: 20px;
+  margin-right: 15px;
+}
+
+.place_order .full_price-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.place_order .full_price-info:first-child {
+  margin-top: 85px;
+}
+
+.place_order .full_price-info:last-child {
+  margin-bottom: 0;
+}
+
+.place_order .button_box {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.place_order .button_box button {
+  padding: 10px 30px;
+}
+
 @media (min-width: 992px) {
   .navbar-expand-lg .sidenav {
     flex-direction: column;

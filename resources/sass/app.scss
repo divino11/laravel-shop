@@ -20,6 +20,11 @@ $colors: (
     pink: #E03997
 );
 
+$bg-color: #424242;
+$muted-color: mix(white, $bg-color, 70%);
+$trans-time: 300ms;
+$width: 350px;
+
 .single_product-colors {
     & input[type="radio"] {
         display: none;
@@ -1126,6 +1131,146 @@ $colors: (
 
 .red_price {
     color: #d01e1e;
+}
+
+.place_order {
+    .group {
+        position: relative;
+        margin: 15px 0;
+    }
+
+    textarea {
+        resize: none;
+    }
+
+    input,
+    select,
+    textarea {
+        background: none;
+        color: #000000;
+        font-size: 16px;
+        padding: 10px 10px 10px 20px;
+        display: block;
+        width: $width;
+        border: 1px solid #000000;
+        border-radius: 0;
+
+        &::placeholder {
+            color: transparent;
+        }
+
+        &:focus::placeholder {
+            color: $muted-color;
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        &:focus ~ label,
+        &:valid ~ label {
+            top: -10px;
+            font-size: 13px;
+            background-color: #ffffff;
+            padding: 0 20px;
+        }
+
+        &:focus ~ .bar:before {
+            width: $width;
+        }
+    }
+
+    input[type="password"] {
+        letter-spacing: 0.3em;
+    }
+
+    label {
+        font-size: 16px;
+        font-weight: normal;
+        position: absolute;
+        pointer-events: none;
+        left: 20px;
+        top: 13px;
+        transition: $trans-time ease all;
+        color: #000000;
+    }
+
+    .bar {
+        position: relative;
+        display: block;
+        width: $width;
+    }
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.place_order {
+    display: flex;
+    margin: auto;
+
+    & .inner_heading {
+        font-size: 18px;
+    }
+
+    .radio_item-input {
+        display: flex;
+        flex-direction: column;
+    }
+
+    & .group_items {
+        display: flex;
+        flex-direction: column;
+        margin-right: 35px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    & .radio_input {
+        margin: 7px 0 !important;
+    }
+
+    .checkbox_input, .radio_input {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        & input {
+            width: 20px;
+            margin-right: 15px;
+        }
+    }
+
+    .full_price-info {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        font-size: 20px;
+
+        &:first-child {
+            margin-top: 85px;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .button_box {
+        display: flex;
+        justify-content: flex-end;
+
+        & button {
+            padding: 10px 30px;
+        }
+    }
 }
 
 @media (min-width: 992px) {

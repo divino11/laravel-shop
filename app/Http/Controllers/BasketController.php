@@ -39,7 +39,8 @@ class BasketController extends Controller
         $order = Order::find($orderId);
 
         return view('layouts.order', [
-            'order' => $order
+            'user' => Auth::user(),
+            'order' => $order->products()->get()
         ]);
     }
 
@@ -51,13 +52,13 @@ class BasketController extends Controller
         }
 
         $order = Order::find($orderId);
-        $success = $order->saveOrder($request->name, $request->phone);
+        $success = $order->saveOrder($request);
 
         if ($success) {
             session()->forget('orderId');
-            session()->flash('success', 'You order is complete!');
+            session()->flash('success', 'Ваш заказ успешно отправлен!');
         } else {
-            session()->flash('warning', 'Happen failure');
+            session()->flash('error', 'Произошла ошибка!');
         }
 
         return redirect()->route('index');
