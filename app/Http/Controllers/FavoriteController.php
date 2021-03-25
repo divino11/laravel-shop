@@ -58,6 +58,9 @@ class FavoriteController extends Controller
             session(['favoriteId' => $favorite->id]);
         } else {
             $favorite = Favorite::create();
+            if (is_null($favoriteId)) {
+                session(['favoriteId' => $favorite->id]);
+            }
         }
 
         $favorite->user_id = $favoriteId;
