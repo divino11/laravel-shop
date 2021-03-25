@@ -32,8 +32,8 @@ class AppServiceProvider extends ServiceProvider
         {
             if (Session::get('orderId')) {
                 $view->with('basketProducts', $this->getBasket(Session::get('orderId')));
-                $view->with('favoriteProducts', $this->getFavorites());
             }
+            $view->with('favoriteProducts', $this->getFavorites());
         });
     }
 
@@ -48,9 +48,11 @@ class AppServiceProvider extends ServiceProvider
 
     public function getFavorites()
     {
+        $sessionId = session()->getId();
+
         if (!is_null(Favorite::find(session()->getId()))) {
             $favorites = Auth::check() ?
-                Auth::user()->favorites
+                Auth::user()->favorites()
                 :
                 Favorite::find(session()->getId()) ? Favorite::find(session()->getId())->products()->get() : [];
             [];

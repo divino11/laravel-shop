@@ -8409,6 +8409,10 @@ button.toast-close-button {
   text-decoration: none;
 }
 
+.red_price {
+  color: #d01e1e;
+}
+
 @media (min-width: 992px) {
   .navbar-expand-lg .sidenav {
     flex-direction: column;

@@ -3,7 +3,7 @@
             src="{{ url("/images/$product->image") }}" class="img-fluid img-center"></a>
     <div class="product">
         <div class="product_top">
-            <p class="product-title"><a href="">{{ $product->name }}</a></p>
+            <p class="product-title"><a href="{{ route('product', [$product->category->code ?? $product->code, $product->id, $product->colors]) }}">{{ $product->name }}</a></p>
             <favorite
                 :product={{ $product->id }}
                 :favorited={{ $product->favorited() ? 'true' : 'false' }}

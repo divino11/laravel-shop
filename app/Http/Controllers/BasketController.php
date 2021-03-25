@@ -113,7 +113,7 @@ class BasketController extends Controller
 
         session()->flash('success', 'Товар был добавлен ' . $product->name);
 
-        return redirect()->route('basket');
+        return redirect()->back();
     }
 
     public function basketRemove($productId)

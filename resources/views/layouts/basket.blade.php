@@ -58,7 +58,14 @@
                 <td>
                     <div class="basket_actions">
                         <div class="basket_fullprice">
-                            {{ sumByCount($product) }} руб.
+                            @if($product->price_sale)
+                                <span class="red_price">{{ numberFormatPrice(sumByCountPriceSale($product)) }} руб.</span><br>
+                            @endif
+                            @if($product->price_sale)
+                                <s>{{ numberFormatPrice(sumByCount($product)) }} руб.</s>
+                            @else
+                                {{ numberFormatPrice(sumByCount($product)) }} руб.
+                            @endif
                         </div>
                         <div class="basket_action">
                             <form action="{{ route('basket-remove', $product) }}" method="post">

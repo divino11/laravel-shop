@@ -74,6 +74,13 @@
                                     <minusplusfield name="sizes[size-l]"></minusplusfield>
                                 </div>
                             </div>
+                            <div class="product_action">
+                                <button class="product_button button">Добавить в корзину</button>
+                                <singlefavorite
+                                    :product={{ $product->id }}
+                                        :favorited={{ $product->favorited() ? 'true' : 'false' }}
+                                ></singlefavorite>
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="nav-parameter" role="tabpanel"
                              aria-labelledby="nav-parameter-tab">
@@ -88,13 +95,6 @@
                             100% полиестер
                         </div>
                     </div>
-                </div>
-                <div class="product_action">
-                    <button class="product_button button">Добавить в корзину</button>
-                    <singlefavorite
-                        :product={{ $product->id }}
-                            :favorited={{ $product->favorited() ? 'true' : 'false' }}
-                    ></singlefavorite>
                 </div>
             </div>
         </form>

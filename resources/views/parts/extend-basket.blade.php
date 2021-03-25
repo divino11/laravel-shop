@@ -16,7 +16,14 @@
                             ]) }}">{{ $basketProduct->name }}</a>
                         </div>
                         <div class="extended_basket-item--price">
-                            {{ sumByCount($basketProduct) }} руб.
+                            @if($basketProduct->price_sale)
+                                <span class="red_price">{{ numberFormatPrice(sumByCountPriceSale($basketProduct)) }} руб.</span><br>
+                            @endif
+                            @if($basketProduct->price_sale)
+                                <s>{{ numberFormatPrice(sumByCount($basketProduct)) }} руб.</s>
+                            @else
+                                {{ numberFormatPrice(sumByCount($basketProduct)) }} руб.
+                            @endif
                         </div>
                     </div>
                     <div class="extended_basket-item--sizes">
@@ -53,7 +60,7 @@
             <div class="extended_basket-delivery">Доставка</div>
         </div>
         <div class="extended_basket-footer--right">
-            <div class="extended_basket-total_price">{{ sumByFullPrice($basketProducts) }} руб.</div>
+            <div class="extended_basket-total_price">{{ numberFormatPrice(sumByPriceSale($basketProducts)) }} руб.</div>
             <div class="extended_basket-delivery">Бесплатная доставка</div>
         </div>
     </div>
