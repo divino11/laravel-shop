@@ -11,23 +11,25 @@
         </div>
         <div class="product_bottom">
             <div class="product_price">
+                @isset($product->price_sale)
+                    <div class="product_price-sale">
+                        {{ numberFormatPrice($product->price_sale) }} руб.
+                    </div>
+                @endisset
                 <div class="product_price_main">
                     @if($product->price_sale)
                         <s>
-                            {{ $product->price }}р.
+                            {{ numberFormatPrice($product->price) }} руб.
                         </s>
                     @else
-                        {{ $product->price }}р.
+                        {{ numberFormatPrice($product->price) }} руб.
                     @endif
                 </div>
-                @isset($product->price_sale)
-                    <div class="product_price-sale">
-                        {{ $product->price_sale }} р.
-                    </div>
-                @endisset
             </div>
             <div class="sale">
-                -{{ $product->price_sale_percent }}%
+                @isset($product->price_sale)
+                    -{{ $product->price_sale_percent }}%
+                @endif
             </div>
         </div>
     </div>

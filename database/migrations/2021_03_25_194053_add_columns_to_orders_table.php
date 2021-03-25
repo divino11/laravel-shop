@@ -14,14 +14,14 @@ class AddColumnsToOrdersTable extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->string('firstname')->after('name');
-            $table->string('lastname')->after('firstname');
-            $table->string('city')->after('lastname');
-            $table->string('house')->after('city');
-            $table->string('building')->after('house');
-            $table->string('room')->after('building');
-            $table->string('type_delivery')->after('room');
-            $table->string('type_pay')->after('type_delivery');
+            $table->string('firstname')->after('name')->nullable();
+            $table->string('lastname')->after('firstname')->nullable();
+            $table->string('city')->after('lastname')->nullable();
+            $table->string('house')->after('city')->nullable();
+            $table->string('building')->after('house')->nullable();
+            $table->string('room')->after('building')->nullable();
+            $table->string('type_delivery')->after('room')->nullable();
+            $table->string('type_pay')->after('type_delivery')->nullable();
             $table->dropColumn('name');
         });
     }
@@ -42,7 +42,7 @@ class AddColumnsToOrdersTable extends Migration
             $table->dropColumn('room');
             $table->dropColumn('type_delivery');
             $table->dropColumn('type_pay');
-            $table->string('name')->after('status');
+            $table->string('name')->after('status')->nullable();
         });
     }
 }

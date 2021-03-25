@@ -15,7 +15,7 @@
             <div class="product_container">
                 <div class="product_wrapper">
                     <div class="product-title">{{ $product->name }}</div>
-                    <div class="product_price">{{ $product->price }},00 р.</div>
+                    <div class="product_price">{{ numberFormatPrice($product->price) }} руб.</div>
                     <div class="product_articul">Арктикул: 0000000000</div>
 
                     <nav>
