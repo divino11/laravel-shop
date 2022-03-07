@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Product;
+use App\Rating;
+use App\RatingImage;
+use HttpRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Instagram\SDK\Instagram;
 
 class MainController extends Controller
 {
@@ -33,18 +37,16 @@ class MainController extends Controller
         ]);
     }
 
-    public function product($code, $id, $color): View
+    public function product($code, $id): View
     {
         $category = Category::where('code', $code)->first();
-        $product = Product::where('id', $id)->where('colors', $color)->first();
-        $productSizes = DB::table('sizes_products')->where('product_id', $id)->get(['type', 'count']);
-        $productColors = Product::where('parent_id', $product->parent_id)->get(['id', 'colors']);
+        $product = Product::where('id', $id)->first();
+        $ratings = Rating::where('product_id', $id)->orderBy('id', 'DESC')->get();
 
         return view('layouts.product', [
             'product' => $product,
-            'productSizes' => $productSizes,
             'category' => $category,
-            'productColors' => $productColors,
+            'ratings' => $ratings,
         ]);
     }
 
@@ -74,6 +76,39 @@ class MainController extends Controller
 
         return view('layouts.search-products', [
             'products' => $products
+        ]);
+    }
+
+    public function chooseSize(): View {
+        return view('layouts.choose-size');
+    }
+
+    public function instaShop() {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => "https://instagram85.p.rapidapi.com/tag/christmas/feed",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => [
+                "x-rapidapi-host: instagram85.p.rapidapi.com",
+                "x-rapidapi-key: 6b7d3f1c1emshd91131f8cb7ed9ap1bd81bjsn5343aac1cb8e"
+            ],
+        ]);
+
+        $response = curl_exec($curl);
+        dd($response);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        return view('layouts.insta-shop', [
+            'posts' => $response
         ]);
     }
 

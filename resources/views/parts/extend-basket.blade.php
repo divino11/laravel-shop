@@ -11,8 +11,7 @@
                         <div class="extended_basket-item--title">
                             <a href="{{ route('product', [
                                 $basketProduct->category->code,
-                                $basketProduct->id,
-                                $basketProduct->colors
+                                $basketProduct->id
                             ]) }}">{{ $basketProduct->name }}</a>
                         </div>
                         <div class="extended_basket-item--price">
@@ -27,25 +26,11 @@
                         </div>
                     </div>
                     <div class="extended_basket-item--sizes">
-                        @if($basketProduct->getOriginal('pivot_xs'))
-                            <div class="extended_basket-item--size">XS - {{ $basketProduct->getOriginal('pivot_xs') }}
-                                шт.
-                            </div>
+                        @if($basketProduct->getOriginal('pivot_height'))
+                            <div class="extended_basket-item--size">Рост: {{ $basketProduct->getOriginal('pivot_height') }}</div>
                         @endif
-                        @if($basketProduct->getOriginal('pivot_s'))
-                            <div class="extended_basket-item--size">S - {{ $basketProduct->getOriginal('pivot_s') }}
-                                шт.
-                            </div>
-                        @endif
-                        @if($basketProduct->getOriginal('pivot_m'))
-                            <div class="extended_basket-item--size">M - {{ $basketProduct->getOriginal('pivot_m') }}
-                                шт.
-                            </div>
-                        @endif
-                        @if($basketProduct->getOriginal('pivot_l'))
-                            <div class="extended_basket-item--size">L - {{ $basketProduct->getOriginal('pivot_l') }}
-                                шт.
-                            </div>
+                        @if($basketProduct->getOriginal('pivot_size'))
+                            <div class="extended_basket-item--size">Размер: {{ $basketProduct->getOriginal('pivot_size') }}</div>
                         @endif
                     </div>
                 </div>

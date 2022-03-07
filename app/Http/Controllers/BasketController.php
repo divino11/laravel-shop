@@ -66,17 +66,6 @@ class BasketController extends Controller
 
     public function basketAdd(Request $request)
     {
-        if (
-            $request->sizes['size-xs'] == 0 &&
-            $request->sizes['size-s'] == 0 &&
-            $request->sizes['size-m'] == 0 &&
-            $request->sizes['size-l'] == 0
-        ) {
-            session()->flash('error', 'Выберите хотя бы один размер!');
-
-            return back();
-        }
-
         $orderId = session('orderId');
         if (is_null($orderId)) {
             $order = Order::create();
@@ -87,20 +76,14 @@ class BasketController extends Controller
 
         if ($order->products->contains($request->product_id)) {
             $pivotRow = $order->products()->where('product_id', $request->product_id)->first()->pivot;
-            $pivotRow->color = $request->color;
-            $pivotRow->xs += $request->sizes['size-xs'];
-            $pivotRow->s += $request->sizes['size-s'];
-            $pivotRow->m += $request->sizes['size-m'];
-            $pivotRow->l += $request->sizes['size-l'];
+            $pivotRow->height = $request->height;
+            $pivotRow->size = $request->size;
             $pivotRow->update();
         } else {
-            if ($request->sizes) {
+            if ($request->size) {
                 $order->products()->attach($request->product_id, [
-                    'color' => $request->color,
-                    'xs' => $request->sizes['size-xs'],
-                    's' => $request->sizes['size-s'],
-                    'm' => $request->sizes['size-m'],
-                    'l' => $request->sizes['size-l'],
+                    'height' => $request->height,
+                    'size' => $request->size,
                 ]);
             }
         }

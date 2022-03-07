@@ -3,17 +3,24 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Order extends Model
 {
     public function products()
     {
-        return $this->belongsToMany(Product::class)->withPivot('color', 'xs', 's', 'm', 'l')->withTimestamps();
+        return $this->belongsToMany(Product::class)->withPivot('height', 'size')->withTimestamps();
     }
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getTotalSum()
+    {
+        dd($this->products);
+        return $this->products();
     }
 
     public function getFullPrice()
@@ -39,6 +46,8 @@ class Order extends Model
             $this->type_pay = $order->type_pay;
             $this->phone = $order->phone;
             $this->status = 1;
+            $this->created_at = Carbon::now();
+            $this->updated_at = Carbon::now();
             $this->save();
             return true;
         } else {

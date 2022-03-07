@@ -12,6 +12,11 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
     /**
      * Determine whether a post has been marked as favorite by a user.
      *

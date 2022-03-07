@@ -24,7 +24,8 @@ Route::group([
     'middleware' => 'auth',
     'namespace' => 'Account'
 ], function () {
-    Route::get('/account', 'MainController@index')->name('account');
+    Route::get('/account/orders', 'MainController@orders')->name('account-orders');
+    Route::get('/account/profile', 'MainController@index')->name('account');
 });
 
 Route::group([
@@ -35,6 +36,7 @@ Route::group([
         Route::get('/admin', 'MainController@index');
         Route::resource('/admin/products', 'ProductController');
         Route::resource('/admin/category', 'CategoryController');
+        Route::resource('/admin/post', 'PostController');
     });
 });
 
@@ -53,6 +55,11 @@ Route::post('unfavorite/{product}', 'FavoriteController@unFavoriteProduct');
 Route::post('add_to_basket/{order}/{size}', 'BasketController@addSizeToOrder');
 Route::post('remove_from_basket/{order}/{size}', 'BasketController@removeSizeFromOrder');
 Route::post('remove_product_from_order/{product}', 'BasketController@removeProductFromOrder');
+Route::get('/how-to-choose-size', 'MainController@chooseSize')->name('choose-size');
+Route::get('/insta-shop', 'MainController@instaShop')->name('insta-shop');
+Route::get('/blog', 'PostController@index')->name('blog');
+Route::get('/blog/{post}', 'PostController@blogRead')->name('blog-read');
+Route::post('review-add/user/{user}/product/{product}', 'RatingController@reviewAdd')->name('review-add');
 
 Route::group([
     'prefix' => 'basket'
@@ -65,4 +72,4 @@ Route::group([
 });
 
 Route::get('/{category}', 'MainController@category')->name('category');
-Route::get('/{category}/{product?}/{colors}', 'MainController@product')->name('product');
+Route::get('/{category}/{product?}', 'MainController@product')->name('product');

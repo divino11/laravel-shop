@@ -243,7 +243,7 @@
     'locale' => 'en',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => 'base64:pe/uRHWoyyonSLlcFfPW9iXHIR5WXfZjZq8VxxtqZAs=',
+    'key' => 'base64:9j4IEac0JOtvUxZuJlM9OY5MDsAXNiz4NHSZp9QX0ww=',
     'cipher' => 'AES-256-CBC',
     'providers' => 
     array (
@@ -410,7 +410,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => '/home/andreyvasyukov/projects/laravel-shop/storage/framework/cache/data',
+        'path' => 'C:\\OSPanel\\domains\\laravel-shop\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -499,7 +499,7 @@
         'port' => '3306',
         'database' => 'shop',
         'username' => 'root',
-        'password' => '@Qwerty456789',
+        'password' => '',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -519,7 +519,7 @@
         'port' => '3306',
         'database' => 'shop',
         'username' => 'root',
-        'password' => '@Qwerty456789',
+        'password' => '',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -534,7 +534,7 @@
         'port' => '3306',
         'database' => 'shop',
         'username' => 'root',
-        'password' => '@Qwerty456789',
+        'password' => '',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -576,12 +576,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => '/home/andreyvasyukov/projects/laravel-shop/storage/app',
+        'root' => 'C:\\OSPanel\\domains\\laravel-shop\\storage\\app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => '/home/andreyvasyukov/projects/laravel-shop/storage/app/public',
+        'root' => 'C:\\OSPanel\\domains\\laravel-shop\\storage\\app/public',
         'url' => 'http://localhost/storage',
         'visibility' => 'public',
       ),
@@ -597,7 +597,7 @@
     ),
     'links' => 
     array (
-      '/home/andreyvasyukov/projects/laravel-shop/public/storage' => '/home/andreyvasyukov/projects/laravel-shop/storage/app/public',
+      'C:\\OSPanel\\domains\\laravel-shop\\public\\storage' => 'C:\\OSPanel\\domains\\laravel-shop\\storage\\app/public',
     ),
   ),
   'hashing' => 
@@ -631,13 +631,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => '/home/andreyvasyukov/projects/laravel-shop/storage/logs/laravel.log',
+        'path' => 'C:\\OSPanel\\domains\\laravel-shop\\storage\\logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => '/home/andreyvasyukov/projects/laravel-shop/storage/logs/laravel.log',
+        'path' => 'C:\\OSPanel\\domains\\laravel-shop\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -687,7 +687,7 @@
       ),
       'emergency' => 
       array (
-        'path' => '/home/andreyvasyukov/projects/laravel-shop/storage/logs/laravel.log',
+        'path' => 'C:\\OSPanel\\domains\\laravel-shop\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -743,7 +743,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => '/home/andreyvasyukov/projects/laravel-shop/resources/views/vendor/mail',
+        0 => 'C:\\OSPanel\\domains\\laravel-shop\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -819,10 +819,10 @@
   'session' => 
   array (
     'driver' => 'file',
-    'lifetime' => '43200',
+    'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => '/home/andreyvasyukov/projects/laravel-shop/storage/framework/sessions',
+    'files' => 'C:\\OSPanel\\domains\\laravel-shop\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -838,35 +838,13 @@
     'http_only' => true,
     'same_site' => 'lax',
   ),
-  'toastr' => 
-  array (
-    'session_name' => 'toastr',
-    'options' => 
-    array (
-      'closeButton' => true,
-      'debug' => false,
-      'newestOnTop' => false,
-      'progressBar' => true,
-      'positionClass' => 'toast-bottom-right',
-      'preventDuplicates' => false,
-      'onclick' => NULL,
-      'showDuration' => '300',
-      'hideDuration' => '1000',
-      'timeOut' => '10000',
-      'extendedTimeOut' => '1000',
-      'showEasing' => 'swing',
-      'hideEasing' => 'linear',
-      'showMethod' => 'fadeIn',
-      'hideMethod' => 'fadeOut',
-    ),
-  ),
   'view' => 
   array (
     'paths' => 
     array (
-      0 => '/home/andreyvasyukov/projects/laravel-shop/resources/views',
+      0 => 'C:\\OSPanel\\domains\\laravel-shop\\resources\\views',
     ),
-    'compiled' => '/home/andreyvasyukov/projects/laravel-shop/storage/framework/views',
+    'compiled' => 'C:\\OSPanel\\domains\\laravel-shop\\storage\\framework\\views',
   ),
   'flare' => 
   array (

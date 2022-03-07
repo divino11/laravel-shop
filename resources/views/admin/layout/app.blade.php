@@ -27,17 +27,17 @@
                                     data-target="#collapseSubItems2"
                                     aria-controls="collapseSubItems2"
                                     aria-expanded="false"
-                                >Products</a>
+                                >Товары</a>
                                 <ul class="nav-second-level collapse" id="collapseSubItems2"
                                     data-parent="#navAccordion">
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('products.index') }}">
-                                            <span class="nav-link-text">All product</span>
+                                            <span class="nav-link-text">Все товары</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('products.create') }}">
-                                            <span class="nav-link-text">Create product</span>
+                                            <span class="nav-link-text">Добавить товар</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -51,17 +51,41 @@
                                     data-target="#collapseSubItems3"
                                     aria-controls="collapseSubItems3"
                                     aria-expanded="false"
-                                >Categories</a>
+                                >Категории</a>
                                 <ul class="nav-second-level collapse" id="collapseSubItems3"
                                     data-parent="#navAccordion">
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('category.index') }}">
-                                            <span class="nav-link-text">All categories</span>
+                                            <span class="nav-link-text">Все категории</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('category.create') }}">
-                                            <span class="nav-link-text">Create category</span>
+                                            <span class="nav-link-text">Добавить категорию</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link nav-link-collapse"
+                                    href="#"
+                                    id="hasSubItems"
+                                    data-toggle="collapse"
+                                    data-target="#collapseSubItems4"
+                                    aria-controls="collapseSubItems4"
+                                    aria-expanded="false"
+                                >Блог</a>
+                                <ul class="nav-second-level collapse" id="collapseSubItems4"
+                                    data-parent="#navAccordion">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('post.index') }}">
+                                            <span class="nav-link-text">Все записи</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('post.create') }}">
+                                            <span class="nav-link-text">Добавить запись</span>
                                         </a>
                                     </li>
                                 </ul>

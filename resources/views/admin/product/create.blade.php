@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('admin.layout.app')
 
 @section('title', 'Создание товара')
 

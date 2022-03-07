@@ -4,6 +4,7 @@ require('image-zoom-on-hover')
 require('admin-lte/plugins/select2/js/select2')
 require('admin-lte/plugins/datatables/jquery.dataTables')
 require('toastr/toastr')
+require('@fancyapps/fancybox/dist/jquery.fancybox');
 
 window.Vue = require('vue');
 
@@ -87,5 +88,7 @@ $(".similar_gallery").slick({
             a.children[0].style.width = getComputedStyle(a, '').width
         }, false);
     }
-})()
+})();
+
+
 

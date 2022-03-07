@@ -76,12 +76,14 @@
                         </form>
                     </div>
                     <div class="navigation_right-item">
-                        <a href="{{ route('authentication') }}">
+                        <a href="@auth {{ route('account') }} @elseauth {{ route('authentication') }} @endauth">
                             <i class="far fa-user"></i>
                         </a>
-                        <div class="expanded_account">
-                            @include('parts.auth')
-                        </div>
+                        @if(!Auth::check())
+                            <div class="expanded_account">
+                                @include('parts.auth')
+                            </div>
+                        @endif
                     </div>
                     <div class="navigation_right-item">
                         @include('parts.badge', ['badgeData' => $favoriteProducts ?? []])
@@ -110,92 +112,12 @@
                 <div class="row">
                     @yield('content')
 
-                    <div class="footer">
-                        <div class="footer_item">
-                            <p class="footer_item-heading">О компании</p>
-
-                            <ul class="footer_item-list">
-                                <li><a href="">О компании</a></li>
-                                <li><a href="">Публичная оферта</a></li>
-                                <li><a href="">Конфеденциальность</a></li>
-                                <li><a href="">#INSTA SHOP</a></li>
-                                <li><a href="">Пресса</a></li>
-                                <li><a href="">Блог</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="footer_item">
-                            <p class="footer_item-heading">Помощь</p>
-
-                            <ul class="footer_item-list">
-                                <li><a href="">Часто задаваемые вопросы</a></li>
-                                <li><a href="">Карта сайта</a></li>
-                                <li><a href="">Подарочный сертификат</a></li>
-                                <li><a href="">VIP карта</a></li>
-                                <li><a href="{{ route('contact') }}">Контакты</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="footer_item">
-                            <p class="footer_item-heading">Сотрудничество</p>
-
-                            <ul class="footer_item-list">
-                                <li><a href="">Униформа</a></li>
-                                <li><a href="">Для отелей</a></li>
-                                <li><a href="">Реквизиты</a></li>
-                                <li><a href="">Сотрудничество (ОПТ)</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="footer_item">
-                            <p class="footer_item-heading">Доставка и возврат</p>
-
-                            <ul class="footer_item-list">
-                                <li><a href="">Как сделать заказ</a></li>
-                                <li><a href="">Информация о доставке</a></li>
-                                <li><a href="">Отслеживания заказа</a></li>
-                                <li><a href="">Правила возврата</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="footer_item">
-                            <form action="" class="form_footer d-none d-sm-block">
-                                <input class="input_feedback" type="email" name="email" placeholder="Ваш Email">
-                                <button><i class="fas fa-chevron-right"></i></button>
-                            </form>
-
-                            <p class="footer_item-subheading d-none d-sm-block">Вы принимаете "Политику
-                                конфиденциальности"</p>
-
-                            <p class="footer_item-subheading d-none d-sm-block">Подпишитесь на рассылку, чтобы узнавать
-                                о
-                                новых поступлениях, открытии новых
-                                магазинов, акциях и скидках.</p>
-
-                            <p class="footer_item-subheading"><a href="tel:8-800-000-00-00">8-800-000-00-00</a>
-                                9.00-21.00</p>
-
-                            <p class="footer_item-subheading"><a href="mailto:info@....ru">info@....ru</a></p>
-                        </div>
-                    </div>
+                    @include('layouts.footer')
                 </div>
             </div>
         </div>
     </div>
-    <div class="footer_social">
-        <div class="container">
-            <ul class="footer_social-list">
-                <li><a href=""><i class="fab fa-vk"></i></a></li>
-                <li><a href=""><i class="fab fa-instagram"></i></a></li>
-                <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-                <li><a href=""><i class="fab fa-youtube"></i></a></li>
-                <li><a href=""><i class="fab fa-pinterest-p"></i></a></li>
-                <li><a href=""><i class="fab fa-telegram-plane"></i></a></li>
-                <li><a href=""><i class="fab fa-viber"></i></a></li>
-                <li><a href=""><i class="fab fa-whatsapp"></i></a></li>
-            </ul>
-        </div>
-    </div>
+    @include('layouts.footer-social')
 </div>
 
 

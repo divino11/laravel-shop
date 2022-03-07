@@ -8,70 +8,117 @@
         <img src="/images/cardproduct.png" class="w100" alt="">
     </div>
     <div class="col-xs-4 col-md-4">
-        <form action="{{ route('basket-add') }}" method="POST" class="singleproduct-form">
-            @method('POST')
-            @csrf
-            <input type="hidden" name="product_id" value="{{ $product->id }}">
-            <div class="product_container">
-                <div class="product_wrapper">
-                    <div class="product-title">{{ $product->name }}</div>
-                    <div class="product_price">{{ numberFormatPrice($product->price) }} руб.</div>
-                    <div class="product_articul">Арктикул: 0000000000</div>
-
-                    <nav>
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active button" id="nav-product-tab" data-toggle="tab"
-                               href="#nav-product"
-                               role="tab" aria-controls="nav-product" aria-selected="true">Товар</a>
-                            <a class="nav-item nav-link button" id="nav-parameter-tab" data-toggle="tab"
-                               href="#nav-parameter"
-                               role="tab" aria-controls="nav-parameter" aria-selected="false">Параметры</a>
-                            <a class="nav-item nav-link button" id="nav-description-tab" data-toggle="tab"
-                               href="#nav-description"
-                               role="tab" aria-controls="nav-description" aria-selected="false">Описание</a>
-                            <a class="nav-item nav-link button" id="nav-quality-tab" data-toggle="tab"
-                               href="#nav-quality"
-                               role="tab" aria-controls="nav-quality" aria-selected="false">Качество и уход</a>
+        <div class="product_container">
+            <div class="product_wrapper">
+                <div class="product-title">{{ $product->name }}</div>
+                <div class="product_price">{{ numberFormatPrice($product->price) }} руб.</div>
+                <div class="product_articul">Артикул: 0000000000</div>
+                @if ($ratings)
+                    <div class="product_rating">
+                        <div class="rating-stars">
+                            <svg
+                                class="cursor-pointer block w-8 h-8 @if($ratings->avg('rating') >= 1 ) star-gold @else star-grey @endif "
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20">
+                                <path
+                                    d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                            </svg>
+                            <svg
+                                class="cursor-pointer block w-8 h-8 @if($ratings->avg('rating') >= 2 ) star-gold @else star-grey @endif "
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20">
+                                <path
+                                    d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                            </svg>
+                            <svg
+                                class="cursor-pointer block w-8 h-8 @if($ratings->avg('rating') >= 3 ) star-gold @else star-grey @endif "
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20">
+                                <path
+                                    d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                            </svg>
+                            <svg
+                                class="cursor-pointer block w-8 h-8 @if($ratings->avg('rating') >= 4 ) star-gold @else star-grey @endif "
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20">
+                                <path
+                                    d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                            </svg>
+                            <svg
+                                class="cursor-pointer block w-8 h-8 @if($ratings->avg('rating') >= 5 ) star-gold @else star-grey @endif "
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20">
+                                <path
+                                    d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                            </svg>
                         </div>
-                    </nav>
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-product" role="tabpanel"
-                             aria-labelledby="nav-product-tab">
-                            <div class="single_product-colors">
-                                <div class="single_product-colors--title">Цвета:</div>
-                                @foreach($productColors as $productColor)
-                                    <input
-                                        type="radio"
-                                        name="color"
-                                        id="{{ $productColor->colors }}"
-                                        value="{{ $productColor->colors }}"
-                                        @if($productColor->colors === $product->colors) checked @endif
-                                    />
-                                    <label for="{{ $productColor->colors }}">
-                                        <a href="{{ route('product', [$product->category->code, $productColor->id, $productColor->colors]) }}">
-                                            <span class="{{ $productColor->colors }}"></span>
-                                        </a>
-                                    </label>
-                                @endforeach
-                            </div>
-                            <div class="row">
-                                <div class="col-6">Размер</div>
-                                <div class="col-6">Количество штук</div>
-                                <div class="col-6">XS</div>
-                                <div class="col-6">
-                                    <minusplusfield name="sizes[size-xs]"></minusplusfield>
+                        <div class="product-rating_point">{{ $ratings->avg('rating') }} / 5</div>
+                    </div>
+                @endif
+
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active button" id="nav-product-tab" data-toggle="tab"
+                           href="#nav-product"
+                           role="tab" aria-controls="nav-product" aria-selected="true">Выкройка</a>
+                        <a class="nav-item nav-link button" id="nav-description-tab" data-toggle="tab"
+                           href="#nav-description"
+                           role="tab" aria-controls="nav-description" aria-selected="false">Описание</a>
+                        <a class="nav-item nav-link button" id="nav-parameter-tab" data-toggle="tab"
+                           href="#nav-parameter"
+                           role="tab" aria-controls="nav-parameter" aria-selected="false">Рекомендации</a>
+                        <a class="nav-item nav-link button" id="nav-review-tab" data-toggle="tab"
+                           href="#nav-review"
+                           role="tab" aria-controls="nav-review" aria-selected="false">Отзывы</a>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-product" role="tabpanel"
+                         aria-labelledby="nav-product-tab">
+                        <form action="{{ route('basket-add') }}" method="POST" class="singleproduct-form">
+                            @method('POST')
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <a href="{{ route('choose-size') }}" class="single_product-choose-size">
+                                КАК ВЫБРАТЬ РАЗМЕР (ТАБЛИЦА РАЗМЕРОВ)
+                            </a>
+                            <div class="single_product-choose-size_wrapper">
+                                <div class="single_product-choose-size_form">
+                                    <div class="single_product-choose-size_title">Ваш рост:</div>
+                                    <div class="single_product-choose-size_select_wrapper">
+                                        <div class="single_product-choose-size_select_item">
+                                            <input type="radio" id="single_product-choose_label1" value="154-160"
+                                                   name="height" class="single_product-choose-size_select">
+                                            <label for="single_product-choose_label1"
+                                                   class="single_product-choose_label">154-160</label>
+                                        </div>
+
+                                        <div class="single_product-choose-size_select_item">
+                                            <input type="radio" id="single_product-choose_label2" value="162-168"
+                                                   name="height" class="single_product-choose-size_select">
+                                            <label for="single_product-choose_label2"
+                                                   class="single_product-choose_label">162-168</label>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-6">S</div>
-                                <div class="col-6">
-                                    <minusplusfield name="sizes[size-s]"></minusplusfield>
-                                </div>
-                                <div class="col-6">M</div>
-                                <div class="col-6">
-                                    <minusplusfield name="sizes[size-m]"></minusplusfield>
-                                </div>
-                                <div class="col-6">L</div>
-                                <div class="col-6">
-                                    <minusplusfield name="sizes[size-l]"></minusplusfield>
+
+                                <div class="single_product-choose-size_form">
+                                    <div class="single_product-choose-size_title">Ваш размер (европейский):</div>
+                                    <div class="single_product-choose-size_select_wrapper">
+                                        <div class="single_product-choose-size_select_item">
+                                            <input type="radio" id="single_product-choose_label3" value="34" name="size"
+                                                   class="single_product-choose-size_select">
+                                            <label for="single_product-choose_label3"
+                                                   class="single_product-choose_label">34</label>
+                                        </div>
+
+                                        <div class="single_product-choose-size_select_item">
+                                            <input type="radio" id="single_product-choose_label4" value="36" name="size"
+                                                   class="single_product-choose-size_select">
+                                            <label for="single_product-choose_label4"
+                                                   class="single_product-choose_label">36</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="product_action">
@@ -81,23 +128,133 @@
                                         :favorited={{ $product->favorited() ? 'true' : 'false' }}
                                 ></singlefavorite>
                             </div>
-                        </div>
-                        <div class="tab-pane fade" id="nav-parameter" role="tabpanel"
-                             aria-labelledby="nav-parameter-tab">
-                            ...
-                        </div>
-                        <div class="tab-pane fade" id="nav-description" role="tabpanel"
-                             aria-labelledby="nav-description-tab">
-                            {{ $product->description }}
-                        </div>
-                        <div class="tab-pane fade" id="nav-quality" role="tabpanel" aria-labelledby="nav-quality-tab">
-                            Состав
-                            100% полиестер
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="nav-description" role="tabpanel"
+                         aria-labelledby="nav-description-tab">
+                        {{ $product->description }}
+                    </div>
+                    <div class="tab-pane fade" id="nav-parameter" role="tabpanel"
+                         aria-labelledby="nav-parameter-tab">
+                        ...
+                    </div>
+                    <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab">
+                        @auth
+                            <form action="{{ route('review-add', [Auth::user()->id, $product->id]) }}"
+                                  class="rating-form_wrapper" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="flex space-x-1 rating-form">
+                                    <input type="radio" id="star1" name="rating" value="1"/>
+                                    <label for="star1">
+                                        <svg class="cursor-pointer block w-8 h-8 text-grey" fill="currentColor"
+                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                            <path
+                                                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                        </svg>
+                                    </label>
+
+                                    <input type="radio" id="star2" name="rating" value="2"/>
+                                    <label for="star2">
+                                        <svg class="cursor-pointer block w-8 h-8 text-grey" fill="currentColor"
+                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                            <path
+                                                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                        </svg>
+                                    </label>
+
+                                    <input type="radio" id="star3" name="rating" value="3"/>
+                                    <label for="star3">
+                                        <svg class="cursor-pointer block w-8 h-8 text-grey" fill="currentColor"
+                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                            <path
+                                                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                        </svg>
+                                    </label>
+
+                                    <input type="radio" id="star4" name="rating" value="4"/>
+                                    <label for="star4">
+                                        <svg class="cursor-pointer block w-8 h-8 text-grey" fill="currentColor"
+                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                            <path
+                                                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                        </svg>
+                                    </label>
+
+                                    <input type="radio" id="star5" name="rating" value="5"/>
+                                    <label for="star5">
+                                        <svg class="cursor-pointer block w-8 h-8 text-grey " fill="currentColor"
+                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                            <path
+                                                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                        </svg>
+                                    </label>
+                                </div>
+
+                                <textarea name="review_text" placeholder="Ваш комментарий" class="form-input" id=""
+                                          rows="2"></textarea>
+                                <input type="file" name="image[]" multiple>
+
+                                <button class="form-input form-button" type="submit">Оставить отзыв</button>
+                            </form>
+                        @endauth
+
+                        <div class="rating-wrapper">
+                            @foreach($ratings as $rating)
+                                <div class="rating-block">
+                                    <div class="rating-author">{{ $rating->user->firstname }}</div>
+                                    <div class="rating-stars">
+                                        <svg
+                                            class="cursor-pointer block w-8 h-8 @if($rating->rating >= 1 ) star-gold @else star-grey @endif "
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20">
+                                            <path
+                                                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                        </svg>
+                                        <svg
+                                            class="cursor-pointer block w-8 h-8 @if($rating->rating >= 2 ) star-gold @else star-grey @endif "
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20">
+                                            <path
+                                                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                        </svg>
+                                        <svg
+                                            class="cursor-pointer block w-8 h-8 @if($rating->rating >= 3 ) star-gold @else star-grey @endif "
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20">
+                                            <path
+                                                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                        </svg>
+                                        <svg
+                                            class="cursor-pointer block w-8 h-8 @if($rating->rating >= 4 ) star-gold @else star-grey @endif "
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20">
+                                            <path
+                                                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                        </svg>
+                                        <svg
+                                            class="cursor-pointer block w-8 h-8 @if($rating->rating >= 5 ) star-gold @else star-grey @endif "
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20">
+                                            <path
+                                                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="review-text">{{ $rating->comment ?? '' }}</div>
+
+                                    <div class="rating-image_wrapper">
+                                        @foreach($rating->ratingImage as $image)
+                                            <a data-fancybox="gallery{{$rating->id}}" href="{{ '/images/' . $image->name }}">
+                                                <img src="{{ '/images/' . $image->name }}" class="rating-image">
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
     <div class="similar_wrapper">
         <div class="similar_container">
