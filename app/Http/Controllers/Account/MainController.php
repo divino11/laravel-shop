@@ -40,8 +40,9 @@ class MainController extends Controller
     public function orders()
     {
         $orders = Order::where('user_id', Auth::user()->id)
-            ->join('order_product', 'orders.id', '=', 'order_product.order_id')
-            ->join('products', 'order_product.product_id', '=', 'products.id')
+            ->leftJoin('order_product', 'orders.id', '=', 'order_product.order_id')
+            ->leftJoin('products', 'order_product.product_id', '=', 'products.id')
+            ->orderBy('orders.id', 'DESC')
             ->get();
 
         return view('account.order', [

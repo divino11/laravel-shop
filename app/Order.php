@@ -9,7 +9,7 @@ class Order extends Model
 {
     public function products()
     {
-        return $this->belongsToMany(Product::class)->withPivot('height', 'size')->withTimestamps();
+        return $this->belongsToMany(Product::class)->withPivot('order_height', 'order_size', 'order_price')->withTimestamps();
     }
 
     public function user()

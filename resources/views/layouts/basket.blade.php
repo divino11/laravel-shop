@@ -26,10 +26,10 @@
                     <a href="{{ route('product', [$product->category->code, $product->id]) }}">{{ $product->name }}</a>
                 </td>
                 <td>
-                    {{ $product->getOriginal('pivot_height') }}
+                    {{ $product->getOriginal('pivot_order_height') }}
                 </td>
                 <td>
-                    {{ $product->getOriginal('pivot_size') }}
+                    {{ $product->getOriginal('pivot_order_size') }}
                 </td>
                 <td>
                     <div class="basket_actions">

@@ -8866,6 +8866,41 @@ details[open] summary ~ * {
   margin-bottom: 15px;
 }
 
+.product-price_wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.product-price_wrapper .sale {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.pdf-image_admin {
+  width: 50px;
+}
+
+.product-pdf {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.product-pdf .pdf-image_admin {
+  width: 40px !important;
+}
+
+.pdf-uploaded {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+}
+
+.pdf-uploaded_text {
+  font-size: 14px;
+  color: #9c9c9c;
+}
+
 @media (min-width: 992px) {
   .navbar-expand-lg .sidenav {
     flex-direction: column;

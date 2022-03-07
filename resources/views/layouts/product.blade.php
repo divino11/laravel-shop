@@ -11,9 +11,32 @@
         <div class="product_container">
             <div class="product_wrapper">
                 <div class="product-title">{{ $product->name }}</div>
-                <div class="product_price">{{ numberFormatPrice($product->price) }} руб.</div>
+                {{--                <div class="product_price">{{ numberFormatPrice($product->price) }} руб.</div>--}}
+                <div class="product-price_wrapper">
+                    <div class="product_price">
+                        @isset($product->price_sale)
+                            <div class="product_price-sale">
+                                {{ numberFormatPrice($product->price_sale) }} руб.
+                            </div>
+                        @endisset
+                        <div class="product_price_main">
+                            @if($product->price_sale)
+                                <s>
+                                    {{ numberFormatPrice($product->price) }} руб.
+                                </s>
+                            @else
+                                {{ numberFormatPrice($product->price) }} руб.
+                            @endif
+                        </div>
+                    </div>
+                    <div class="sale">
+                        @isset($product->price_sale)
+                            -{{ $product->price_sale_percent }}%
+                        @endif
+                    </div>
+                </div>
                 <div class="product_articul">Артикул: 0000000000</div>
-                @if ($ratings)
+                @if (count($ratings) > 0)
                     <div class="product_rating">
                         <div class="rating-stars">
                             <svg
@@ -86,38 +109,30 @@
                                 <div class="single_product-choose-size_form">
                                     <div class="single_product-choose-size_title">Ваш рост:</div>
                                     <div class="single_product-choose-size_select_wrapper">
-                                        <div class="single_product-choose-size_select_item">
-                                            <input type="radio" id="single_product-choose_label1" value="154-160"
-                                                   name="height" class="single_product-choose-size_select">
-                                            <label for="single_product-choose_label1"
-                                                   class="single_product-choose_label">154-160</label>
-                                        </div>
-
-                                        <div class="single_product-choose-size_select_item">
-                                            <input type="radio" id="single_product-choose_label2" value="162-168"
-                                                   name="height" class="single_product-choose-size_select">
-                                            <label for="single_product-choose_label2"
-                                                   class="single_product-choose_label">162-168</label>
-                                        </div>
+                                        @foreach(explode( ', ', $product->height) as $height)
+                                            <div class="single_product-choose-size_select_item">
+                                                <input type="radio" id="single_product-choose_label{{ $height }}"
+                                                       value="{{ $height }}"
+                                                       name="height" class="single_product-choose-size_select">
+                                                <label for="single_product-choose_label{{ $height }}"
+                                                       class="single_product-choose_label">{{ $height }}</label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
 
                                 <div class="single_product-choose-size_form">
                                     <div class="single_product-choose-size_title">Ваш размер (европейский):</div>
                                     <div class="single_product-choose-size_select_wrapper">
-                                        <div class="single_product-choose-size_select_item">
-                                            <input type="radio" id="single_product-choose_label3" value="34" name="size"
-                                                   class="single_product-choose-size_select">
-                                            <label for="single_product-choose_label3"
-                                                   class="single_product-choose_label">34</label>
-                                        </div>
-
-                                        <div class="single_product-choose-size_select_item">
-                                            <input type="radio" id="single_product-choose_label4" value="36" name="size"
-                                                   class="single_product-choose-size_select">
-                                            <label for="single_product-choose_label4"
-                                                   class="single_product-choose_label">36</label>
-                                        </div>
+                                        @foreach(explode( ' / ', $product->size) as $size)
+                                            <div class="single_product-choose-size_select_item">
+                                                <input type="radio" id="single_product-choose_label{{ $size }}"
+                                                       value="{{ $size }}" name="size"
+                                                       class="single_product-choose-size_select">
+                                                <label for="single_product-choose_label{{ $size }}"
+                                                       class="single_product-choose_label">{{ $size }}</label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -243,7 +258,8 @@
 
                                     <div class="rating-image_wrapper">
                                         @foreach($rating->ratingImage as $image)
-                                            <a data-fancybox="gallery{{$rating->id}}" href="{{ '/images/' . $image->name }}">
+                                            <a data-fancybox="gallery{{$rating->id}}"
+                                               href="{{ '/images/' . $image->name }}">
                                                 <img src="{{ '/images/' . $image->name }}" class="rating-image">
                                             </a>
                                         @endforeach

@@ -14,7 +14,7 @@ class AddColumnParentIdToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->integer('parent_id')->after('id');
+            $table->integer('parent_id')->nullable()->after('id');
         });
     }
 

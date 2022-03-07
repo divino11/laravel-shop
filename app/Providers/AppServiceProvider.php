@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
     public function getBasket($orderId)
     {
         if (!is_null($orderId)) {
-            $order = Order::findOrFail($orderId);
+            $order = Order::find($orderId);
         }
 
         return $order->products ?? [];

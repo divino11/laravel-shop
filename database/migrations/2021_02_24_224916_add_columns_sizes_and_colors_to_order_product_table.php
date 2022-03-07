@@ -14,8 +14,9 @@ class AddColumnsSizesAndColorsToOrderProductTable extends Migration
     public function up()
     {
         Schema::table('order_product', function (Blueprint $table) {
-            $table->string('height')->default('')->after('product_id');
-            $table->string('size')->default('')->after('height');
+            $table->string('order_height')->default('')->after('product_id');
+            $table->string('order_size')->default('')->after('order_height');
+            $table->string('order_price')->default('')->after('order_size');
         });
     }
 
@@ -27,8 +28,9 @@ class AddColumnsSizesAndColorsToOrderProductTable extends Migration
     public function down()
     {
         Schema::table('order_product', function (Blueprint $table) {
-            $table->dropColumn('height');
-            $table->dropColumn('size');
+            $table->dropColumn('order_height');
+            $table->dropColumn('order_size');
+            $table->dropColumn('order_price');
         });
     }
 }

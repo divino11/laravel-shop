@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\Size;
 use App\SizesProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -34,9 +35,11 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $sizes = Size::all();
 
         return view('admin.product.create', [
-            'categories' => $categories
+            'categories' => $categories,
+            'sizes' => $sizes
         ]);
     }
 
@@ -56,6 +59,8 @@ class ProductController extends Controller
             $product->price = $request->price;
             $product->price_sale = $request->price_sale;
             $product->price_sale_percent = $request->price_sale_percent;
+            $product->size = implode(' / ', $request->size);
+            $product->height = $request->height;
             $product->status = $request->status;
 
             if ($request->main_image) {
@@ -64,23 +69,35 @@ class ProductController extends Controller
                 $file->move(public_path("images"), $filename);
                 $product->image = $filename;
             }
+
+            if ($request->a4_file) {
+                $file = $request->a4_file;
+                $filename = time() . '-' . $file->getClientOriginalName();
+                $file->move(public_path("files"), $filename);
+                $product->a4_file = $filename;
+            }
+
+            if ($request->plotter_file) {
+                $file = $request->plotter_file;
+                $filename = time() . '-' . $file->getClientOriginalName();
+                $file->move(public_path("files"), $filename);
+                $product->plotter_file = $filename;
+            }
+
+            if ($request->description_file) {
+                $file = $request->description_file;
+                $filename = time() . '-' . $file->getClientOriginalName();
+                $file->move(public_path("files"), $filename);
+                $product->description_file = $filename;
+            }
         }
 
         if ($product->save()) {
-            if ($request->size_name) {
-                $sizes = array_combine($request->size_name, $request->size_count);
-
-                foreach ($sizes as $name => $count) {
-                    DB::table('sizes_products')->insert([
-                        'product_id' => $product->id, 'type' => $name, 'count' => $count
-                    ]);
-                }
-            }
             return redirect()->route('products.index')
-                ->with('success', 'Greate! Product created successfully.');
+                ->with('success', 'Отлично, товар успешно добавлен');
         } else {
             return redirect()->route('product.create')
-                ->with('error', 'Error! Check fields');
+                ->with('error', 'Ошибка, проверьте данные');
         }
     }
 
@@ -107,12 +124,12 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-        $sizes = DB::table('sizes_products')->where('product_id', $id)->get();
+        $sizes = Size::all();
         $categories = Category::all();
 
         return view('admin.product.edit', [
             'product' => $product,
-            'productSizes' => $sizes,
+            'sizes' => $sizes,
             'categories' => $categories
         ]);
     }
@@ -133,6 +150,8 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->price_sale = $request->price_sale;
         $product->price_sale_percent = $request->price_sale_percent;
+        $product->size = implode(' / ', $request->size);
+        $product->height = $request->height;
         $product->status = $request->status;
 
         if ($product->image !== $request->main_image_hidden) {
@@ -142,20 +161,33 @@ class ProductController extends Controller
             $product->image = $filename;
         }
 
+        if ($product->a4_file !== $request->a4_file_hidden) {
+            $file = $request->a4_file;
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $file->move(public_path("files"), $filename);
+            $product->a4_file = $filename;
+        }
+
+        if ($product->plotter_file !== $request->plotter_file_hidden) {
+            $file = $request->plotter_file;
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $file->move(public_path("files"), $filename);
+            $product->plotter_file = $filename;
+        }
+
+        if ($product->description_file !== $request->description_file_hidden) {
+            $file = $request->description_file;
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $file->move(public_path("files"), $filename);
+            $product->description_file = $filename;
+        }
+
         if ($product->save()) {
-            if ($request->size_name) {
-                $sizes = array_combine($request->size_name, $request->size_count);
-                foreach ($sizes as $name => $count) {
-                    DB::table('sizes_products')->where('product_id', $product->id)->where('type', $name)->update([
-                        'type' => $name, 'count' => $count
-                    ]);
-                }
-            }
             return redirect()->route('products.index')
-                ->with('success', 'Greate! Product updated successfully.');
+                ->with('success', 'Отлично, товар успешно изменен!');
         } else {
             return redirect()->route('product.edit')
-                ->with('error', 'Error! Check fields');
+                ->with('error', 'Ошибка, проверьте данные!');
         }
     }
 
@@ -170,6 +202,6 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('products.index')
-            ->with('success', 'Product deleted successfully');
+            ->with('success', 'Товар успешно удален');
     }
 }

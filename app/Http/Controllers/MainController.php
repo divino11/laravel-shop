@@ -5,13 +5,8 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Product;
 use App\Rating;
-use App\RatingImage;
-use HttpRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
-use Instagram\SDK\Instagram;
 
 class MainController extends Controller
 {

@@ -76,14 +76,16 @@ class BasketController extends Controller
 
         if ($order->products->contains($request->product_id)) {
             $pivotRow = $order->products()->where('product_id', $request->product_id)->first()->pivot;
-            $pivotRow->height = $request->height;
-            $pivotRow->size = $request->size;
+            $pivotRow->order_height = $request->height;
+            $pivotRow->order_size = $request->size;
+            $pivotRow->order_price = $request->price;
             $pivotRow->update();
         } else {
             if ($request->size) {
                 $order->products()->attach($request->product_id, [
-                    'height' => $request->height,
-                    'size' => $request->size,
+                    'order_height' => $request->height,
+                    'order_size' => $request->size,
+                    'order_price' => $request->price,
                 ]);
             }
         }

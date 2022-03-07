@@ -17,7 +17,7 @@ function sumByCount(\App\Product $product, $typePrice = 'fullPrice'): float
 
 function getTotalSum($order)
 {
-    return $order->price_sale ?? $order->price;
+    return $order->order_price;
 }
 
 function sumByFullPrice($order)
