@@ -48,8 +48,10 @@ $(".similar_gallery").slick({
 
 (function () {
     var a = document.querySelector('.product_container'), b = null, P = 0;
-    window.addEventListener('scroll', Ascroll, false);
-    document.body.addEventListener('scroll', Ascroll, false);
+    if (a) {
+        window.addEventListener('scroll', Ascroll, false);
+        document.body.addEventListener('scroll', Ascroll, false);
+    }
 
     function Ascroll() {
         if (b == null) {
