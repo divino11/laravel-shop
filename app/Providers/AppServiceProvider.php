@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Favorite;
 use App\Order;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\View;
@@ -28,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Schema::defaultStringLength(191);
+
         view()->composer('*', function ($view)
         {
             if (Session::get('orderId')) {
