@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class Order extends Model
 {
@@ -36,6 +37,7 @@ class Order extends Model
     public function saveOrder($order)
     {
         if ($this->status === 0) {
+            $this->user_id = Auth::user()->id;
             $this->firstname = $order->firstname;
             $this->lastname = $order->lastname;
             $this->city = $order->city;
