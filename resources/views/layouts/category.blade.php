@@ -7,7 +7,9 @@
 @endsection
 
 @section('content')
-    @foreach($category->products as $product)
-        @include('parts.products', ['columns' => 4])
-    @endforeach
+    @if ($category)
+        @foreach($category->products as $product)
+            @include('parts.products', ['columns' => 4])
+        @endforeach
+    @endif
 @endsection

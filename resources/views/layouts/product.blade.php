@@ -102,6 +102,7 @@
                             @method('POST')
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <input type="hidden" name="price" value="{{ $product->price_sale ?? $product->price }}">
                             <a href="{{ route('choose-size') }}" class="single_product-choose-size">
                                 КАК ВЫБРАТЬ РАЗМЕР (ТАБЛИЦА РАЗМЕРОВ)
                             </a>

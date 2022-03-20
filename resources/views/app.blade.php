@@ -30,14 +30,18 @@
                                 <div class="expanded_menu-left">
                                     <div class="expanded_menu-title">По категориям</div>
                                     <ul>
-                                        <li><a href="">Блузки и рубашки</a></li>
-                                        <li><a href="">Брюки</a></li>
-                                        <li><a href="">Юбки</a></li>
-                                        <li><a href="">Платья</a></li>
+                                        <li><a href="">Блузки/рубашки</a></li>
+                                        <li><a href="">Платья/сарафаны</a></li>
+                                        <li><a href="">Водолазки/лонгсливы</a></li>
+                                        <li><a href="">Топы/футболки/майки</a></li>
+                                        <li><a href="">Толстовки/свитшоты/худи</a></li>
+                                        <li><a href="">Брюки/джинсы/шорты</a></li>
+                                        <li><a href="">Жакеты и жилеты</a></li>
+                                        <li><a href="">Одежда для дома</a></li>
+                                        <li><a href="">Верхняя одежда</a></li>
                                         <li><a href="">Комбинезоны</a></li>
-                                        <li><a href="">Топы</a></li>
-                                        <li><a href="">Жакеты</a></li>
-                                        <li><a href="/pijama">Пижамы</a></li>
+                                        <li><a href="">Юбки</a></li>
+                                        <li><a href="/pijama">Боди</a></li>
                                     </ul>
                                 </div>
                                 <div class="expanded_menu-right">
@@ -62,10 +66,78 @@
                                 </div>
                             </div>
                         </li>
-                        <li><a href="#">Мужское</a></li>
-                        <li><a href="#">Детское</a></li>
-                        <li><a href="#">Аксессуары</a></li>
-                        <li><a href="#">Sale</a></li>
+                        <li class="menu_item">
+                            <a href="#" class="expand_menu">Мужское</a>
+                            <div class="expanded_menu">
+                                <div class="expanded_menu-left">
+                                    <div class="expanded_menu-title">По категориям</div>
+                                    <ul>
+                                        <li><a href="">Толстовки/свитшоты/худи</a></li>
+                                        <li><a href="">Майки/фуболки</a></li>
+                                        <li><a href="">Водолазки/лонгсливы</a></li>
+                                        <li><a href="">Брюки/джинсы/шорты</a></li>
+                                    </ul>
+                                </div>
+                                <div class="expanded_menu-right">
+                                    <div class="expanded_menu-right--item">
+                                        <a class="" href="#">
+                                            <img src="/images/similar.png" class="w-100">
+                                            Новая колекция
+                                        </a>
+                                    </div>
+                                    <div class="expanded_menu-right--item">
+                                        <a class="" href="#">
+                                            <img src="/images/similar.png" class="w-100">
+                                            Популярные товары
+                                        </a>
+                                    </div>
+                                    <div class="expanded_menu-right--item">
+                                        <a class="" href="#">
+                                            <img src="/images/similar.png" class="w-100">
+                                            Распродажа
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="menu_item">
+                            <a href="#" class="expand_menu">Девочкам</a>
+                            <div class="expanded_menu">
+                                <div class="expanded_menu-left">
+                                    <div class="expanded_menu-title">По категориям</div>
+                                    <ul>
+                                        <li><a href="">Платья/сарафаны</a></li>
+                                        <li><a href="">Толстовки/свитшоты/худи</a></li>
+                                        <li><a href="">Футболки/майки/топы</a></li>
+                                        <li><a href="">Брюки/джинсы/шорты</a></li>
+                                        <li><a href="">Комбинезоны</a></li>
+                                        <li><a href="">Верхняя одежда</a></li>
+                                    </ul>
+                                </div>
+                                <div class="expanded_menu-right">
+                                    <div class="expanded_menu-right--item">
+                                        <a class="" href="#">
+                                            <img src="/images/similar.png" class="w-100">
+                                            Новая колекция
+                                        </a>
+                                    </div>
+                                    <div class="expanded_menu-right--item">
+                                        <a class="" href="#">
+                                            <img src="/images/similar.png" class="w-100">
+                                            Популярные товары
+                                        </a>
+                                    </div>
+                                    <div class="expanded_menu-right--item">
+                                        <a class="" href="#">
+                                            <img src="/images/similar.png" class="w-100">
+                                            Распродажа
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a href="#">Мальчикам</a></li>
+                        <li><a href="#">Бесплатные выкройки</a></li>
                     </ul>
                 </div>
                 <div class="navigation_right">
