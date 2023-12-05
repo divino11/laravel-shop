@@ -1,6 +1,12 @@
-@extends('admin.layout.app')
+@extends('adminlte::page')
 
-@section('title', 'All Category')
+@section('title', 'Dashboard')
+
+@section('content_header')
+    <h1>Категории</h1>
+
+    <a href="/admin/category/create" class="btn btn-success">Создать категорию</a>
+@stop
 
 @section('content')
     @if ($errors->any())
@@ -20,11 +26,11 @@
     <table class="table table-striped table-bordered">
         <thead>
         <tr>
-            <td>ID</td>
-            <td>Image</td>
-            <td>Name</td>
-            <td>Code</td>
-            <td>Description</td>
+            <td>Категория</td>
+            <td>Изображение</td>
+            <td>Название</td>
+            <td>Код</td>
+            <td>Описание</td>
         </tr>
         </thead>
         <tbody>
@@ -37,19 +43,23 @@
                 <td>{{ $value->description }}</td>
                 <td>
                     <form action="{{ route('category.destroy', $value->id) }}" method="post">
-                        <a class="btn btn-small btn-success" href="{{ route('category.show', $value->id) }}">Show</a>
-                        <a class="btn btn-small btn-info" href="{{ route('category.edit', $value->id) }}">Edit</a>
+                        <a class="btn btn-small btn-success" href="{{ route('category.show', $value->id) }}">Показать</a>
+                        <a class="btn btn-small btn-info" href="{{ route('category.edit', $value->id) }}">Редактировать</a>
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-small btn-danger" type="submit">Delete</button>
+                        <button class="btn btn-small btn-danger" type="submit">Удалить</button>
                     </form>
                 </td>
             </tr>
         @empty
-            <td colspan="6" style="text-align: center">None of one category not found</td>
+            <td colspan="6" style="text-align: center">Пока еще нет категорий</td>
         @endforelse
         </tbody>
     </table>
 
     {!! $categories->links() !!}
-@endsection
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

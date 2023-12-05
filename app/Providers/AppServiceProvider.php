@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Category;
 use App\Favorite;
 use App\Order;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        view()->share('categories', Category::whereNotIn('id', [2, 3, 4])->get());
 
         view()->composer('*', function ($view)
         {

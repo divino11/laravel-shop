@@ -1,38 +1,36 @@
-@extends('admin/layout.app')
+@extends('adminlte::page')
 
-@section('title', 'Create Category')
+@section('title', 'Dashboard')
+
+@section('content_header')
+    <h1>Создание категории</h1>
+@stop
 
 @section('content')
-    @if ($errors->any())
-        @foreach ($errors->all() as $error)
-            <div>{{$error}}</div>
-        @endforeach
-    @endif
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
     <form action="{{ route('category.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" class="form-control" name="name" placeholder="Name">
+            <label for="name">Название</label>
+            <input type="text" id="name" class="form-control" name="name" placeholder="Название">
         </div>
         <div class="form-group">
-            <label for="code">Code</label>
-            <input type="text" id="code" class="form-control" name="code" placeholder="Code">
+            <label for="code">Код</label>
+            <input type="text" id="code" class="form-control" name="code" placeholder="Код">
         </div>
         <div class="form-group">
-            <label for="description">Main image</label>
+            <label for="description">Изображение</label>
             <input type="file" name="main_image" class="form-control">
         </div>
         <div class="form-group">
-            <label for="description">Description</label>
-            <textarea id="description" class="form-control" name="description" placeholder="Description"></textarea>
+            <label for="description">Описание</label>
+            <textarea id="description" class="form-control" name="description" placeholder="Описание"></textarea>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-info">Add</button>
+            <button type="submit" class="btn btn-info">Создать</button>
         </div>
     </form>
-@endsection
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop

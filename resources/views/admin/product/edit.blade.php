@@ -1,6 +1,6 @@
-@extends('admin.layout.app')
+@extends('adminlte::page')
 
-@section('title', 'Редактирование товара - ' . $product->name)
+@section('title', 'Dashboard')
 
 @section('content_header')
     <h1>Редактирование товара - {{ $product->name }}</h1>
@@ -9,16 +9,6 @@
 @section('content')
     <div class="row">
         <div class="col-md-6">
-            @if ($message = Session::get('error'))
-                <div class="alert alert-warning">
-                    <p>{{ $message }}</p>
-                </div>
-            @endif
-            @if ($message = Session::get('success'))
-                <div class="alert alert-success">
-                    <p>{{ $message }}</p>
-                </div>
-            @endif
             <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
                 @method('PATCH')
                 @csrf
@@ -30,10 +20,12 @@
                 </div>
                 <div class="form-group">
                     <label for="category">Категория</label>
-                    <select name="category_id" id="category" class="form-control">
+                    <select name="category_id[]" id="category" class="form-control" multiple>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}"
-                                    @if($category->id === $product->category->id) selected @endif>{{ $category->name }}</option>
+                                @selected(in_array($category->id, $product->categories()->pluck('category_id')->toArray()))>
+                                {{ $category->name }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -49,17 +41,12 @@
                               placeholder="Описание">{{ $product->description }}</textarea>
                 </div>
                 <div class="form-group">
-                    <label for="height">Рост</label>
-                    <input type="text" id="height" class="form-control" name="height" value="{{ $product->height }}"
-                           placeholder="Рост напр. 160-162, 164-168 ...">
-                </div>
-                <div class="form-group">
                     <label for="size">Размеры</label>
                     <select name="size[]" multiple="multiple" id="size"
                             class="form-control sizes-select js-example-basic-multiple">
                         @foreach($sizes as $size)
                             <option value="{{ $size->name }}"
-                                    @if(in_array($size->name, explode(' / ', $product->size))) selected @endif>{{ $size->name }}</option>
+                                    @selected(in_array($size->id, $product->sizes()->pluck('size_id')->toArray()))>{{ $size->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -141,10 +128,10 @@
             </form>
         </div>
     </div>
-@endsection
+@stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
 @section('js')

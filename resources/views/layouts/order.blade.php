@@ -11,30 +11,34 @@
             <div class="inner_heading">Информация о покупателе</div>
 
             <div class="group">
-                <input type="text" value="{{ $user->firstname ? $user->firstname : '' }}" name="lastname" required="required"/><span class="highlight"></span><span
+                <input type="text" value="{{ $user->firstname ?: '' }}" name="lastname" required="required"/><span
+                    class="highlight"></span><span
                     class="bar"></span>
                 <label>Фамилия *</label>
             </div>
             <div class="group">
-                <input type="text" value="{{ $user->lastname ? $user->lastname : '' }}" name="firstname" required="required"/><span class="highlight"></span><span
+                <input type="text" value="{{ $user->lastname ?: '' }}" name="firstname"
+                       required="required"/><span class="highlight"></span><span
                     class="bar"></span>
                 <label>Имя *</label>
             </div>
             <div class="group">
-                <input type="tel" value="{{ $user->phone ? $user->phone : '' }}" name="phone" required="required"/><span class="highlight"></span><span
+                <input type="tel" value="{{ $user->phone ?: '' }}" name="phone" required="required"/><span
+                    class="highlight"></span><span
                     class="bar"></span>
                 <label>Телефон *</label>
             </div>
             <div class="group">
                 <select name="sex">
-                    <option value="Мужской" {{ $user->sex == "Мужской" ? 'checked' : '' }}>Мужской</option>
-                    <option value="Женский" {{ $user->sex == "Мужской" ? 'checked' : '' }}>Женский</option>
+                    <option value="Мужской" @checked($user->sex === 'Мужской')>Мужской</option>
+                    <option value="Женский" @checked($user->sex === 'Женский')>Женский</option>
                 </select>
                 <span class="highlight"></span><span class="bar"></span>
                 <label>Пол</label>
             </div>
             <div class="group">
-                <input type="text" name="birthday" value="{{ $user->birthday ? $user->birthday : '' }}" placeholder="дд.мм.гггг" required="required"/><span
+                <input type="text" name="birthday" value="{{ $user->birthday ?: '' }}"
+                       placeholder="дд.мм.гггг" required="required"/><span
                     class="highlight"></span><span class="bar"></span>
                 <label>Дата рождения *</label>
             </div>
@@ -56,19 +60,19 @@
                 <input type="radio" name="type_delivery" value="Курьером" required> Курьером до двери
             </div>
             <div class="group">
-                <input type="text" name="city"><span class="highlight"></span><span class="bar"></span>
+                <input type="text" value="{{ $user->address?->city }}" name="city"><span class="highlight"></span><span class="bar"></span>
                 <label>Город</label>
             </div>
             <div class="group">
-                <input type="text" name="house"><span class="highlight"></span><span class="bar"></span>
+                <input type="text" value="{{ $user->address?->house }}" name="house"><span class="highlight"></span><span class="bar"></span>
                 <label>Дом</label>
             </div>
             <div class="group">
-                <input type="text" name="building"><span class="highlight"></span><span class="bar"></span>
+                <input type="text" value="{{ $user->address?->corpus }}" name="building"><span class="highlight"></span><span class="bar"></span>
                 <label>Корпус</label>
             </div>
             <div class="group">
-                <input type="text" name="room"><span class="highlight"></span><span class="bar"></span>
+                <input type="text" value="{{ $user->address?->apartment }}" name="room"><span class="highlight"></span><span class="bar"></span>
                 <label>Квартира</label>
             </div>
             <div class="group checkbox_input">

@@ -5,6 +5,7 @@ require('admin-lte/plugins/select2/js/select2')
 require('admin-lte/plugins/datatables/jquery.dataTables')
 require('toastr/toastr')
 require('@fancyapps/fancybox/dist/jquery.fancybox');
+const toastr = require("toastr");
 
 window.Vue = require('vue');
 
@@ -20,7 +21,7 @@ const app = new Vue({
 });
 
 $(".similar_gallery").slick({
-    slidesToShow: 5,
+    slidesToShow: 4,
     slidesToScroll: 1,
     arrows: true,
     autoplay: true,
@@ -45,6 +46,79 @@ $(".similar_gallery").slick({
             }
         }]
 });
+
+$(document).ready(function() {
+    $(".quantity-control").on("click", function(e) {
+        e.preventDefault();
+        const action = $(this).data("action");
+        const target = $(this).data("target");
+        const inputField = $("#" + target);
+
+        if (action === "decrement") {
+            if (parseInt(inputField.val()) > 0) {
+                inputField.val(parseInt(inputField.val()) - 1);
+            }
+        } else if (action === "increment") {
+            inputField.val(parseInt(inputField.val()) + 1);
+        }
+    });
+});
+
+$(document).ready(function() {
+    $(".order-wrapper .quantity-control").on("click", function(e) {
+        e.preventDefault();
+        const action = $(this).data("action");
+        const target = $(this).data("target");
+        const product = $(this).data("product");
+        const price = $(this).data("price");
+        const priceSale = $(this).data("price-sale");
+        const inputField = $("#" + target);
+
+        if (action === "decrement") {
+            if (parseInt(inputField.text()) > 1) {
+                inputField.text(parseInt(inputField.text()) - 1);
+            }
+        } else if (action === "increment") {
+            inputField.text(parseInt(inputField.text()) + 1);
+        }
+
+        axios.post('/basket/update-count/' + product + '/' + parseInt(inputField.text()))
+            .then(response => {
+                if ($('.order-item-' + product + ' .order-info-details-price span').hasClass('red_price')) {
+                    $('.order-item-' + product + ' .order-info-details-price .red_price').html(formatNumber(parseInt(priceSale) * parseInt(inputField.text())) + ' руб.')
+                    $('.order-item-' + product + ' .order-info-details-price s').html(formatNumber(parseInt(price) * parseInt(inputField.text())) + ' руб.')
+                } else {
+                    $('.order-item-' + product + ' .order-info-details-price span').html(formatNumber(parseInt(price) * parseInt(inputField.text())) + ' руб.')
+                }
+
+
+                axios.get('/basket/total-price-without-discount')
+                    .then(response => {
+                        $('.order_footer .product_top div:nth-child(2)').html(response.data + ' руб.');
+                    })
+                    .catch(response => {
+                        toastr.error('Произошла ошибка!');
+                    })
+
+                axios.get('/basket/total-price')
+                    .then(response => {
+                        $('.order_footer .product_bottom div:nth-child(2)').html(response.data + ' руб.');
+                    })
+                    .catch(response => {
+                        toastr.error('Произошла ошибка!');
+                    })
+            })
+            .catch(response => {
+                toastr.error('Произошла ошибка!');
+            })
+    });
+});
+
+function formatNumber(number) {
+    const parts = number.toFixed(2).toString().split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' '); // Insert space as thousands separator
+    return parts.join(',');
+}
 
 (function () {
     var a = document.querySelector('.product_container'), b = null, P = 0;

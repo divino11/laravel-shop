@@ -13,7 +13,7 @@ class MainController extends Controller
     public function index(): View
     {
         $products = Product::paginate(20);
-        $category = Category::all();
+        $category = Category::whereNotIn('id', [2, 3, 4])->get();
 
         return view('index', [
             'products' => $products,
@@ -21,9 +21,20 @@ class MainController extends Controller
         ]);
     }
 
+    public function catalog(): View
+    {
+        $products = Product::paginate(20);
+        $category = Category::whereNotIn('id', [2, 3, 4])->get();
+
+        return view('layouts.catalog', [
+            'products' => $products,
+            'categories' => $category
+        ]);
+    }
+
     public function category($code): View
     {
-        $categories = Category::all();
+        $categories = Category::whereNotIn('id', [2, 3, 4])->get();
         $category = Category::where('code', $code)->first();
 
         return view('layouts.category', [
@@ -36,12 +47,12 @@ class MainController extends Controller
     {
         $category = Category::where('code', $code)->first();
         $product = Product::where('id', $id)->first();
-        $ratings = Rating::where('product_id', $id)->orderBy('id', 'DESC')->get();
+        $categories = Category::whereNotIn('id', [2, 3, 4])->get();
 
         return view('layouts.product', [
             'product' => $product,
             'category' => $category,
-            'ratings' => $ratings,
+            'categories' => $categories,
         ]);
     }
 

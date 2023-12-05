@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Color;
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\ProductCategory;
 use App\Size;
 use App\SizesProduct;
 use Illuminate\Http\Request;
@@ -53,15 +55,20 @@ class ProductController extends Controller
     {
         if (count($request->all()) > 1) {
             $product = new Product;
-            $product->category_id = $request->category_id;
+            $product->code = random_int(10000000, 99999999);
             $product->name = $request->name;
             $product->description = $request->description;
             $product->price = $request->price;
             $product->price_sale = $request->price_sale;
             $product->price_sale_percent = $request->price_sale_percent;
-            $product->size = implode(' / ', $request->size);
-            $product->height = $request->height;
             $product->status = $request->status;
+
+            foreach ($request->colorName as $key => $color) {
+                $colorIds[] = Color::create([
+                    'name' => array_values($color)[0],
+                    'hex_code' => array_values($request->colorValue[$key])[0]
+                ]);
+            }
 
             if ($request->main_image) {
                 $file = $request->main_image;
@@ -93,6 +100,27 @@ class ProductController extends Controller
         }
 
         if ($product->save()) {
+            foreach ($request->category_id as $category) {
+                ProductCategory::create([
+                    'product_id' => $product->id,
+                    'category_id' => $category
+                ]);
+            }
+
+            foreach ($colorIds as $colorId) {
+                DB::table('product_color')->insert([
+                    'product_id' => $product->id,
+                    'color_id' => $colorId->id
+                ]);
+            }
+
+            foreach ($request->size as $size) {
+                DB::table('product_size')->insert([
+                   'product_id' => $product->id,
+                    'size_id' => $size
+                ]);
+            }
+
             return redirect()->route('products.index')
                 ->with('success', 'Отлично, товар успешно добавлен');
         } else {
@@ -144,7 +172,6 @@ class ProductController extends Controller
     public function update(Request $request)
     {
         $product = Product::find($request->id);
-        $product->category_id = $request->category_id;
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
@@ -183,6 +210,14 @@ class ProductController extends Controller
         }
 
         if ($product->save()) {
+            ProductCategory::where('product_id', $product->id)->delete();
+            foreach ($request->category_id as $category) {
+                ProductCategory::create([
+                    'product_id' => $product->id,
+                    'category_id' => $category
+                ]);
+            }
+
             return redirect()->route('products.index')
                 ->with('success', 'Отлично, товар успешно изменен!');
         } else {

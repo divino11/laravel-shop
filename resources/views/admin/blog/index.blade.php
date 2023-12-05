@@ -1,26 +1,14 @@
-@extends('admin.layout.app')
+@extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Блог - Все записи')
 
 @section('content_header')
     <h1>Все записи</h1>
+
+    <a href="/admin/blog/create" class="btn btn-success">Создать новую запись</a>
 @stop
 
 @section('content')
-    @if ($errors->any())
-        <div class="row col-lg-12">
-            <div class="alert alert-danger">
-                @foreach ($errors->all() as $error)
-                    <span>{{ $error }}</span>
-                @endforeach
-            </div>
-        </div>
-    @endif
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
     <table class="table table-striped table-bordered" id="product-table">
         <thead>
         <tr>
@@ -36,13 +24,13 @@
         @forelse($posts as $post)
             <tr>
                 <td>{{ $post->id }}</td>
-                <td><img src="/images/{{ $post->image }}" class="img-size-xs" alt=""></td>
+                <td><img src="{{ asset('storage/posts/' . $post->image) }}" class="img-size-xs" alt=""></td>
                 <td>{{ $post->title }}</td>
                 <td>{{ $post->content }}</td>
                 <td>{{ $post->status }}</td>
                 <td>
-                    <form action="{{ route('post.destroy', $post->id) }}" method="post">
-                        <a class="btn btn-small btn-info" href="{{ route('post.edit', $post->id) }}">Редактировать</a>
+                    <form action="{{ route('blog.destroy', $post->id) }}" method="post">
+                        <a class="btn btn-small btn-info" href="{{ route('blog.edit', $post->id) }}">Редактировать</a>
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-small btn-danger" type="submit">Удалить</button>
@@ -50,7 +38,7 @@
                 </td>
             </tr>
         @empty
-            <td colspan="7" style="text-align: center">Пока нет записей</td>
+            <td colspan="6" style="text-align: center">Пока нет записей</td>
         @endforelse
         </tbody>
     </table>

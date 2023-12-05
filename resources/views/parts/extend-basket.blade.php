@@ -1,3 +1,4 @@
+@php use App\Category; @endphp
 @if(count($basketProducts) !== 0)
     <div class="extended_basket-inner_heading">Корзина ({{ count($basketProducts) }})</div>
 
@@ -10,13 +11,14 @@
                     <div class="extended_basket-item--description_price">
                         <div class="extended_basket-item--title">
                             <a href="{{ route('product', [
-                                $basketProduct->category->code,
+                                Category::find($basketProduct->getOriginal('pivot_category_id'))->code,
                                 $basketProduct->id
                             ]) }}">{{ $basketProduct->name }}</a>
                         </div>
                         <div class="extended_basket-item--price">
                             @if($basketProduct->price_sale)
-                                <span class="red_price">{{ numberFormatPrice(sumByCount($basketProduct, 'priceSale')) }} руб.</span><br>
+                                <span class="red_price">{{ numberFormatPrice(sumByCount($basketProduct, 'priceSale')) }} руб.</span>
+                                <br>
                             @endif
                             @if($basketProduct->price_sale)
                                 <s>{{ numberFormatPrice(sumByCount($basketProduct)) }} руб.</s>
@@ -26,15 +28,21 @@
                         </div>
                     </div>
                     <div class="extended_basket-item--sizes">
-                        @if($basketProduct->getOriginal('pivot_height'))
-                            <div class="extended_basket-item--size">Рост: {{ $basketProduct->getOriginal('pivot_height') }}</div>
+                        @if($basketProduct->getOriginal('pivot_order_size'))
+                            <div class="extended_basket-item--size" style="text-transform: uppercase;">
+                                Размер: {{ \App\Size::find($basketProduct->getOriginal('pivot_order_size'))->name }}</div>
                         @endif
-                        @if($basketProduct->getOriginal('pivot_size'))
-                            <div class="extended_basket-item--size">Размер: {{ $basketProduct->getOriginal('pivot_size') }}</div>
+                        @if($basketProduct->getOriginal('pivot_quantity'))
+                            <div class="extended_basket-item--size">
+                                Количество: {{ $basketProduct->getOriginal('pivot_quantity') }}</div>
+                        @endif
+                        @if($basketProduct->getOriginal('pivot_order_color'))
+                            <div class="extended_basket-item--size">
+                                Цвет: {{ \App\Color::find($basketProduct->getOriginal('pivot_order_color'))->name }}</div>
                         @endif
                     </div>
                 </div>
-                <removeorder :product="{{ $basketProduct->id }}"></removeorder>
+                <removeorder :product="{{ $basketProduct->getOriginal('pivot_id') }}"></removeorder>
             </div>
         @endforeach
     </div>

@@ -1,25 +1,15 @@
-@extends('admin.layout.app')
+@extends('adminlte::page')
 
-@section('title', 'Редактирование записи - ' . $post->title)
+@section('title', 'Блог - Редактирование записи')
 
 @section('content_header')
-    <h1>Редактирование записи - {{ $post->title }}</h1>
+    <h1>Редактирование записи</h1>
 @stop
 
 @section('content')
     <div class="row">
         <div class="col-md-6">
-            @if ($message = Session::get('error'))
-                <div class="alert alert-warning">
-                    <p>{{ $message }}</p>
-                </div>
-            @endif
-            @if ($message = Session::get('success'))
-                <div class="alert alert-success">
-                    <p>{{ $message }}</p>
-                </div>
-            @endif
-            <form action="{{ route('post.update', $post->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('blog.update', $post->id) }}" method="POST" enctype="multipart/form-data">
                 @method('PATCH')
                 @csrf
                 <div class="form-group">
@@ -31,7 +21,7 @@
                     <label for="description">Главное изображение</label>
                     <input type="file" name="image" class="form-control">
                     <input type="hidden" value="{{ $post->image }}" name="main_image_hidden">
-                    <img src="{{ url('images/' . $post->image) }}" class="img-size-s" alt="">
+                    <img src="{{ asset('storage/posts/' . $post->image) }}" class="img-size-s" alt="">
                 </div>
                 <div class="form-group">
                     <label for="description">Контент</label>

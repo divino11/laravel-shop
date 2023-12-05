@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Order;
 use App\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BasketController extends Controller
 {
@@ -18,8 +20,11 @@ class BasketController extends Controller
             $order = Order::findOrFail($orderId);
         }
 
+        $categories = Category::all();
+
         return view('layouts.basket', [
-            'orders' => $order->products ?? []
+            'orders' => $order->products ?? [],
+            'categories' => $categories
         ]);
     }
 
@@ -52,7 +57,12 @@ class BasketController extends Controller
         }
 
         $order = Order::find($orderId);
-        $success = $order->saveOrder($request);
+
+        $price = $this->getTotalPriceForOrder($order->products);
+
+        $data = array_merge($request->all(), ['price' => $price]);
+
+        $success = $order->saveOrder($data);
 
         if ($success) {
             session()->forget('orderId');
@@ -74,21 +84,37 @@ class BasketController extends Controller
             $order = Order::find($orderId);
         }
 
-        if ($order->products->contains($request->product_id)) {
+        foreach ($request->size as $sizeId => $quantity) {
+            if ((int)$quantity > 0) {
+                DB::table('order_product')->insert([
+                    'category_id' => $request->category_id,
+                    'order_id' => $order->id,
+                    'product_id' => $request->product_id,
+                    'order_price' => $request->price,
+                    'order_size' => $sizeId,
+                    'order_color' => $request->color,
+                    'quantity' => $quantity,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ]);
+            }
+        }
+
+        /*if ($order->products->contains($request->product_id)) {
             $pivotRow = $order->products()->where('product_id', $request->product_id)->first()->pivot;
-            $pivotRow->order_height = $request->height;
             $pivotRow->order_size = $request->size;
             $pivotRow->order_price = $request->price;
+            $pivotRow->category_id = $request->category_id;
             $pivotRow->update();
         } else {
             if ($request->size) {
                 $order->products()->attach($request->product_id, [
-                    'order_height' => $request->height,
                     'order_size' => $request->size,
                     'order_price' => $request->price,
+                    'category_id' => $request->category_id,
                 ]);
             }
-        }
+        }*/
 
         if (Auth::check()) {
             $order->user_id = Auth::id();
@@ -102,9 +128,9 @@ class BasketController extends Controller
         return redirect()->back();
     }
 
-    public function basketRemove($productId)
+    public function basketRemove($orderProductId)
     {
-        $orderId = session('orderId');
+        /*$orderId = session('orderId');
         if (is_null($orderId)) {
             return redirect()->route('basket');
         }
@@ -119,10 +145,15 @@ class BasketController extends Controller
                 $pivotRow->count--;
                 $pivotRow->update();
             }
-        }
-        $product = Product::find($productId);
+        }*/
 
-        session()->flash('warning', 'Product has been removed ' . $product->name);
+        $orderProduct = DB::table('order_product')->find($orderProductId);
+
+        DB::table('order_product')->where('id', $orderProductId)->delete();
+
+        $product = Product::find($orderProduct->product_id);
+
+        session()->flash('warning', "Товар {$product->name} был удален");
 
         return redirect()->route('basket');
     }
@@ -139,15 +170,59 @@ class BasketController extends Controller
         $order->products()->decrement($size);
     }
 
-    public function removeProductFromOrder($productId)
+    public function removeProductFromOrder($orderProductId)
+    {
+        DB::table('order_product')->where('id', $orderProductId)->delete();
+    }
+
+    public function getCount(): int
     {
         $orderId = session('orderId');
-        if (is_null($orderId)) {
-            return redirect()->route('basket');
+
+        if (!is_null($orderId)) {
+            $order = Order::findOrFail($orderId);
         }
 
-        $order = Order::find($orderId);
+        return $order->products->count() ?? 0;
+    }
 
-        $order->products()->detach($productId);
+    public function getTotalPrice(): string
+    {
+        $orderId = session('orderId');
+
+        if (!is_null($orderId)) {
+            $order = Order::findOrFail($orderId);
+        }
+
+        return numberFormatPrice(sumByPriceSale($order->products));
+    }
+
+    public function getTotalPriceForOrder(): string
+    {
+        $orderId = session('orderId');
+
+        if (!is_null($orderId)) {
+            $order = Order::findOrFail($orderId);
+        }
+
+        return sumByPriceSale($order->products);
+    }
+
+    public function getTotalPriceWithoutDiscount(): string
+    {
+        $orderId = session('orderId');
+
+        if (!is_null($orderId)) {
+            $order = Order::findOrFail($orderId);
+        }
+
+        return numberFormatPrice(sumByFullPrice($order->products));
+    }
+
+    public function updateCount($orderProductId, $quantity)
+    {
+        DB::table('order_product')->where('id', $orderProductId)->update([
+            'quantity' => $quantity
+        ]);
     }
 }

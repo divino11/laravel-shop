@@ -5,58 +5,69 @@
 @section('content')
     <div class="heading">Корзина</div>
 
-    <table class="table table-basket">
-        <thead>
-        <tr>
-            <td>Товар</td>
-            <td>Описание</td>
-            <td>Рост</td>
-            <td>Размер</td>
-            <td>Цена</td>
-        </tr>
-        </thead>
-        <tbody>
-        @forelse($orders as $product)
-            <tr>
-                <td><a href="{{ route('product', [$product->category->code, $product->id]) }}"><img
-                            class="img-size-130"
-                            src="{{ url('images/' . $product->image) }}"
-                            alt=""></a></td>
-                <td>
-                    <a href="{{ route('product', [$product->category->code, $product->id]) }}">{{ $product->name }}</a>
-                </td>
-                <td>
-                    {{ $product->getOriginal('pivot_order_height') }}
-                </td>
-                <td>
-                    {{ $product->getOriginal('pivot_order_size') }}
-                </td>
-                <td>
-                    <div class="basket_actions">
-                        <div class="basket_fullprice">
-                            @if($product->price_sale)
-                                <span class="red_price">{{ numberFormatPrice(sumByCount($product, 'priceSale')) }} руб.</span><br>
-                            @endif
-                            @if($product->price_sale)
-                                <s>{{ numberFormatPrice(sumByCount($product)) }} руб.</s>
-                            @else
-                                {{ numberFormatPrice(sumByCount($product)) }} руб.
-                            @endif
+    <div class="container">
+        <div class="order-wrapper">
+        @foreach($orders as $product)
+            <div class="order-item order-item-{{ $product->getOriginal('pivot_id') }}">
+                <div class="order-item-image">
+                <a href="{{ route('product', [
+                        \App\Category::find($product->getOriginal('pivot_category_id'))->code,
+                        $product->id
+                    ]) }}"><img
+                        class="img-size-130"
+                        src="{{ url('images/' . $product->image) }}"
+                        alt="{{ $product->name }}"></a>
+                </div>
+                <div class="order-item-info">
+                    <div class="order-item-info-title">
+                        <a href="{{ route('product', [
+                            \App\Category::find($product->getOriginal('pivot_category_id'))->code,
+                             $product->id
+                         ]) }}">{{ $product->name }}</a>
+                        <span>Артикул: {{ $product->code }}</span>
+                    </div>
+                    <div class="order-info-details">
+                        <div class="order-info-details-color">
+                            <div>Цвет</div>
+                            <span class="order-color-box" style="background-color: {{ \App\Color::find($product->getOriginal('pivot_order_color'))->hex_code }}"></span>
                         </div>
-                        <div class="basket_action">
-                            <form action="{{ route('basket-remove', $product) }}" method="post">
-                                @csrf
-                                <button><i class="far fa-trash-alt"></i> Удалить</button>
-                            </form>
+                        <div class="order-info-details-size">
+                            <div>Размер</div>
+                            <span>{{ \App\Size::find($product->getOriginal('pivot_order_size'))->name }}</span>
+                        </div>
+                        <div class="order-info-details-quantity">
+                            <div>Количество</div>
+                            <button class="quantity-control button-size" data-action="decrement" data-price="{{ $product->price }}" data-price-sale="{{ $product->price_sale }}" data-product="{{ $product->getOriginal('pivot_id') }}" data-target="product_{{ $product->getOriginal('pivot_id') }}">-</button>
+                            <span id="product_{{ $product->getOriginal('pivot_id') }}">{{ $product->getOriginal('pivot_quantity') }}</span>
+                            <button class="quantity-control button-size" data-action="increment" data-price="{{ $product->price }}" data-price-sale="{{ $product->price_sale }}" data-product="{{ $product->getOriginal('pivot_id') }}" data-target="product_{{ $product->getOriginal('pivot_id') }}">+</button>
+                        </div>
+                        <div class="order-info-details-price">
+                            <div>Цена</div>
+                            <span>
+                                @if($product->price_sale)
+                                    <span
+                                        class="red_price">{{ numberFormatPrice(sumByQuantity($product, (int)$product->getOriginal('pivot_quantity'), 'priceSale')) }} руб.</span>
+                                    <br>
+                                @endif
+                                @if($product->price_sale)
+                                    <s>{{ numberFormatPrice(sumByQuantity($product, (int)$product->getOriginal('pivot_quantity'))) }} руб.</s>
+                                @else
+                                    {{ numberFormatPrice(sumByQuantity($product, (int)$product->getOriginal('pivot_quantity'))) }} руб.
+                                @endif
+                            </span>
                         </div>
                     </div>
-                </td>
-            </tr>
-        @empty
-            <td colspan="5" style="text-align: center">Корзина пока что пуста</td>
-        @endforelse
-        </tbody>
-    </table>
+                </div>
+                <div class="basket_remove">
+                    <form action="{{ route('basket-remove', ['id' => $product->getOriginal('pivot_id')]) }}" method="post">
+                        @csrf
+                        <button><i class="fas fa-times"></i></button>
+                    </form>
+                </div>
+            </div>
+        @endforeach
+    </div>
+    </div>
 
     @include('parts.basket-footer', $orders)
 
