@@ -8,6 +8,7 @@ function sumByCount(\App\Product $product, $typePrice = 'fullPrice'): float
         $price = $product->price_sale;
     }
 
+
     $sum = 0;
 
     $sum += $price;
