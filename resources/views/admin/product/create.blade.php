@@ -1,6 +1,6 @@
-@extends('admin.layout.app')
+@extends('adminlte::page')
 
-@section('title', 'Создание товара')
+@section('title', 'Dashboard')
 
 @section('content_header')
     <h1>Создание товара</h1>
@@ -10,16 +10,6 @@
     <div id="app">
         <div class="row">
             <div class="col-md-6">
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        <div>{{$error}}</div>
-                    @endforeach
-                @endif
-                @if ($message = Session::get('success'))
-                    <div class="alert alert-success">
-                        <p>{{ $message }}</p>
-                    </div>
-                @endif
                 <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
@@ -28,7 +18,7 @@
                     </div>
                     <div class="form-group">
                         <label for="category">Категория</label>
-                        <select name="category_id" id="category" class="form-control">
+                        <select name="category_id[]" id="category" class="form-control" multiple>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
@@ -44,16 +34,21 @@
                                   placeholder="Описание"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="height">Рост</label>
-                        <input type="text" id="height" class="form-control" name="height" placeholder="Рост напр. 160-162, 164-168 ...">
-                    </div>
-                    <div class="form-group">
                         <label for="size">Размеры</label>
                         <select name="size[]" multiple="multiple" id="size" class="form-control sizes-select js-example-basic-multiple">
                             @foreach($sizes as $size)
-                                <option value="{{ $size->name }}">{{ $size->name }}</option>
+                                <option value="{{ $size->id }}">{{ $size->name }}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="size">Цвета</label>
+                        <div id="colorFields">
+
+                        </div>
+
+                        <button id="addColorField" class="btn btn-info" type="button">Добавить цвет</button>
+                        <button id="removeColorField"  class="btn btn-danger" type="button">Удалить цвет</button>
                     </div>
                     <div class="form-group">
                         <label for="price">Цена</label>
@@ -76,7 +71,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+<!--                    <div class="form-group">
                         <label for="description">Загрузить файл А4</label>
                         <input type="file" name="a4_file" class="form-control">
                     </div>
@@ -87,7 +82,7 @@
                     <div class="form-group">
                         <label for="description">Загрузить файл с описанием</label>
                         <input type="file" name="description_file" class="form-control">
-                    </div>
+                    </div>-->
                     <div class="form-group">
                         <label for="status">Статус</label>
                         <select name="status" id="status" class="form-control">
@@ -102,10 +97,10 @@
             </div>
         </div>
     </div>
-@endsection
+@stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
 @section('js')
@@ -115,6 +110,62 @@
     <script>
         $(document).ready(function () {
             $('.js-example-basic-multiple').select2();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Counter for dynamically added fields
+            let fieldCounter = 1;
+
+            // Function to add new color fields
+            function addColorField() {
+                $('#colorFields').append('<div class="colorField colorField-' + fieldCounter + '"></div>');
+
+                const colorFields = $('.colorField-' + fieldCounter);
+
+                // Create new input field for name
+                const nameInput = $('<input>', {
+                    type: 'text',
+                    name: 'colorName[][' + fieldCounter + ']',
+                    placeholder: 'Название цвета',
+                    class: 'form-control'
+                });
+
+                // Create new input field for color
+                const colorInput = $('<input>', {
+                    type: 'color',
+                    name: 'colorValue[][' + fieldCounter + ']'
+                });
+
+                // Append new fields to the container
+                colorFields.append(nameInput);
+                colorFields.append(colorInput);
+
+                // Increment the field counter
+                fieldCounter++;
+            }
+
+            // Function to remove the last color field
+            function removeColorField() {
+                let fieldCounterTemp = fieldCounter - 1;
+
+                const colorFields = $('.colorField-' + fieldCounterTemp);
+
+                // Check if there are fields to remove
+                if (fieldCounterTemp > 1) {
+                    // Remove the last color field and line break
+                    colorFields.remove()
+
+                    // Decrement the field counter
+                    fieldCounter--;
+                }
+            }
+
+            // Attach click event to the "Add Color Field" button
+            $('#addColorField').on('click', addColorField);
+
+            // Attach click event to the "Remove Last Color Field" button
+            $('#removeColorField').on('click', removeColorField);
         });
     </script>
 @stop

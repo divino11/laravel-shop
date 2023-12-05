@@ -1,6 +1,6 @@
-@extends('admin.layout.app')
+@extends('adminlte::page')
 
-@section('title', 'Создание записи')
+@section('title', 'Блог - Создание записи')
 
 @section('content_header')
     <h1>Создание записи</h1>
@@ -10,17 +10,7 @@
     <div id="app">
         <div class="row">
             <div class="col-md-6">
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        <div>{{$error}}</div>
-                    @endforeach
-                @endif
-                @if ($message = Session::get('success'))
-                    <div class="alert alert-success">
-                        <p>{{ $message }}</p>
-                    </div>
-                @endif
-                <form action="{{ route('post.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('blog.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="name">Заголовок</label>
@@ -31,8 +21,8 @@
                         <input type="file" name="image" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="description">Контент</label>
-                        <textarea id="description" class="form-control" name="content"
+                        <label for="editor">Контент</label>
+                        <textarea id="editor" class="form-control" name="content"
                                   placeholder="Текст"></textarea>
                     </div>
                     <div class="form-group">
@@ -58,6 +48,18 @@
 @section('js')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="/js/app.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                ckfinder: {
+                    uploadUrl: '/admin/blog/upload-image' // Replace this with your upload endpoint
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
 
     <script>
         $(document).ready(function () {

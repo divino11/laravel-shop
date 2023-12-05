@@ -1,0 +1,30 @@
+.main_pages_preview {
+    width: 200px;
+    height: 200px;
+}
+
+.uploadBanners {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-rows {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.img-size-xs {
+    width: 100px;
+}
+
+.img-size-s {
+    width: 200px;
+}
+
+.colorField {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}

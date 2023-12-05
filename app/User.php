@@ -18,7 +18,15 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstname', 'lastname', 'email', 'password',
+        'firstname',
+        'lastname',
+        'middle_name',
+        'birthday',
+        'sex',
+        'city',
+        'phone',
+        'email',
+        'password',
     ];
 
     /**
@@ -52,5 +60,10 @@ class User extends Authenticatable
     public function ratings()
     {
         return $this->hasMany(Rating::class);
+    }
+
+    public function address()
+    {
+        return $this->hasOne(UserAddress::class);
     }
 }

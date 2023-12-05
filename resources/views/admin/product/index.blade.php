@@ -1,26 +1,14 @@
-@extends('admin.layout.app')
+@extends('adminlte::page')
 
 @section('title', 'Dashboard')
 
 @section('content_header')
     <h1>Все товары</h1>
+
+    <a href="/admin/products/create" class="btn btn-success">Создать товар</a>
 @stop
 
 @section('content')
-    @if ($errors->any())
-        <div class="row col-lg-12">
-            <div class="alert alert-danger">
-                @foreach ($errors->all() as $error)
-                    <span>{{ $error }}</span>
-                @endforeach
-            </div>
-        </div>
-    @endif
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
     <table class="table table-striped table-bordered" id="product-table">
         <thead>
         <tr>
@@ -44,29 +32,29 @@
                 <td>{{ $product->price }}</td>
                 <td>
                     <form action="{{ route('products.destroy', $product->id) }}" method="post">
-                        <a class="btn btn-small btn-info" href="{{ route('products.edit', $product->id) }}">Edit</a>
+                        <a class="btn btn-small btn-info" href="{{ route('products.edit', $product->id) }}">Редактировать</a>
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-small btn-danger" type="submit">Delete</button>
+                        <button class="btn btn-small btn-danger" type="submit">Удалить</button>
                     </form>
                 </td>
             </tr>
         @empty
-            <td colspan="7" style="text-align: center">None of one product not found</td>
+            <td colspan="7" style="text-align: center">Товаров пока еще нет</td>
         @endforelse
         </tbody>
     </table>
 
     {!! $products->links() !!}
-@endsection
+@stop
 
 @section('css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/libraries/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
 @section('js')
-    <script src="/js/app.js"></script>
+    <script src="/js/libraries/jquery.dataTables.min.js"></script>
 
     <script>
         $(document).ready(function () {

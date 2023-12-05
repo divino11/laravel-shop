@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +14,16 @@ class SizeSeeder extends Seeder
      */
     public function run()
     {
-        for ($size = 20; $size <= 50; $size++) {
+        $sizes = [
+            'xs',
+            's',
+            'm',
+            'l',
+            'xl',
+            'one size'
+        ];
+
+        foreach ($sizes as $size) {
             DB::table('sizes')->insert([
                 'name' => $size,
             ]);

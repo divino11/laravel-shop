@@ -5,7 +5,7 @@
 @section('content')
     @if(count($products) !== 0)
         @foreach($products as $product)
-            @include('parts.products', ['columns' => 4])
+            @include('parts.favorite_products', ['columns' => 4])
         @endforeach
     @endif
 @endsection

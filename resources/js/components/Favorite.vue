@@ -34,6 +34,16 @@
                 axios.post('/favorite/'+post)
                     .then(response => {
                         this.isFavorited = true
+
+                        if (response.data.count >= 1) {
+                            if ($('.favorite-badge').find('.basket_badge').length > 0) {
+                            } else {
+                                $('.favorite-badge').append('<div class="basket_badge"></div>');
+                            }
+                            $('.favorite-badge .basket_badge').html(response.data.count)
+                        } else {
+                            $('.favorite-badge .basket_badge').remove()
+                        }
                     })
                     .catch(response => console.log(response.data));
             },
@@ -42,6 +52,12 @@
                 axios.post('/unfavorite/'+post)
                     .then(response => {
                         this.isFavorited = false
+
+                        if (response.data.count === 0) {
+                            $('.favorite-badge .basket_badge').remove()
+                        } else {
+                            $('.favorite-badge .basket_badge').html(response.data.count)
+                        }
                     })
                     .catch(response => console.log(response.data));
             }

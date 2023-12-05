@@ -12,9 +12,9 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function ratings()
+    public function categories()
     {
-        return $this->hasMany(Rating::class);
+        return $this->hasMany(ProductCategory::class, 'product_id');
     }
 
     /**
@@ -35,5 +35,15 @@ class Product extends Model
             return $this->pivot->count * $this->price;
         }
         return $this->price;
+    }
+
+    public function sizes()
+    {
+        return $this->belongsToMany(Size::class, 'product_size');
+    }
+
+    public function colors()
+    {
+        return $this->belongsToMany(Color::class, 'product_color');
     }
 }

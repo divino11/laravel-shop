@@ -24,40 +24,37 @@
 
                 <div class="menu">
                     <ul>
+                        <li><a href="#">Скоро в продаже</a></li>
+                        <li><a href="#">Новинки</a></li>
                         <li class="menu_item">
-                            <a href="#" class="expand_menu">Женское</a>
+                            <a href="#" class="expand_menu">Каталог</a>
                             <div class="expanded_menu">
                                 <div class="expanded_menu-left">
                                     <div class="expanded_menu-title">По категориям</div>
                                     <ul>
-                                        <li><a href="">Блузки/рубашки</a></li>
-                                        <li><a href="">Платья/сарафаны</a></li>
-                                        <li><a href="">Водолазки/лонгсливы</a></li>
-                                        <li><a href="">Топы/футболки/майки</a></li>
-                                        <li><a href="">Толстовки/свитшоты/худи</a></li>
-                                        <li><a href="">Брюки/джинсы/шорты</a></li>
-                                        <li><a href="">Жакеты и жилеты</a></li>
-                                        <li><a href="">Одежда для дома</a></li>
-                                        <li><a href="">Верхняя одежда</a></li>
-                                        <li><a href="">Комбинезоны</a></li>
-                                        <li><a href="">Юбки</a></li>
-                                        <li><a href="/pijama">Боди</a></li>
+                                        @foreach($categories as $category)
+                                            <li>
+                                                <a href="{{ route('category', ['category' => $category->code]) }}">
+                                                    {{ $category->name }}
+                                                </a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                                 <div class="expanded_menu-right">
-                                    <div class="expanded_menu-right--item">
+                                    <div class="expanded_menu-right&#45;&#45;item">
                                         <a class="" href="#">
                                             <img src="/images/similar.png" class="w-100">
                                             Новая колекция
                                         </a>
                                     </div>
-                                    <div class="expanded_menu-right--item">
+                                    <div class="expanded_menu-right&#45;&#45;item">
                                         <a class="" href="#">
                                             <img src="/images/similar.png" class="w-100">
                                             Популярные товары
                                         </a>
                                     </div>
-                                    <div class="expanded_menu-right--item">
+                                    <div class="expanded_menu-right&#45;&#45;item">
                                         <a class="" href="#">
                                             <img src="/images/similar.png" class="w-100">
                                             Распродажа
@@ -66,78 +63,8 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="menu_item">
-                            <a href="#" class="expand_menu">Мужское</a>
-                            <div class="expanded_menu">
-                                <div class="expanded_menu-left">
-                                    <div class="expanded_menu-title">По категориям</div>
-                                    <ul>
-                                        <li><a href="">Толстовки/свитшоты/худи</a></li>
-                                        <li><a href="">Майки/фуболки</a></li>
-                                        <li><a href="">Водолазки/лонгсливы</a></li>
-                                        <li><a href="">Брюки/джинсы/шорты</a></li>
-                                    </ul>
-                                </div>
-                                <div class="expanded_menu-right">
-                                    <div class="expanded_menu-right--item">
-                                        <a class="" href="#">
-                                            <img src="/images/similar.png" class="w-100">
-                                            Новая колекция
-                                        </a>
-                                    </div>
-                                    <div class="expanded_menu-right--item">
-                                        <a class="" href="#">
-                                            <img src="/images/similar.png" class="w-100">
-                                            Популярные товары
-                                        </a>
-                                    </div>
-                                    <div class="expanded_menu-right--item">
-                                        <a class="" href="#">
-                                            <img src="/images/similar.png" class="w-100">
-                                            Распродажа
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="menu_item">
-                            <a href="#" class="expand_menu">Девочкам</a>
-                            <div class="expanded_menu">
-                                <div class="expanded_menu-left">
-                                    <div class="expanded_menu-title">По категориям</div>
-                                    <ul>
-                                        <li><a href="">Платья/сарафаны</a></li>
-                                        <li><a href="">Толстовки/свитшоты/худи</a></li>
-                                        <li><a href="">Футболки/майки/топы</a></li>
-                                        <li><a href="">Брюки/джинсы/шорты</a></li>
-                                        <li><a href="">Комбинезоны</a></li>
-                                        <li><a href="">Верхняя одежда</a></li>
-                                    </ul>
-                                </div>
-                                <div class="expanded_menu-right">
-                                    <div class="expanded_menu-right--item">
-                                        <a class="" href="#">
-                                            <img src="/images/similar.png" class="w-100">
-                                            Новая колекция
-                                        </a>
-                                    </div>
-                                    <div class="expanded_menu-right--item">
-                                        <a class="" href="#">
-                                            <img src="/images/similar.png" class="w-100">
-                                            Популярные товары
-                                        </a>
-                                    </div>
-                                    <div class="expanded_menu-right--item">
-                                        <a class="" href="#">
-                                            <img src="/images/similar.png" class="w-100">
-                                            Распродажа
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li><a href="#">Мальчикам</a></li>
-                        <li><a href="#">Бесплатные выкройки</a></li>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Сотрудничество</a></li>
                     </ul>
                 </div>
                 <div class="navigation_right">
@@ -149,7 +76,7 @@
                     </div>
                     <div class="navigation_right-item">
                         <a href="@auth {{ route('account') }} @elseauth {{ route('authentication') }} @endauth">
-                            <i class="far fa-user"></i>
+                            <i class="fi fi-rr-user"></i>
                         </a>
                         @if(!Auth::check())
                             <div class="expanded_account">
@@ -157,16 +84,16 @@
                             </div>
                         @endif
                     </div>
-                    <div class="navigation_right-item">
+                    <div class="navigation_right-item favorite-badge">
                         @include('parts.badge', ['badgeData' => $favoriteProducts ?? []])
                         <a href="{{ route('favorites') }}">
-                            <i class="far fa-heart"></i>
+                            <i class="fi fi-rs-heart"></i>
                         </a>
                     </div>
                     <div class="navigation_right-item">
                         @include('parts.badge', ['badgeData' => $basketProducts ?? []])
                         <a href="{{ route('basket') }}">
-                            <i class="fas fa-shopping-bag"></i>
+                            <i class="fi fi-rs-basket-shopping-simple"></i>
                         </a>
                         <div class="expanded_basket">
                             @include('parts.extend-basket', ['basketProducts' => $basketProducts ?? []])
@@ -181,22 +108,24 @@
     <div class="container-fluid">
         <div class="row main-row">
             <div class="col-md-12">
-                <div class="account-menu">
-                    <ul>
-                        <li><a href="{{ route('account') }}">Профиль</a></li>
-                        <li><a href="">Корзина</a></li>
-                        <li><a href="{{ route('account-orders') }}">Покупки</a></li>
-                        <li><a href="">Избранное</a></li>
-                        <li><a href="{{ route('logout') }}">Выйти</a></li>
-                    </ul>
+                <div class="row main-section">
+                    <div class="account-menu">
+                        <ul>
+                            <li><a href="{{ route('account') }}">Профиль</a></li>
+                            <li><a href="{{ route('account-basket') }}">Корзина</a></li>
+                            <li><a href="{{ route('account-orders') }}">Покупки</a></li>
+                            <li><a href="{{ route('account-favorites') }}">Избранное</a></li>
+                            <li><a href="{{ route('logout') }}">Выйти</a></li>
+                        </ul>
+                    </div>
+                    @yield('content')
                 </div>
-                @yield('content')
 
                 @include('layouts.footer')
             </div>
         </div>
     </div>
-    @include('layouts.footer-social')
+{{--    @include('layouts.footer-social')--}}
 </div>
 
 
@@ -206,6 +135,7 @@
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="{{ asset('js/app.js') }}"></script>
+@yield('additional_scripts')
 <script>
     @if(Session::has('success'))
         toastr.options =

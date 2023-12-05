@@ -39950,6 +39950,16 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.post('/favorite/' + post).then(function (response) {
         _this.isFavorited = true;
+
+        if (response.data.count >= 1) {
+          if ($('.favorite-badge').find('.basket_badge').length > 0) {} else {
+            $('.favorite-badge').append('<div class="basket_badge"></div>');
+          }
+
+          $('.favorite-badge .basket_badge').html(response.data.count);
+        } else {
+          $('.favorite-badge .basket_badge').remove();
+        }
       })["catch"](function (response) {
         return console.log(response.data);
       });
@@ -39959,6 +39969,12 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.post('/unfavorite/' + post).then(function (response) {
         _this2.isFavorited = false;
+
+        if (response.data.count === 0) {
+          $('.favorite-badge .basket_badge').remove();
+        } else {
+          $('.favorite-badge .basket_badge').html(response.data.count);
+        }
       })["catch"](function (response) {
         return console.log(response.data);
       });
@@ -40157,6 +40173,22 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/remove_product_from_order/' + product).then(function (response) {
         _this.$el.closest('.extended_basket-item').remove();
 
+        axios.get('/basket/total-price').then(function (response) {
+          $('.extended_basket-footer--right .extended_basket-total_price').html(response.data + ' руб.');
+        })["catch"](function (response) {
+          toastr__WEBPACK_IMPORTED_MODULE_0___default.a.error('Произошла ошибка!');
+        });
+        axios.get('/basket/count').then(function (response) {
+          if (response.data === 0) {
+            $('.basket_badge').remove();
+            $('.expanded_basket').html('<div class="extended_basket-empty">Ваша корзина покупок пуста</div>');
+          } else {
+            $('.basket_badge').html(response.data);
+            $('.extended_basket-inner_heading').html('Корзина (' + response.data + ')');
+          }
+        })["catch"](function (response) {
+          toastr__WEBPACK_IMPORTED_MODULE_0___default.a.error('Произошла ошибка!');
+        });
         toastr__WEBPACK_IMPORTED_MODULE_0___default.a.success('Товар был успешно удален!');
       })["catch"](function (response) {
         toastr__WEBPACK_IMPORTED_MODULE_0___default.a.error('Произошла ошибка!');
@@ -79652,7 +79684,7 @@ var render = function() {
           expression: "!show"
         }
       ],
-      staticClass: "fas fa-search",
+      staticClass: "fi fi-rr-search",
       on: {
         click: function($event) {
           _vm.show = !_vm.show
@@ -79670,7 +79702,7 @@ var render = function() {
             expression: "show"
           }
         ],
-        staticClass: "fas fa-times",
+        staticClass: "fi fi-rr-circle-xmark",
         on: {
           click: function($event) {
             _vm.show = !_vm.show
@@ -79713,7 +79745,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("button", { staticClass: "search_component-btn" }, [
-      _c("i", { staticClass: "fas fa-search" })
+      _c("i", { staticClass: "fi fi-rr-search" })
     ])
   }
 ]
@@ -91972,6 +92004,8 @@ __webpack_require__(/*! toastr/toastr */ "./node_modules/toastr/toastr.js");
 
 __webpack_require__(/*! @fancyapps/fancybox/dist/jquery.fancybox */ "./node_modules/@fancyapps/fancybox/dist/jquery.fancybox.js");
 
+var toastr = __webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.js");
+
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 Vue.component('favorite', __webpack_require__(/*! ./components/Favorite.vue */ "./resources/js/components/Favorite.vue")["default"]);
 Vue.component('minusplusfield', __webpack_require__(/*! ./components/MinusPlusComponent.vue */ "./resources/js/components/MinusPlusComponent.vue")["default"]);
@@ -91983,7 +92017,7 @@ var app = new Vue({
   el: '#app'
 });
 $(".similar_gallery").slick({
-  slidesToShow: 5,
+  slidesToShow: 4,
   slidesToScroll: 1,
   arrows: true,
   autoplay: true,
@@ -92006,13 +92040,80 @@ $(".similar_gallery").slick({
     }
   }]
 });
+$(document).ready(function () {
+  $(".quantity-control").on("click", function (e) {
+    e.preventDefault();
+    var action = $(this).data("action");
+    var target = $(this).data("target");
+    var inputField = $("#" + target);
+
+    if (action === "decrement") {
+      if (parseInt(inputField.val()) > 0) {
+        inputField.val(parseInt(inputField.val()) - 1);
+      }
+    } else if (action === "increment") {
+      inputField.val(parseInt(inputField.val()) + 1);
+    }
+  });
+});
+$(document).ready(function () {
+  $(".order-wrapper .quantity-control").on("click", function (e) {
+    e.preventDefault();
+    var action = $(this).data("action");
+    var target = $(this).data("target");
+    var product = $(this).data("product");
+    var price = $(this).data("price");
+    var priceSale = $(this).data("price-sale");
+    var inputField = $("#" + target);
+
+    if (action === "decrement") {
+      if (parseInt(inputField.text()) > 1) {
+        inputField.text(parseInt(inputField.text()) - 1);
+      }
+    } else if (action === "increment") {
+      inputField.text(parseInt(inputField.text()) + 1);
+    }
+
+    axios.post('/basket/update-count/' + product + '/' + parseInt(inputField.text())).then(function (response) {
+      if ($('.order-item-' + product + ' .order-info-details-price span').hasClass('red_price')) {
+        $('.order-item-' + product + ' .order-info-details-price .red_price').html(formatNumber(parseInt(priceSale) * parseInt(inputField.text())) + ' руб.');
+        $('.order-item-' + product + ' .order-info-details-price s').html(formatNumber(parseInt(price) * parseInt(inputField.text())) + ' руб.');
+      } else {
+        $('.order-item-' + product + ' .order-info-details-price span').html(formatNumber(parseInt(price) * parseInt(inputField.text())) + ' руб.');
+      }
+
+      axios.get('/basket/total-price-without-discount').then(function (response) {
+        $('.order_footer .product_top div:nth-child(2)').html(response.data + ' руб.');
+      })["catch"](function (response) {
+        toastr.error('Произошла ошибка!');
+      });
+      axios.get('/basket/total-price').then(function (response) {
+        $('.order_footer .product_bottom div:nth-child(2)').html(response.data + ' руб.');
+      })["catch"](function (response) {
+        toastr.error('Произошла ошибка!');
+      });
+    })["catch"](function (response) {
+      toastr.error('Произошла ошибка!');
+    });
+  });
+});
+
+function formatNumber(number) {
+  var parts = number.toFixed(2).toString().split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' '); // Insert space as thousands separator
+
+  return parts.join(',');
+}
 
 (function () {
   var a = document.querySelector('.product_container'),
       b = null,
       P = 0;
-  window.addEventListener('scroll', Ascroll, false);
-  document.body.addEventListener('scroll', Ascroll, false);
+
+  if (a) {
+    window.addEventListener('scroll', Ascroll, false);
+    document.body.addEventListener('scroll', Ascroll, false);
+  }
 
   function Ascroll() {
     if (b == null) {
@@ -92540,8 +92641,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\OSPanel\domains\laravel-shop\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\OSPanel\domains\laravel-shop\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/macbook/projects/laravel-shop/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/macbook/projects/laravel-shop/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

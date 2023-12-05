@@ -1,5 +1,6 @@
 <?php
 
+use Database\Seeders\ColorSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,8 +13,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            SizeSeeder::class,
-            AdminUserSeeder::class
+            //SizeSeeder::class,
+            //AdminUserSeeder::class
+            MainPageSeeder::class,
+            ColorSeeder::class
         ]);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Favorite;
 use App\Product;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +36,7 @@ class FavoriteController extends Controller
             }
         }
 
-        $category = Category::all();
+        $category = Category::whereNotIn('id', [2, 3, 4])->get();
 
         return view('layouts.favorites', [
             'products' => $favoriteData ?? [],
@@ -43,41 +44,29 @@ class FavoriteController extends Controller
         ]);
     }
 
-    /**
-     * Favorite a particular product
-     *
-     * @param Product $product
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function favoriteProduct(Product $product)
+    public function favoriteProduct(Product $product): JsonResponse
     {
         $favoriteId = session('favoriteId');
 
+        $favorite = Favorite::create([
+            'user_id' => $favoriteId,
+            'product_id' => $product->id
+        ]);
+
         if (is_null($favoriteId)) {
-            $favorite = Favorite::create();
             session(['favoriteId' => $favorite->id]);
         } else {
-            $favorite = Favorite::create();
             if (is_null($favoriteId)) {
                 session(['favoriteId' => $favorite->id]);
             }
         }
 
-        $favorite->user_id = $favoriteId;
-        $favorite->product_id = $product->id;
-
-        $favorite->save();
-
-        return back();
+        return response()->json([
+            'count' => Favorite::where('user_id', $favoriteId)->count()
+        ]);
     }
 
-    /**
-     * Unfavorite a particular product
-     *
-     * @param Product $product
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function unFavoriteProduct(Product $product)
+    public function unFavoriteProduct(Product $product): JsonResponse|\Illuminate\Http\RedirectResponse
     {
         $favoriteId = session('favoriteId');
 
@@ -87,6 +76,8 @@ class FavoriteController extends Controller
 
         Favorite::where('user_id', session('favoriteId'))->where('product_id', $product->id)->delete();
 
-        return back();
+        return response()->json([
+            'count' => Favorite::where('user_id', $favoriteId)->count()
+        ]);
     }
 }

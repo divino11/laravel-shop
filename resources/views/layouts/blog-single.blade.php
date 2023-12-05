@@ -9,10 +9,10 @@
                 <div class="col-md-8 d-flex flex-column justify-content-center align-items-center">
                     <div class="inner_heading">{{ $post->title }}</div>
 
-                    <img src="{{ '/images/' . $post->image }}" class="blog-single_image" alt="{{ $post->title }}">
+                    <img src="{{ asset('storage/posts/' . $post->image) }}" class="blog-single_image" alt="{{ $post->title }}">
 
                     <div class="blog-single_wrapper">
-                        {{ $post->content }}
+                        {!! $post->content !!}
                     </div>
                 </div>
             </div>
