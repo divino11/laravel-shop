@@ -41,21 +41,23 @@
                             <span id="product_{{ $product->getOriginal('pivot_id') }}">{{ $product->getOriginal('pivot_quantity') }}</span>
                             <button class="quantity-control button-size" data-action="increment" data-price="{{ $product->price }}" data-price-sale="{{ $product->price_sale }}" data-product="{{ $product->getOriginal('pivot_id') }}" data-target="product_{{ $product->getOriginal('pivot_id') }}">+</button>
                         </div>
-                        <div class="order-info-details-price">
-                            <div>Цена</div>
-                            <span>
-                                @if($product->price_sale)
-                                    <span
-                                        class="red_price">{{ numberFormatPrice(sumByQuantity($product, (int)$product->getOriginal('pivot_quantity'), 'priceSale')) }} руб.</span>
-                                    <br>
-                                @endif
-                                @if($product->price_sale)
-                                    <s>{{ numberFormatPrice(sumByQuantity($product, (int)$product->getOriginal('pivot_quantity'))) }} руб.</s>
-                                @else
-                                    {{ numberFormatPrice(sumByQuantity($product, (int)$product->getOriginal('pivot_quantity'))) }} руб.
-                                @endif
-                            </span>
-                        </div>
+                        @auth
+                            <div class="order-info-details-price">
+                                <div>Цена</div>
+                                <span>
+                                    @if($product->price_sale)
+                                        <span
+                                            class="red_price">{{ numberFormatPrice(sumByQuantity($product, (int)$product->getOriginal('pivot_quantity'), 'priceSale')) }} руб.</span>
+                                        <br>
+                                    @endif
+                                    @if($product->price_sale)
+                                        <s>{{ numberFormatPrice(sumByQuantity($product, (int)$product->getOriginal('pivot_quantity'))) }} руб.</s>
+                                    @else
+                                        {{ numberFormatPrice(sumByQuantity($product, (int)$product->getOriginal('pivot_quantity'))) }} руб.
+                                    @endif
+                                </span>
+                            </div>
+                        @endauth
                     </div>
                 </div>
                 <div class="basket_remove">
@@ -83,21 +85,23 @@
                             <p class="product-title"><a href="">Пижама Moomlight</a></p>
                             <p><i class="far fa-heart"></i></p>
                         </div>
-                        <div class="product_bottom">
-                            <div class="product_price">
-                                <div class="product_price_main">
-                                    <s>
-                                        3400 р.
-                                    </s>
+                        @auth
+                            <div class="product_bottom">
+                                <div class="product_price">
+                                    <div class="product_price_main">
+                                        <s>
+                                            3400 р.
+                                        </s>
+                                    </div>
+                                    <div class="product_price-sale">
+                                        2000 р.
+                                    </div>
                                 </div>
-                                <div class="product_price-sale">
-                                    2000 р.
+                                <div class="sale">
+                                    -60%
                                 </div>
                             </div>
-                            <div class="sale">
-                                -60%
-                            </div>
-                        </div>
+                        @endauth
                     </div>
                 </div>
                 <div class="gallery_item">
@@ -107,21 +111,23 @@
                             <p class="product-title"><a href="">Пижама Moomlight</a></p>
                             <p><i class="far fa-heart"></i></p>
                         </div>
-                        <div class="product_bottom">
-                            <div class="product_price">
-                                <div class="product_price_main">
-                                    <s>
-                                        3400 р.
-                                    </s>
+                        @auth
+                            <div class="product_bottom">
+                                <div class="product_price">
+                                    <div class="product_price_main">
+                                        <s>
+                                            3400 р.
+                                        </s>
+                                    </div>
+                                    <div class="product_price-sale">
+                                        2000 р.
+                                    </div>
                                 </div>
-                                <div class="product_price-sale">
-                                    2000 р.
+                                <div class="sale">
+                                    -60%
                                 </div>
                             </div>
-                            <div class="sale">
-                                -60%
-                            </div>
-                        </div>
+                        @endauth
                     </div>
                 </div>
                 <div class="gallery_item">
@@ -131,21 +137,23 @@
                             <p class="product-title"><a href="">Пижама Moomlight</a></p>
                             <p><i class="far fa-heart"></i></p>
                         </div>
-                        <div class="product_bottom">
-                            <div class="product_price">
-                                <div class="product_price_main">
-                                    <s>
-                                        3400 р.
-                                    </s>
+                        @auth
+                            <div class="product_bottom">
+                                <div class="product_price">
+                                    <div class="product_price_main">
+                                        <s>
+                                            3400 р.
+                                        </s>
+                                    </div>
+                                    <div class="product_price-sale">
+                                        2000 р.
+                                    </div>
                                 </div>
-                                <div class="product_price-sale">
-                                    2000 р.
+                                <div class="sale">
+                                    -60%
                                 </div>
                             </div>
-                            <div class="sale">
-                                -60%
-                            </div>
-                        </div>
+                        @endauth
                     </div>
                 </div>
                 <div class="gallery_item">
@@ -155,21 +163,23 @@
                             <p class="product-title"><a href="">Пижама Moomlight</a></p>
                             <p><i class="far fa-heart"></i></p>
                         </div>
-                        <div class="product_bottom">
-                            <div class="product_price">
-                                <div class="product_price_main">
-                                    <s>
-                                        3400 р.
-                                    </s>
+                        @auth
+                            <div class="product_bottom">
+                                <div class="product_price">
+                                    <div class="product_price_main">
+                                        <s>
+                                            3400 р.
+                                        </s>
+                                    </div>
+                                    <div class="product_price-sale">
+                                        2000 р.
+                                    </div>
                                 </div>
-                                <div class="product_price-sale">
-                                    2000 р.
+                                <div class="sale">
+                                    -60%
                                 </div>
                             </div>
-                            <div class="sale">
-                                -60%
-                            </div>
-                        </div>
+                        @endauth
                     </div>
                 </div>
                 <div class="gallery_item">
@@ -179,21 +189,23 @@
                             <p class="product-title"><a href="">Пижама Moomlight</a></p>
                             <p><i class="far fa-heart"></i></p>
                         </div>
-                        <div class="product_bottom">
-                            <div class="product_price">
-                                <div class="product_price_main">
-                                    <s>
-                                        3400 р.
-                                    </s>
+                        @auth
+                            <div class="product_bottom">
+                                <div class="product_price">
+                                    <div class="product_price_main">
+                                        <s>
+                                            3400 р.
+                                        </s>
+                                    </div>
+                                    <div class="product_price-sale">
+                                        2000 р.
+                                    </div>
                                 </div>
-                                <div class="product_price-sale">
-                                    2000 р.
+                                <div class="sale">
+                                    -60%
                                 </div>
                             </div>
-                            <div class="sale">
-                                -60%
-                            </div>
-                        </div>
+                        @endauth
                     </div>
                 </div>
                 <div class="gallery_item">
@@ -203,21 +215,23 @@
                             <p class="product-title"><a href="">Пижама Moomlight</a></p>
                             <p><i class="far fa-heart"></i></p>
                         </div>
-                        <div class="product_bottom">
-                            <div class="product_price">
-                                <div class="product_price_main">
-                                    <s>
-                                        3400 р.
-                                    </s>
+                        @auth
+                            <div class="product_bottom">
+                                <div class="product_price">
+                                    <div class="product_price_main">
+                                        <s>
+                                            3400 р.
+                                        </s>
+                                    </div>
+                                    <div class="product_price-sale">
+                                        2000 р.
+                                    </div>
                                 </div>
-                                <div class="product_price-sale">
-                                    2000 р.
+                                <div class="sale">
+                                    -60%
                                 </div>
                             </div>
-                            <div class="sale">
-                                -60%
-                            </div>
-                        </div>
+                        @endauth
                     </div>
                 </div>
             </div>
