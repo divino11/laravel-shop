@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Order;
 use App\Product;
 use Carbon\Carbon;
@@ -20,11 +19,8 @@ class BasketController extends Controller
             $order = Order::findOrFail($orderId);
         }
 
-        $categories = Category::all();
-
         return view('layouts.basket', [
             'orders' => $order->products ?? [],
-            'categories' => $categories
         ]);
     }
 

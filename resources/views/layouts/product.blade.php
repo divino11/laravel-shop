@@ -4,8 +4,13 @@
 
 @section('content')
     <div class="col-xs-8 col-md-8">
-        <img src="/images/cardproduct.png" class="w100" alt="">
-        <img src="/images/cardproduct.png" class="w100" alt="">
+        <div class="row">
+            @foreach($product->images as $image)
+                <div class="col-xs-12 col-md-6">
+                    <img src="{{ url("/images/{$image->path}") }}" class="w100" alt="">
+                </div>
+            @endforeach
+        </div>
     </div>
     <div class="col-xs-4 col-md-4">
         <div class="product_container">
