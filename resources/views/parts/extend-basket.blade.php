@@ -15,17 +15,19 @@
                                 $basketProduct->id
                             ]) }}">{{ $basketProduct->name }}</a>
                         </div>
-                        <div class="extended_basket-item--price">
-                            @if($basketProduct->price_sale)
-                                <span class="red_price">{{ numberFormatPrice(sumByCount($basketProduct, 'priceSale')) }} руб.</span>
-                                <br>
-                            @endif
-                            @if($basketProduct->price_sale)
-                                <s>{{ numberFormatPrice(sumByCount($basketProduct)) }} руб.</s>
-                            @else
-                                {{ numberFormatPrice(sumByCount($basketProduct)) }} руб.
-                            @endif
-                        </div>
+                        @auth
+                            <div class="extended_basket-item--price">
+                                @if($basketProduct->price_sale)
+                                    <span class="red_price">{{ numberFormatPrice(sumByCount($basketProduct, 'priceSale')) }} руб.</span>
+                                    <br>
+                                @endif
+                                @if($basketProduct->price_sale)
+                                    <s>{{ numberFormatPrice(sumByCount($basketProduct)) }} руб.</s>
+                                @else
+                                    {{ numberFormatPrice(sumByCount($basketProduct)) }} руб.
+                                @endif
+                            </div>
+                        @endauth
                     </div>
                     <div class="extended_basket-item--sizes">
                         @if($basketProduct->getOriginal('pivot_order_size'))
@@ -49,11 +51,15 @@
 
     <div class="extended_basket-footer">
         <div class="extended_basket-footer--left">
-            <div class="extended_basket-total_price">Всего:</div>
+            @auth
+                <div class="extended_basket-total_price">Всего:</div>
+            @endauth
             <div class="extended_basket-delivery">Доставка</div>
         </div>
         <div class="extended_basket-footer--right">
-            <div class="extended_basket-total_price">{{ numberFormatPrice(sumByPriceSale($basketProducts)) }} руб.</div>
+            @auth
+                <div class="extended_basket-total_price">{{ numberFormatPrice(sumByPriceSale($basketProducts)) }} руб.</div>
+            @endauth
             <div class="extended_basket-delivery">Бесплатная доставка</div>
         </div>
     </div>
