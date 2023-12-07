@@ -1716,8 +1716,8 @@ details[open] summary ~ * {
 }
 
 .home-main__img {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: calc(100vh - 77px);
     -o-object-fit: cover;
     object-fit: cover;
     -o-object-position: center;
