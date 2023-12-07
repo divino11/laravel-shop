@@ -435,20 +435,21 @@ body {
 }
 
 .nav-tabs .nav-link {
-    border: none;
-    border-radius: 0;
     margin-right: 5px;
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #000;
 }
 
 .nav-tabs .nav-link:hover {
-    color: #ffffff;
-    background-color: #393939;
+    color: #000;
+    background-color: #ededed;
 }
 
 .nav-tabs .nav-link.active {
-    color: #ffffff;
-    background-color: #393939;
-    border: none;
+    color: #000;
+    background-color: #ededed;
+    border: 1px solid #000;
 }
 
 .similar_wrapper {

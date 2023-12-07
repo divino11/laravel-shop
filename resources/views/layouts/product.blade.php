@@ -7,7 +7,9 @@
         <div class="row">
             @foreach($product->images as $image)
                 <div class="col-xs-12 col-md-6">
-                    <img src="{{ url("/images/{$image->path}") }}" class="w100" alt="">
+                    <a href="{{ url("/images/{$image->path}") }}" data-fancybox="gallery" data-caption="Single image">
+                        <img src="{{ url("/images/{$image->path}") }}" class="w100" />
+                    </a>
                 </div>
             @endforeach
         </div>
