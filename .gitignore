@@ -3,8 +3,10 @@ node_modules/
 npm-debug.log
 yarn-error.log
 .idea/
-storage/
+storage/*
 public/vendor/
+public/css/app.css
+public/js/app.js
 
 # Laravel 4 specific
 bootstrap/compiled.php

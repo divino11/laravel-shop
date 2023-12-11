@@ -7702,20 +7702,21 @@ body {
 }
 
 .nav-tabs .nav-link {
-  border: none;
-  border-radius: 0;
   margin-right: 5px;
+  color: #000;
+  background-color: #fff;
+  border: 1px solid #000;
 }
 
 .nav-tabs .nav-link:hover {
-  color: #ffffff;
-  background-color: #393939;
+  color: #000;
+  background-color: #ededed;
 }
 
 .nav-tabs .nav-link.active {
-  color: #ffffff;
-  background-color: #393939;
-  border: none;
+  color: #000;
+  background-color: #ededed;
+  border: 1px solid #000;
 }
 
 .similar_wrapper {
@@ -9046,8 +9047,8 @@ details[open] summary ~ * {
 }
 
 .home-main__img {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: calc(100vh - 77px);
   -o-object-fit: cover;
   object-fit: cover;
   -o-object-position: center;
@@ -9092,6 +9093,7 @@ details[open] summary ~ * {
 section.home-category {
   display: flex;
   flex-direction: row;
+  height: 100vh;
 }
 
 .home-category .home-category__slide {
