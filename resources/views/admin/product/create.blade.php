@@ -29,9 +29,32 @@
                         <input type="file" name="main_image" class="form-control">
                     </div>
                     <div class="form-group">
+                        <label for="media">Фото и видео для товара</label>
+                        <input type="file" name="media[]" id="media" class="form-control" multiple onchange="previewMedia()">
+                    </div>
+
+                    <!-- Media preview container -->
+                    <div id="media-preview-container" class="mt-2"></div>
+
+                    <div class="form-group">
                         <label for="description">Описание</label>
                         <textarea id="description" class="form-control" name="description"
                                   placeholder="Описание"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="care">Состав и уход</label>
+                        <textarea id="care" class="form-control" name="care"
+                                  placeholder="Состав и уход"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="params">Параметры изделия</label>
+                        <textarea id="params" class="form-control" name="params"
+                                  placeholder="Параметры изделия"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="delivery">Доставка и оплата</label>
+                        <textarea id="delivery" class="form-control" name="delivery"
+                                  placeholder="Доставка и оплата"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="size">Размеры</label>
@@ -106,6 +129,44 @@
 @section('js')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="/js/app.js"></script>
+
+    <script>
+        function previewMedia() {
+            var previewContainer = document.getElementById('media-preview-container');
+            var filesInput = document.getElementById('media');
+            var files = filesInput.files;
+
+            // Clear previous previews
+            previewContainer.innerHTML = '';
+
+            for (var i = 0; i < files.length; i++) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var previewElement;
+
+                    if (e.target.result.startsWith('data:image')) {
+                        // Image preview
+                        previewElement = document.createElement('img');
+                        previewElement.src = e.target.result;
+                        previewElement.className = 'img-thumbnail mr-2';
+                    } else if (e.target.result.startsWith('data:video')) {
+                        // Video preview
+                        previewElement = document.createElement('video');
+                        previewElement.src = e.target.result;
+                        previewElement.controls = true;
+                        previewElement.className = 'mr-2';
+                    }
+
+                    previewElement.style.width = '100px'; // Adjust the width as needed
+
+                    previewContainer.appendChild(previewElement);
+                };
+
+                reader.readAsDataURL(files[i]);
+            }
+        }
+    </script>
 
     <script>
         $(document).ready(function () {

@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\URL;
+use App\Http\Controllers\NewsSubscriptionController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-URL::forceScheme('https');
 
 Auth::routes([
     'reset' => false,
@@ -76,6 +74,7 @@ Route::get('/insta-shop', 'MainController@instaShop')->name('insta-shop');
 Route::get('/blog', 'PostController@index')->name('blog');
 Route::get('/blog/{slug}', 'PostController@show')->name('blog-read');
 Route::post('review-add/user/{user}/product/{product}', 'RatingController@reviewAdd')->name('review-add');
+Route::post('/news-subscription', NewsSubscriptionController::class)->name('news-subscription');
 
 Route::group([
     'prefix' => 'basket'

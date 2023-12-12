@@ -25,7 +25,7 @@
         @forelse($products as $product)
             <tr>
                 <td>{{ $product->id }}</td>
-                <td><img src="/images/{{ $product->image }}" class="img-size-xs" alt=""></td>
+                <td><img src="/images/product/{{ $product->id }}/main/{{ $product->image }}" class="img-size-xs" alt=""></td>
                 <td>{{ $product->name }}</td>
                 <td>{{ $product->description }}</td>
                 <td>{{ $product->count }}</td>

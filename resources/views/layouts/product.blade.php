@@ -7,9 +7,15 @@
         <div class="row">
             @foreach($product->images as $image)
                 <div class="col-xs-12 col-md-6">
-                    <a href="{{ url("/images/{$image->path}") }}" data-fancybox="gallery" data-caption="Single image">
-                        <img src="{{ url("/images/{$image->path}") }}" class="w100" />
-                    </a>
+                    @if ($image->type === 'image')
+                        <a href="{{ url("/images/product/{$product->id}/images/{$image->path}") }}" data-fancybox="gallery">
+                            <img src="{{ url("/images/product/{$product->id}/images/{$image->path}") }}" class="w100" />
+                        </a>
+                    @else
+                        <video autoplay muted loop class="w100">
+                            <source src="{{ url("/images/product/{$product->id}/images/{$image->path}") }}">
+                        </video>
+                    @endif
                 </div>
             @endforeach
         </div>
@@ -118,13 +124,13 @@
                     </div>
                     <div class="tab-pane fade" id="nav-contains" role="tabpanel"
                          aria-labelledby="nav-contains-tab">
-                        ...
+                        {{ $product->care }}
                     </div>
                     <div class="tab-pane fade" id="nav-params" role="tabpanel" aria-labelledby="nav-params-tab">
-                        ...
+                        {{ $product->params }}
                     </div>
                     <div class="tab-pane fade" id="nav-delivery" role="tabpanel" aria-labelledby="nav-delivery-tab">
-                        ...
+                        {{ $product->delivery }}
                     </div>
                 </div>
             </div>

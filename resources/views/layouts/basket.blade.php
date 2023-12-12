@@ -15,7 +15,7 @@
                         $product->id
                     ]) }}"><img
                         class="img-size-130"
-                        src="{{ url('images/' . $product->image) }}"
+                        src="{{ url("/images/product/{$product->id}/main/" . $product->image) }}"
                         alt="{{ $product->name }}"></a>
                 </div>
                 <div class="order-item-info">

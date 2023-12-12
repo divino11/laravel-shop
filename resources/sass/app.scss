@@ -1975,3 +1975,16 @@ section.home-category {
 .datepicker-input {
     height: 45px;
 }
+
+#media-preview-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.img-thumbnail, video {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    margin-bottom: 10px;
+}

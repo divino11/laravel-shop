@@ -19,7 +19,7 @@
                 @foreach($order->orderProducts as $orderProduct)
                     <div class="product__content">
                         <div class="col-md-4">
-                            <img src="{{ '/images/' . $orderProduct->product->image }}"
+                            <img src="{{ "/images/product/{$orderProduct->product->id}/main/" . $orderProduct->product->image }}"
                                  alt="{{ $orderProduct->product->name }}">
                         </div>
                         <div class="col-md-4">

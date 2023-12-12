@@ -15,5 +15,6 @@ class VerifyCsrfToken extends Middleware
         '/admin/blog/upload-image', // Add your image upload endpoint
         '/favorite/*',
         '/unfavorite/*',
+        '/news-subscription'
     ];
 }
