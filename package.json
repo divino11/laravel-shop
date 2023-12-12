@@ -29,6 +29,8 @@
         "@flaticon/flaticon-uicons": "^2.4.0",
         "@fortawesome/fontawesome-free": "^5.13.0",
         "admin-lte": "^3.2.0",
+        "filepond-plugin-file-validate-type": "^1.2.8",
+        "filepond-plugin-image-preview": "^4.6.11",
         "font-awesome": "^4.7.0",
         "image-zoom-on-hover": "^1.0.0",
         "inputmask": "^5.0.3",

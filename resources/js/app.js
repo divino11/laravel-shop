@@ -65,6 +65,26 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
+    $('.news_subscription_button').click(function (e) {
+        e.preventDefault();
+
+        axios.post('/news-subscription', {
+            email: $('.input_feedback').val().trim(),
+        })
+            .then(response => {
+                $(this).prop('disabled', true);
+
+                $('.news-subscription-message').show();
+                $('.news-subscription-message').text(response.data.message);
+                $('.news-subscription-message').css({color: '#45bf35'});
+            })
+            .catch(reason => {
+                $('.news-subscription-message').show();
+                $('.news-subscription-message').text('Возникла ошибка!');
+                $('.news-subscription-message').css({color: '#ff4751'});
+            });
+    });
+
     $(".order-wrapper .quantity-control").on("click", function(e) {
         e.preventDefault();
         const action = $(this).data("action");

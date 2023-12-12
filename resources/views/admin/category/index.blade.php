@@ -43,7 +43,7 @@
                 <td>{{ $value->description }}</td>
                 <td>
                     <form action="{{ route('category.destroy', $value->id) }}" method="post">
-                        <a class="btn btn-small btn-success" href="{{ route('category.show', $value->id) }}">Показать</a>
+{{--                        <a class="btn btn-small btn-success" href="{{ route('category.show', $value->id) }}">Показать</a>--}}
                         <a class="btn btn-small btn-info" href="{{ route('category.edit', $value->id) }}">Редактировать</a>
                         @csrf
                         @method('DELETE')

@@ -41,10 +41,12 @@
             </div>-->
 
         <div class="footer_item">
-            <form action="" class="form_footer d-none d-sm-block">
+            <div class="form_footer d-none d-sm-block">
                 <input class="input_feedback" type="email" name="email" placeholder="Ваш Email">
-                <button><i class="fas fa-chevron-right"></i></button>
-            </form>
+                <button type="button" class="news_subscription_button"><i class="fas fa-chevron-right"></i></button>
+            </div>
+
+            <p style="display: none" class="news-subscription-message"></p>
 
             <p class="footer_item-subheading d-none d-sm-block">Вы принимаете "Политику
                 конфиденциальности"</p>

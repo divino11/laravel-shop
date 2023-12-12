@@ -40273,6 +40273,16 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.post('/favorite/' + post).then(function (response) {
         _this.isFavorited = true;
+
+        if (response.data.count >= 1) {
+          if ($('.favorite-badge').find('.basket_badge').length > 0) {} else {
+            $('.favorite-badge').append('<div class="basket_badge"></div>');
+          }
+
+          $('.favorite-badge .basket_badge').html(response.data.count);
+        } else {
+          $('.favorite-badge .basket_badge').remove();
+        }
       })["catch"](function (response) {
         return console.log(response.data);
       });
@@ -40282,6 +40292,12 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.post('/unfavorite/' + post).then(function (response) {
         _this2.isFavorited = false;
+
+        if (response.data.count === 0) {
+          $('.favorite-badge .basket_badge').remove();
+        } else {
+          $('.favorite-badge .basket_badge').html(response.data.count);
+        }
       })["catch"](function (response) {
         return console.log(response.data);
       });
@@ -92057,6 +92073,27 @@ $(document).ready(function () {
   });
 });
 $(document).ready(function () {
+  $('.news_subscription_button').click(function (e) {
+    var _this = this;
+
+    e.preventDefault();
+    axios.post('/news-subscription', {
+      email: $('.input_feedback').val().trim()
+    }).then(function (response) {
+      $(_this).prop('disabled', true);
+      $('.news-subscription-message').show();
+      $('.news-subscription-message').text(response.data.message);
+      $('.news-subscription-message').css({
+        color: '#45bf35'
+      });
+    })["catch"](function (reason) {
+      $('.news-subscription-message').show();
+      $('.news-subscription-message').text('Возникла ошибка!');
+      $('.news-subscription-message').css({
+        color: '#ff4751'
+      });
+    });
+  });
   $(".order-wrapper .quantity-control").on("click", function (e) {
     e.preventDefault();
     var action = $(this).data("action");

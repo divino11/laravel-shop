@@ -43,19 +43,19 @@
                                 </div>
                                 <div class="expanded_menu-right">
                                     <div class="expanded_menu-right&#45;&#45;item">
-                                        <a class="" href="#">
+                                        <a class="" href="{{ route('category', ['category' => 'new-collection']) }}">
                                             <img src="/images/similar.png" class="w-100">
                                             Новая колекция
                                         </a>
                                     </div>
                                     <div class="expanded_menu-right&#45;&#45;item">
-                                        <a class="" href="#">
+                                        <a class="" href="{{ route('category', ['category' => 'popular-products']) }}">
                                             <img src="/images/similar.png" class="w-100">
                                             Популярные товары
                                         </a>
                                     </div>
                                     <div class="expanded_menu-right&#45;&#45;item">
-                                        <a class="" href="#">
+                                        <a class="" href="{{ route('category', ['category' => 'sales']) }}">
                                             <img src="/images/similar.png" class="w-100">
                                             Распродажа
                                         </a>

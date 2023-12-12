@@ -33,22 +33,74 @@
                     <label for="description">Главное изображение</label>
                     <input type="file" name="main_image" class="form-control">
                     <input type="hidden" value="{{ $product->image }}" name="main_image_hidden">
-                    <img src="{{ url('images/' . $product->image) }}" class="img-size-s" alt="">
+                    <img src="{{ url("/images/product/{$product->id}/main/" . $product->image) }}" class="img-size-s" alt="">
                 </div>
+
+                <div class="form-group">
+                    <label for="media">Product Media (Images or Videos):</label>
+                    <input type="file" name="media[]" id="media" class="form-control" multiple onchange="previewMedia()">
+                </div>
+
+                <div class="row existingImages">
+                    @foreach($product->images as $image)
+                        <div class="col-md-3">
+                            @if ($image->type === 'image')
+                                <img src="{{ url("/images/product/{$product->id}/images/{$image->path}") }}" class="w100" />
+                            @else
+                                <video autoplay muted loop class="w100">
+                                    <source src="{{ url("/images/product/{$product->id}/images/{$image->path}") }}">
+                                </video>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+
+                <!-- Media preview container -->
+                <div id="media-preview-container" class="mt-2"></div>
+
                 <div class="form-group">
                     <label for="description">Описание</label>
                     <textarea id="description" class="form-control" name="description"
                               placeholder="Описание">{{ $product->description }}</textarea>
                 </div>
                 <div class="form-group">
+                    <label for="care">Состав и уход</label>
+                    <textarea id="care" class="form-control" name="care"
+                              placeholder="Состав и уход">{{ $product->care }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="params">Параметры изделия</label>
+                    <textarea id="params" class="form-control" name="params"
+                              placeholder="Параметры изделия">{{ $product->params }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="delivery">Доставка и оплата</label>
+                    <textarea id="delivery" class="form-control" name="delivery"
+                              placeholder="Доставка и оплата">{{ $product->delivery }}</textarea>
+                </div>
+                <div class="form-group">
                     <label for="size">Размеры</label>
                     <select name="size[]" multiple="multiple" id="size"
                             class="form-control sizes-select js-example-basic-multiple">
                         @foreach($sizes as $size)
-                            <option value="{{ $size->name }}"
+                            <option value="{{ $size->id }}"
                                     @selected(in_array($size->id, $product->sizes()->pluck('size_id')->toArray()))>{{ $size->name }}</option>
                         @endforeach
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="size">Цвета</label>
+                    <div id="colorFields">
+                        @foreach($product->colors as $key => $color)
+                            <div class="colorField colorField-{{ $key + 1 }}">
+                                <input type="text" name="colorName[][{{ $key + 1 }}]" value="{{ $color->name }}" placeholder="Название цвета" class="form-control">
+                                <input type="color" name="colorValue[][{{ $key + 1 }}]" value="{{ $color->hex_code }}">
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <button id="addColorField" class="btn btn-info" type="button">Добавить цвет</button>
+                    <button id="removeColorField"  class="btn btn-danger" type="button">Удалить цвет</button>
                 </div>
                 <div class="form-group">
                     <label for="price">Цена</label>
@@ -73,7 +125,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+<!--                <div class="form-group">
                     <label for="description">Загрузить файл А4</label>
                     <input type="hidden" value="{{ $product->a4_file }}" name="a4_file_hidden">
                     <input type="file" name="a4_file" class="form-control">
@@ -86,8 +138,8 @@
                                     alt="{{ $product->a4_file }}"></a>
                         </div>
                     @endif
-                </div>
-                <div class="form-group">
+                </div>-->
+<!--                <div class="form-group">
                     <label for="description">Загрузить файл плоттер</label>
                     <input type="hidden" value="{{ $product->plotter_file }}" name="plotter_file_hidden">
                     <input type="file" name="plotter_file" class="form-control">
@@ -114,7 +166,7 @@
                                     alt="{{ $product->description_file }}"></a>
                         </div>
                     @endif
-                </div>
+                </div>-->
                 <div class="form-group">
                     <label for="status">Статус</label>
                     <select name="status" id="status" class="form-control">
@@ -140,6 +192,104 @@
     <script>
         $(document).ready(function () {
             $('.js-example-basic-multiple').select2();
+        });
+
+        $('#media').change(function() {
+            $('.existingImages').remove();
+        })
+    </script>
+
+    <script>
+        function previewMedia() {
+            var previewContainer = document.getElementById('media-preview-container');
+            var filesInput = document.getElementById('media');
+            var files = filesInput.files;
+
+            // Clear previous previews
+            previewContainer.innerHTML = '';
+
+            for (var i = 0; i < files.length; i++) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var previewElement;
+
+                    if (e.target.result.startsWith('data:image')) {
+                        // Image preview
+                        previewElement = document.createElement('img');
+                        previewElement.src = e.target.result;
+                        previewElement.className = 'img-thumbnail mr-2';
+                    } else if (e.target.result.startsWith('data:video')) {
+                        // Video preview
+                        previewElement = document.createElement('video');
+                        previewElement.src = e.target.result;
+                        previewElement.controls = true;
+                        previewElement.className = 'mr-2';
+                    }
+
+                    previewElement.style.width = '100px'; // Adjust the width as needed
+
+                    previewContainer.appendChild(previewElement);
+                };
+
+                reader.readAsDataURL(files[i]);
+            }
+        }
+
+        $(document).ready(function() {
+            // Counter for dynamically added fields
+            let fieldCounter = '{{ count($product->colors) }}';
+            fieldCounter = parseInt(fieldCounter) + 1;
+
+            // Function to add new color fields
+            function addColorField() {
+                $('#colorFields').append('<div class="colorField colorField-' + fieldCounter + '"></div>');
+
+                const colorFields = $('.colorField-' + fieldCounter);
+
+                // Create new input field for name
+                const nameInput = $('<input>', {
+                    type: 'text',
+                    name: 'colorName[][' + fieldCounter + ']',
+                    placeholder: 'Название цвета',
+                    class: 'form-control'
+                });
+
+                // Create new input field for color
+                const colorInput = $('<input>', {
+                    type: 'color',
+                    name: 'colorValue[][' + fieldCounter + ']'
+                });
+
+                // Append new fields to the container
+                colorFields.append(nameInput);
+                colorFields.append(colorInput);
+
+                // Increment the field counter
+                fieldCounter++;
+            }
+
+            // Function to remove the last color field
+            function removeColorField() {
+                let fieldCounterTemp = fieldCounter - 1;
+
+                const colorFields = $('.colorField-' + fieldCounterTemp);
+
+                // Check if there are fields to remove
+                if (fieldCounterTemp > 1) {
+                    // Remove the last color field and line break
+                    colorFields.remove()
+
+                    // Decrement the field counter
+                    fieldCounter--;
+                }
+            }
+
+            // Attach click event to the "Add Color Field" button
+            $('#addColorField').on('click', addColorField);
+
+            // Attach click event to the "Remove Last Color Field" button
+            $('#removeColorField').on('click', removeColorField);
         });
     </script>
 @stop

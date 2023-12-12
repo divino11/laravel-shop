@@ -7,10 +7,12 @@ use App\Color;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\ProductCategory;
+use App\ProductImage;
 use App\Size;
 use App\SizesProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 
 class ProductController extends Controller
@@ -58,6 +60,9 @@ class ProductController extends Controller
             $product->code = random_int(10000000, 99999999);
             $product->name = $request->name;
             $product->description = $request->description;
+            $product->care = $request->care;
+            $product->params = $request->params;
+            $product->delivery = $request->delivery;
             $product->price = $request->price;
             $product->price_sale = $request->price_sale;
             $product->price_sale_percent = $request->price_sale_percent;
@@ -73,11 +78,11 @@ class ProductController extends Controller
             if ($request->main_image) {
                 $file = $request->main_image;
                 $filename = time() . '-' . $file->getClientOriginalName();
-                $file->move(public_path("images"), $filename);
+                //$file->move(public_path("images/product/{$product->id}/main/"), $filename);
                 $product->image = $filename;
             }
 
-            if ($request->a4_file) {
+            /*if ($request->a4_file) {
                 $file = $request->a4_file;
                 $filename = time() . '-' . $file->getClientOriginalName();
                 $file->move(public_path("files"), $filename);
@@ -96,10 +101,14 @@ class ProductController extends Controller
                 $filename = time() . '-' . $file->getClientOriginalName();
                 $file->move(public_path("files"), $filename);
                 $product->description_file = $filename;
-            }
+            }*/
         }
 
         if ($product->save()) {
+            if ($request->main_image) {
+                $file->move(public_path("images/product/{$product->id}/main/"), $filename);
+            }
+
             foreach ($request->category_id as $category) {
                 ProductCategory::create([
                     'product_id' => $product->id,
@@ -119,6 +128,20 @@ class ProductController extends Controller
                    'product_id' => $product->id,
                     'size_id' => $size
                 ]);
+            }
+
+            if ($request->media) {
+                foreach ($request->file('media') as $media) {
+                    $file = $media;
+                    $filename = time() . '-' . $file->getClientOriginalName();
+                    $file->move(public_path("images/product/{$product->id}/images/"), $filename);
+
+                    ProductImage::create([
+                        'product_id' => $product->id,
+                        'path' => $filename,
+                        'type' => str_starts_with($media->getClientMimeType(), 'video') ? 'video' : 'image',
+                    ]);
+                }
             }
 
             return redirect()->route('products.index')
@@ -174,21 +197,22 @@ class ProductController extends Controller
         $product = Product::find($request->id);
         $product->name = $request->name;
         $product->description = $request->description;
+        $product->care = $request->care;
+        $product->params = $request->params;
+        $product->delivery = $request->delivery;
         $product->price = $request->price;
         $product->price_sale = $request->price_sale;
         $product->price_sale_percent = $request->price_sale_percent;
-        $product->size = implode(' / ', $request->size);
-        $product->height = $request->height;
         $product->status = $request->status;
 
         if ($product->image !== $request->main_image_hidden) {
             $file = $request->main_image;
             $filename = time() . '-' . $file->getClientOriginalName();
-            $file->move(public_path("images"), $filename);
+            $file->move(public_path("images/product/{$product->id}/main/"), $filename);
             $product->image = $filename;
         }
 
-        if ($product->a4_file !== $request->a4_file_hidden) {
+        /*if ($product->a4_file !== $request->a4_file_hidden) {
             $file = $request->a4_file;
             $filename = time() . '-' . $file->getClientOriginalName();
             $file->move(public_path("files"), $filename);
@@ -207,7 +231,7 @@ class ProductController extends Controller
             $filename = time() . '-' . $file->getClientOriginalName();
             $file->move(public_path("files"), $filename);
             $product->description_file = $filename;
-        }
+        }*/
 
         if ($product->save()) {
             ProductCategory::where('product_id', $product->id)->delete();
@@ -216,6 +240,47 @@ class ProductController extends Controller
                     'product_id' => $product->id,
                     'category_id' => $category
                 ]);
+            }
+
+            foreach ($request->colorName as $key => $color) {
+                $colorIds[] = Color::create([
+                    'name' => array_values($color)[0],
+                    'hex_code' => array_values($request->colorValue[$key])[0]
+                ]);
+            }
+
+            DB::table('product_color')->where('product_id', $product->id)->delete();
+            foreach ($colorIds as $colorId) {
+                DB::table('product_color')->insert([
+                    'product_id' => $product->id,
+                    'color_id' => $colorId->id
+                ]);
+            }
+
+            DB::table('product_size')->where('product_id', $product->id)->delete();
+            foreach ($request->size as $size) {
+                DB::table('product_size')->insert([
+                    'product_id' => $product->id,
+                    'size_id' => $size
+                ]);
+            }
+
+            if ($request->media) {
+                ProductImage::where('product_id', $product->id)->delete();
+                $files = File::allFiles(public_path("/images/product/{$product->id}/images/"));
+                File::delete($files);
+
+                foreach ($request->file('media') as $media) {
+                    $file = $media;
+                    $filename = time() . '-' . $file->getClientOriginalName();
+                    $file->move(public_path("images/product/{$product->id}/images"), $filename);
+
+                    ProductImage::create([
+                        'product_id' => $product->id,
+                        'path' => $filename,
+                        'type' => str_starts_with($media->getClientMimeType(), 'video') ? 'video' : 'image',
+                    ]);
+                }
             }
 
             return redirect()->route('products.index')
