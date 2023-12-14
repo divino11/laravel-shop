@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class FavoriteController extends Controller
 {
@@ -18,64 +19,61 @@ class FavoriteController extends Controller
      */
     public function index()
     {
-        if (!is_null(session('favoriteId'))) {
-            $issetFavorites = Favorite::where('user_id', session('favoriteId'))->count();
-
-            if ($issetFavorites == 0) {
-                $favoriteData = [];
-            } else {
-                $favorites = Favorite::where('user_id', session('favoriteId'))->get();
-                $favoriteData = collect();
-
-                foreach ($favorites as $favorite) {
-                    $products = Favorite::find($favorite->id)->products()->get();
-                    $favoriteData = $favoriteData->merge($products);
-                }
-            }
-        }
+        $favorites = Product::whereIn('id', Favorite::where('user_id', Auth::id())->pluck('product_id'))->get();
 
         $category = Category::whereNotIn('id', [2, 3, 4])->get();
 
         return view('account.favorites', [
-            'products' => $favoriteData ?? [],
+            'products' => $favorites ?? [],
             'categories' => $category
         ]);
     }
 
     public function favoriteProduct(Product $product): JsonResponse
     {
-        $favoriteId = session('favoriteId');
+        $userId = Auth::id();
 
-        $favorite = Favorite::create([
-            'user_id' => $favoriteId,
-            'product_id' => $product->id
+        // For authenticated users, store the view in the database
+        Favorite::updateOrCreate([
+            'user_id' => $userId,
+            'product_id' => $product->id,
         ]);
 
-        if (is_null($favoriteId)) {
-            session(['favoriteId' => $favorite->id]);
-        } else {
-            if (is_null($favoriteId)) {
-                session(['favoriteId' => $favorite->id]);
-            }
+        // For non-authenticated users, store the view in cookies
+        $favoriteIds = json_decode(Cookie::get('favoriteId', '[]'), true);
+
+        // Avoid duplicate entries
+        if (!in_array($product->id, $favoriteIds)) {
+            array_unshift($favoriteIds, $product->id);
+
+            // Update the cookie
+            Cookie::queue('favoriteId', json_encode($favoriteIds), 60 * 24 * 30); // Cookie for 30 days
         }
 
         return response()->json([
-            'count' => Favorite::where('user_id', $favoriteId)->count()
+            'count' => Favorite::where('user_id', $userId)->count()
         ]);
     }
 
     public function unFavoriteProduct(Product $product): JsonResponse|\Illuminate\Http\RedirectResponse
     {
-        $favoriteId = session('favoriteId');
+        $userId = Auth::id();
 
-        if (is_null($favoriteId)) {
-            return back();
+        Favorite::where('user_id', $userId)->where('product_id', $product->id)->delete();
+
+        // For non-authenticated users, store the view in cookies
+        $favoriteIds = json_decode(Cookie::get('favoriteId', '[]'), true);
+
+        if (in_array($product->id, $favoriteIds)) {
+            $index = array_search($product->id, $favoriteIds);
+            unset($favoriteIds[$index]);
         }
 
-        Favorite::where('user_id', session('favoriteId'))->where('product_id', $product->id)->delete();
+        // Update the cookie
+        Cookie::queue('favoriteId', json_encode($favoriteIds), 60 * 24 * 30); // Cookie for 30 days
 
         return response()->json([
-            'count' => Favorite::where('user_id', $favoriteId)->count()
+            'count' => Favorite::where('user_id', $userId)->count()
         ]);
     }
 }

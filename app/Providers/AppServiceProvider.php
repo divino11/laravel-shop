@@ -6,6 +6,7 @@ use App\Category;
 use App\Favorite;
 use App\Order;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
@@ -58,14 +59,12 @@ class AppServiceProvider extends ServiceProvider
 
     public function getFavorites()
     {
-        if (!is_null(session('favoriteId'))) {
-            $issetFavorites = Favorite::where('user_id', session('favoriteId'))->count();
+        $userId = Auth::id();
 
-            if ($issetFavorites == 0) {
-                $favorites = [];
-            } else {
-                $favorites = Favorite::where('user_id', session('favoriteId'))->get();
-            }
+        if ($userId) {
+            $favorites = Favorite::where('user_id', $userId)->get();
+        } else {
+            $favorites = json_decode(Cookie::get('favoriteId', '[]'), true);
         }
 
         return $favorites ?? [];

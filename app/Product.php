@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class Product extends Model
 {
@@ -24,9 +25,23 @@ class Product extends Model
      */
     public function favorited()
     {
-        return (bool) Favorite::where('user_id', session('favoriteId'))
-            ->where('product_id', $this->id)
-            ->first();
+        $userId = Auth::id();
+
+        if ($userId) {
+            $isFavorite = (bool)Favorite::where('user_id', $userId)
+                ->where('product_id', $this->id)
+                ->first();
+        } else {
+            $favoriteIds = json_decode(Cookie::get('favoriteId', '[]'), true);
+
+            if (in_array($this->id, $favoriteIds)) {
+                $isFavorite = true;
+            } else {
+                $isFavorite = false;
+            }
+        }
+
+        return $isFavorite;
     }
 
     public function getPriceByCount()

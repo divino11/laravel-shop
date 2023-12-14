@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\LastViewedProduct;
 use App\Product;
 use App\Rating;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\View\View;
 
 class MainController extends Controller
@@ -49,11 +53,54 @@ class MainController extends Controller
         $product = Product::where('id', $id)->first();
         $categories = Category::whereNotIn('id', [2, 3, 4])->get();
 
+        $this->middleware('last.viewed')->only(['product']);
+
+        // Retrieve the last viewed products
+        $lastViewedProducts = $this->getLastViewedProducts($product);
+
         return view('layouts.product', [
             'product' => $product,
             'category' => $category,
             'categories' => $categories,
+            'lastViewedProducts' => $lastViewedProducts
         ]);
+    }
+
+    private function getLastViewedProducts(Product $product): Collection
+    {
+        $userId = Auth::id();
+
+        if ($userId) {
+            $lastViewedProducts = LastViewedProduct::where('user_id', $userId)
+                ->whereNotIn('product_id', [$product->id])
+                ->orderByDesc('viewed_at')
+                ->take(8)
+                ->with('product')
+                ->get();
+
+            $products = collect();
+
+            foreach ($lastViewedProducts as $lastViewedProduct) {
+                $products[] = $lastViewedProduct->product;
+            }
+
+            return $products;
+        }
+
+        $cookieValue = Cookie::get('last_viewed_products');
+
+        if ($cookieValue) {
+            $lastViewedProducts = json_decode($cookieValue, true);
+
+            if (in_array($product->id, $lastViewedProducts)) {
+                $index = array_search($product->id, $lastViewedProducts);
+                unset($lastViewedProducts[$index]);
+            }
+
+            return Product::whereIn('id', $lastViewedProducts)->get();
+        }
+
+        return collect();
     }
 
     public function contact(): View

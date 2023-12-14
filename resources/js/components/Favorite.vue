@@ -20,7 +20,7 @@
         },
 
         mounted() {
-            this.isFavorited = this.isFavorite ? true : false;
+            this.isFavorited = !!this.isFavorite;
         },
 
         computed: {

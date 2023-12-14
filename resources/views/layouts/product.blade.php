@@ -8,8 +8,9 @@
             @foreach($product->images as $image)
                 <div class="col-xs-12 col-md-6">
                     @if ($image->type === 'image')
-                        <a href="{{ url("/images/product/{$product->id}/images/{$image->path}") }}" data-fancybox="gallery">
-                            <img src="{{ url("/images/product/{$product->id}/images/{$image->path}") }}" class="w100" />
+                        <a href="{{ url("/images/product/{$product->id}/images/{$image->path}") }}"
+                           data-fancybox="gallery">
+                            <img src="{{ url("/images/product/{$product->id}/images/{$image->path}") }}" class="w100"/>
                         </a>
                     @else
                         <video autoplay muted loop class="w100">
@@ -89,9 +90,15 @@
                                     @foreach ($product->sizes as $size)
                                         <div class="size-item">
                                             <label for="size_{{ $size->id }}">{{ $size->name }}</label>
-                                            <button class="quantity-control button-size" data-action="decrement" data-target="size_{{ $size->id }}">-</button>
-                                            <input type="number" class="input-size" required name="size[{{ $size->id }}]" id="size_{{ $size->id }}" min="0" value="0">
-                                            <button class="quantity-control button-size" data-action="increment" data-target="size_{{ $size->id }}">+</button>
+                                            <button class="quantity-control button-size" data-action="decrement"
+                                                    data-target="size_{{ $size->id }}">-
+                                            </button>
+                                            <input type="number" class="input-size" required
+                                                   name="size[{{ $size->id }}]" id="size_{{ $size->id }}" min="0"
+                                                   value="0">
+                                            <button class="quantity-control button-size" data-action="increment"
+                                                    data-target="size_{{ $size->id }}">+
+                                            </button>
                                         </div>
                                     @endforeach
                                 </div>
@@ -100,7 +107,8 @@
                                 <div class="color-wrapper">
                                     @foreach($product->colors as $color)
                                         <div class="color-checkbox">
-                                            <input type="radio" id="color_{{ $color->id }}" required name="color" value="{{ $color->id }}">
+                                            <input type="radio" id="color_{{ $color->id }}" required name="color"
+                                                   value="{{ $color->id }}">
                                             <label for="color_{{ $color->id }}">
                                                 <span style="background-color: {{ $color->hex_code }};"></span>
                                             </label>
@@ -301,162 +309,57 @@
         </div>
     </div>
 
-    <div class="similar_wrapper">
-        <div class="similar_container">
-            <p class="inner_heading">Последние модели, которые вы смотрели</p>
+    @if($lastViewedProducts->isNotEmpty())
+        <div class="similar_wrapper">
+            <div class="similar_container">
+                <p class="inner_heading">Последние модели, которые вы смотрели</p>
 
-            <div class="similar_gallery">
-                <div class="gallery_item">
-                    <a href=""><img src="{{ url("/images/similar.png") }}" class="img-fluid img-center"></a>
-                    <div class="product">
-                        <div class="product_top">
-                            <p class="product-title"><a href="">Пижама Moomlight</a></p>
-                            <p><i class="far fa-heart"></i></p>
-                        </div>
-                        @auth
-                            <div class="product_bottom">
-                                <div class="product_price">
-                                    <div class="product_price_main">
-                                        <s>
-                                            3400 р.
-                                        </s>
+                <div class="similar_gallery">
+                    @foreach($lastViewedProducts as $lastViewedProduct)
+                        <div class="gallery_item">
+                            <a href="{{ route('product', [$category->code, $lastViewedProduct->id]) }}"><img
+                                    src="{{ url("/images/product/{$lastViewedProduct->id}/main/{$lastViewedProduct->image}") }}"
+                                    class="img-fluid img-center"></a>
+                            <div class="product">
+                                <div class="product_top">
+                                    <p class="product-title"><a
+                                            href="{{ route('product', [$category->code, $lastViewedProduct->id]) }}">{{ $lastViewedProduct->name }}</a>
+                                    </p>
+                                    <favorite
+                                        :product={{ $lastViewedProduct->id }}
+                                        :favorited={{ $lastViewedProduct->favorited() ? 'true' : 'false' }}
+                                    ></favorite>
+                                </div>
+                                @auth
+                                    <div class="product_bottom">
+                                        <div class="product_price">
+                                            @isset($lastViewedProduct->price_sale)
+                                                <div class="product_price-sale">
+                                                    {{ numberFormatPrice($lastViewedProduct->price_sale) }} руб.
+                                                </div>
+                                            @endisset
+                                            <div class="product_price_main">
+                                                @if($lastViewedProduct->price_sale)
+                                                    <s>
+                                                        {{ numberFormatPrice($lastViewedProduct->price) }} руб.
+                                                    </s>
+                                                @else
+                                                    {{ numberFormatPrice($lastViewedProduct->price) }} руб.
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="sale">
+                                            @isset($lastViewedProduct->price_sale)
+                                                -{{ $lastViewedProduct->price_sale_percent }}%
+                                            @endif
+                                        </div>
                                     </div>
-                                    <div class="product_price-sale">
-                                        2000 р.
-                                    </div>
-                                </div>
-                                <div class="sale">
-                                    -60%
-                                </div>
-                            </div>
-                        @endauth
-                    </div>
-                </div>
-                <div class="gallery_item">
-                    <a href=""><img src="{{ url("/images/similar.png") }}" class="img-fluid img-center"></a>
-                    <div class="product">
-                        <div class="product_top">
-                            <p class="product-title"><a href="">Пижама Moomlight</a></p>
-                            <p><i class="far fa-heart"></i></p>
-                        </div>
-                        @auth
-                            <div class="product_bottom">
-                                <div class="product_price">
-                                    <div class="product_price_main">
-                                        <s>
-                                            3400 р.
-                                        </s>
-                                    </div>
-                                    <div class="product_price-sale">
-                                        2000 р.
-                                    </div>
-                                </div>
-                                <div class="sale">
-                                    -60%
-                                </div>
-                            </div>
-                        @endauth
-                    </div>
-                </div>
-                <div class="gallery_item">
-                    <a href=""><img src="{{ url("/images/similar.png") }}" class="img-fluid img-center"></a>
-                    <div class="product">
-                        <div class="product_top">
-                            <p class="product-title"><a href="">Пижама Moomlight</a></p>
-                            <p><i class="far fa-heart"></i></p>
-                        </div>
-                        @auth
-                            <div class="product_bottom">
-                                <div class="product_price">
-                                    <div class="product_price_main">
-                                        <s>
-                                            3400 р.
-                                        </s>
-                                    </div>
-                                    <div class="product_price-sale">
-                                        2000 р.
-                                    </div>
-                                </div>
-                                <div class="sale">
-                                    -60%
-                                </div>
-                            </div>
-                        @endauth
-                    </div>
-                </div>
-                <div class="gallery_item">
-                    <a href=""><img src="{{ url("/images/similar.png") }}" class="img-fluid img-center"></a>
-                    <div class="product">
-                        <div class="product_top">
-                            <p class="product-title"><a href="">Пижама Moomlight</a></p>
-                            <p><i class="far fa-heart"></i></p>
-                        </div>
-                        @auth
-                            <div class="product_bottom">
-                                <div class="product_price">
-                                    <div class="product_price_main">
-                                        <s>
-                                            3400 р.
-                                        </s>
-                                    </div>
-                                    <div class="product_price-sale">
-                                        2000 р.
-                                    </div>
-                                </div>
-                                <div class="sale">
-                                    -60%
-                                </div>
-                            </div>
-                        @endauth
-                    </div>
-                </div>
-                <div class="gallery_item">
-                    <a href=""><img src="{{ url("/images/similar.png") }}" class="img-fluid img-center"></a>
-                    <div class="product">
-                        <div class="product_top">
-                            <p class="product-title"><a href="">Пижама Moomlight</a></p>
-                            <p><i class="far fa-heart"></i></p>
-                        </div>
-                        @auth
-                            <div class="product_bottom">
-                                <div class="product_price">
-                                    <div class="product_price_main">
-                                        <s>
-                                            3400 р.
-                                        </s>
-                                    </div>
-                                    <div class="product_price-sale">
-                                        2000 р.
-                                    </div>
-                                </div>
-                                <div class="sale">
-                                    -60%
-                                </div>
-                            </div>
-                        @endauth
-                    </div>
-                </div>
-                <div class="gallery_item">
-                    <a href=""><img src="{{ url("/images/similar.png") }}" class="img-fluid img-center"></a>
-                    @auth
-                        <div class="product_bottom">
-                            <div class="product_price">
-                                <div class="product_price_main">
-                                    <s>
-                                        3400 р.
-                                    </s>
-                                </div>
-                                <div class="product_price-sale">
-                                    2000 р.
-                                </div>
-                            </div>
-                            <div class="sale">
-                                -60%
+                                @endauth
                             </div>
                         </div>
-                    @endauth
+                    @endforeach
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 @endsection

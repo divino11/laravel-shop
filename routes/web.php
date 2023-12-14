@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\NewsSubscriptionController;
+use App\Http\Middleware\LastViewedMiddleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -91,4 +92,4 @@ Route::group([
 });
 
 Route::get('/category/{category}', 'MainController@category')->name('category');
-Route::get('/category/{category}/product/{product?}', 'MainController@product')->name('product');
+Route::get('/category/{category}/product/{product?}', 'MainController@product')->name('product')->middleware(LastViewedMiddleware::class);
