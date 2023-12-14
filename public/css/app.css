@@ -7702,21 +7702,20 @@ body {
 }
 
 .nav-tabs .nav-link {
+  border: none;
+  border-radius: 0;
   margin-right: 5px;
-  color: #000;
-  background-color: #fff;
-  border: 1px solid #000;
 }
 
 .nav-tabs .nav-link:hover {
-  color: #000;
-  background-color: #ededed;
+  color: #ffffff;
+  background-color: #393939;
 }
 
 .nav-tabs .nav-link.active {
-  color: #000;
-  background-color: #ededed;
-  border: 1px solid #000;
+  color: #ffffff;
+  background-color: #393939;
+  border: none;
 }
 
 .similar_wrapper {
@@ -9047,8 +9046,8 @@ details[open] summary ~ * {
 }
 
 .home-main__img {
-  width: 100vw;
-  height: calc(100vh - 77px);
+  width: 100%;
+  height: 100%;
   -o-object-fit: cover;
   object-fit: cover;
   -o-object-position: center;
@@ -9309,18 +9308,5 @@ section.home-category {
 
 .datepicker-input {
   height: 45px;
-}
-
-#media-preview-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.img-thumbnail,
-video {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px;
-  margin-bottom: 10px;
 }
 
