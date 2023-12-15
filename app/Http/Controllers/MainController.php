@@ -125,7 +125,11 @@ class MainController extends Controller
 
     public function search(Request $request): View
     {
-        $products = $request->search ? Product::where('name', 'like', '%' . $request->search . '%')->paginate(20) : [];
+        $products = $request->search ? Product::where('name', 'like', '%' . $request->search . '%')->with('categories')->paginate(20) : [];
+
+        foreach ($products as &$product) {
+            $product['category'] = Category::find($product->categories[0]->category_id);
+        }
 
         return view('layouts.search-products', [
             'products' => $products
