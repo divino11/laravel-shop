@@ -81,7 +81,7 @@
                 <div class="form-group">
                     <label for="size">Размеры</label>
                     <select name="size[]" multiple="multiple" id="size"
-                            class="form-control sizes-select js-example-basic-multiple">
+                            class="form-control sizes-select">
                         @foreach($sizes as $size)
                             <option value="{{ $size->id }}"
                                     @selected(in_array($size->id, $product->sizes()->pluck('size_id')->toArray()))>{{ $size->name }}</option>

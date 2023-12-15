@@ -58,7 +58,7 @@
                     </div>
                     <div class="form-group">
                         <label for="size">Размеры</label>
-                        <select name="size[]" multiple="multiple" id="size" class="form-control sizes-select js-example-basic-multiple">
+                        <select name="size[]" multiple="multiple" id="size" class="form-control sizes-select">
                             @foreach($sizes as $size)
                                 <option value="{{ $size->id }}">{{ $size->name }}</option>
                             @endforeach
