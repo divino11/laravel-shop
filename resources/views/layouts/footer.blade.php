@@ -25,8 +25,8 @@
 
             <ul class="footer_item-list">
                 <li><a href="">Публичная оферта</a></li>
-                <li><a href="">Оплата и доставка</a></li>
-                <li><a href="">Обмен и возврат</a></li>
+                <li><a href="{{ route('paymentsAndDelivery') }}">Оплата и доставка</a></li>
+                <li><a href="{{ route('returnAndChange') }}">Обмен и возврат</a></li>
             </ul>
         </div>
 

@@ -108,6 +108,16 @@ class MainController extends Controller
         return view('layouts.contact');
     }
 
+    public function paymentsAndDelivery(): View
+    {
+        return view('layouts.payments-and-delivery');
+    }
+
+    public function returnAndChange(): View
+    {
+        return view('layouts.return-and-change');
+    }
+
     public function auth(): View
     {
         return view('layouts.auth');

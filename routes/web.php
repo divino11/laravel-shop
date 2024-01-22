@@ -76,6 +76,8 @@ Route::get('/blog', 'PostController@index')->name('blog');
 Route::get('/blog/{slug}', 'PostController@show')->name('blog-read');
 Route::post('review-add/user/{user}/product/{product}', 'RatingController@reviewAdd')->name('review-add');
 Route::post('/news-subscription', NewsSubscriptionController::class)->name('news-subscription');
+Route::get('/payments-and-delivery', 'MainController@paymentsAndDelivery')->name('paymentsAndDelivery');
+Route::get('/return-and-change', 'MainController@returnAndChange')->name('returnAndChange');
 
 Route::group([
     'prefix' => 'basket'
