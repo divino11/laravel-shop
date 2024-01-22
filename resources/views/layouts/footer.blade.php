@@ -15,8 +15,8 @@
 
             <ul class="footer_item-list">
                 <li><a href="">О бренде</a></li>
+                <li><a href="{{ route('blog') }}">Блог</a></li>
                 <li><a href="">Сотрудничество</a></li>
-                <li><a href="">Публичная оферта</a></li>
             </ul>
         </div>
 
@@ -24,9 +24,9 @@
             {{--        <p class="footer_item-heading">Обучение</p>--}}
 
             <ul class="footer_item-list">
-                <li><a href="{{ route('choose-size') }}">Как выбрать размер</a></li>
+                <li><a href="">Публичная оферта</a></li>
                 <li><a href="">Оплата и доставка</a></li>
-                <li><a href="{{ route('blog') }}">Обмен и возврат</a></li>
+                <li><a href="">Обмен и возврат</a></li>
             </ul>
         </div>
 
